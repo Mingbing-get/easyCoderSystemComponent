@@ -1,0 +1,45 @@
+.easy-coder-system-button {
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(120%) saturate(80%);
+  }
+  &.is-disabled,
+  &.is-loading {
+    filter: brightness(80%) saturate(120%);
+    cursor: not-allowed;
+  }
+  &:active {
+    filter: brightness(60%) saturate(140%);
+  }
+
+  &.is-loading {
+    &::after {
+      content: ' ';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 1px solid rgb(51, 112, 255);
+      border-top: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotate-unit 0.8s linear infinite;
+    }
+  }
+}
+
+@keyframes rotate-unit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotate(300deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
