@@ -30,6 +30,11 @@
       animation: rotate-unit 0.8s linear infinite;
     }
   }
+
+  & > .easy-coder-slot:empty {
+    height: 1rem;
+    width: 2rem;
+  }
 }
 
 @keyframes rotate-unit {

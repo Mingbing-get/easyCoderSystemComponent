@@ -1,0 +1,12 @@
+.easy-coder-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--max-line);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  width: fit-content;
+  white-space: break-spaces;
+  word-break: break-word;
+  position: relative;
+}

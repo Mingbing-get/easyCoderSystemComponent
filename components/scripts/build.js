@@ -45,7 +45,7 @@ async function startBuild(target, watch) {
         fileName: () => 'index.js',
       },
       rollupOptions: {
-        external: [/@easy-coder\/sdk\/*/, 'react', 'react-dom'],
+        external: [/@easy-coder\/sdk\/*/, 'react', 'react-dom', '@arco-design/web-react'],
         output: [
           {
             format: 'umd',
@@ -82,7 +82,7 @@ async function startBuildWeapp(target, watch) {
         fileName: () => 'index.js',
       },
       rollupOptions: {
-        external: [/@easy-coder\/sdk\/*/],
+        external: [/@easy-coder\/sdk\/*/, 'react', 'react-dom', '@arco-design/web-react'],
         output: [
           {
             format: 'esm',

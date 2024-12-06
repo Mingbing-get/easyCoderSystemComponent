@@ -1,0 +1,34 @@
+.easy-coder-icon-pick-setter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px;
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: 4px;
+
+  .easy-coder-icon-pick-cell {
+    padding: 4px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    line-height: 100%;
+
+    &:hover {
+      border-color: #165dff;
+      scale: 1.1;
+    }
+
+    &.is-select {
+      background-color: #94bfff;
+      color: #fff;
+    }
+  }
+
+  &.is-disabled {
+    .easy-coder-icon-pick-cell {
+      border-color: transparent;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -16,12 +16,45 @@ const textMeta: EasyCoderElement.Desc<TextProps> = {
   style: {
     style: {
       label: '样式',
+      supportModels: [
+        'background',
+        'borderColor',
+        'borderRadius',
+        'borderStyle',
+        'borderWidth',
+        'boxShadow',
+        'boxSizing',
+        'color',
+        'cursor',
+        'fontSize',
+        'fontStyle',
+        'fontWeight',
+        'height',
+        'margin',
+        'maxHeight',
+        'maxWidth',
+        'minHeight',
+        'minWidth',
+        'outline',
+        'padding',
+        'transform',
+        'transition',
+        'width',
+      ],
     },
   },
   attr: {
     text: {
       type: 'string',
       label: '内容',
+    },
+    maxLine: {
+      type: 'number',
+      label: '最大显示行数',
+    },
+    disabledPopover: {
+      type: 'boolean',
+      label: '是否禁止提示',
     },
   },
   export: {
