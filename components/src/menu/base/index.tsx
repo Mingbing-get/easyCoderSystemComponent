@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { Menu, ResizeBox, MenuProps } from '@arco-design/web-react'
 
 import { MenuData } from './type'
@@ -25,7 +26,7 @@ export default function BaseMenu({ data, mode, defaultWidth, canResize, extraRen
             {data?.map((item) => renderMenuItemOrSubMenu(item))}
             <Menu.Item
               key=""
-              className="easy-coder-menu-extra"
+              className={classNames('easy-coder-menu-extra', `mode-${mode}`)}
               disabled>
               {extraRender}
             </Menu.Item>
@@ -42,7 +43,7 @@ export default function BaseMenu({ data, mode, defaultWidth, canResize, extraRen
           {data?.map((item) => renderMenuItemOrSubMenu(item))}
           <Menu.Item
             key=""
-            className="easy-coder-menu-extra"
+            className={classNames('easy-coder-menu-extra', `mode-${mode}`)}
             disabled>
             {extraRender}
           </Menu.Item>
@@ -58,7 +59,7 @@ export default function BaseMenu({ data, mode, defaultWidth, canResize, extraRen
       {data?.map((item) => renderMenuItemOrSubMenu(item))}
       <Menu.Item
         key=""
-        className="easy-coder-menu-extra"
+        className={classNames('easy-coder-menu-extra', `mode-${mode}`)}
         disabled>
         {extraRender}
       </Menu.Item>
