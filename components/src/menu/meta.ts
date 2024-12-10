@@ -5,6 +5,8 @@ import {
   GroupDecorator,
   LineDecorator,
   ModalMetaSetter,
+  onModalDependencies,
+  onModalFieldDependencies,
   SingleModalFieldPickSetter,
   VariableNextLevelSetter,
 } from '@easy-coder/sdk/design'
@@ -12,6 +14,7 @@ import {
 import Menu, { MenuProps } from '.'
 import AddTreeNode from './setter/addTreeNode'
 import RemoveTreeNode from './setter/removeTreeNode'
+import DataFromSetter from './setter/dataFromSetter'
 
 const customItemDefine: Record<string, EasyCoderElement.OmitApiNameVariable> = {
   id: {
@@ -143,14 +146,9 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     dataFrom: {
       type: 'string',
       label: '数据来源',
-      setter: SelectSetter,
+      setter: DataFromSetter,
       setterProps: {
         title: '数据来源',
-        options: [
-          { value: 'modal', label: '数据模型' },
-          { value: 'variable', label: '关联变量' },
-          { value: 'custom', label: '自定义' },
-        ],
       },
     },
     customData: {
@@ -187,6 +185,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       label: '数据模型',
       prototype: {},
       setter: ModalMetaSetter,
+      onDependencies: onModalDependencies,
       setterProps: {
         showField: true,
         showCondition: true,
@@ -197,8 +196,8 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     parentFieldName: {
       type: 'string',
       label: '关联父级字段',
-      visible: (props) => props?.dataFrom === 'modal',
       setter: SingleModalFieldPickSetter,
+      onDependencies: (options) => onModalFieldDependencies(options?.props?.modalConfig?.name, options),
       setterProps: {
         title: '关联父级字段',
         modalName: {
@@ -207,6 +206,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
         },
         acceptFieldTypes: ['lookupSelf'],
       },
+      visible: (props) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
