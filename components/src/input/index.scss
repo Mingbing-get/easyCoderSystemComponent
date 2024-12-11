@@ -1,0 +1,36 @@
+.easy-coder-input {
+  display: flex;
+  &.direction-row {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    .easy-coder-input-label {
+      margin-right: 8px;
+    }
+  }
+  &.direction-column {
+    flex-direction: column;
+    .easy-coder-input-label {
+      margin-bottom: 6px;
+    }
+  }
+
+  .easy-coder-input-label {
+    display: inline-block;
+    word-break: keep-all;
+    white-space: nowrap;
+
+    &.size-small,
+    &.size-mini {
+      font-size: 0.75rem;
+    }
+  }
+
+  .easy-coder-input-inner {
+    flex: 1;
+
+    .arco-picker {
+      width: 100%;
+    }
+  }
+}
