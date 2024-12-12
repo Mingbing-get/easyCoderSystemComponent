@@ -19,10 +19,22 @@
     display: inline-block;
     word-break: keep-all;
     white-space: nowrap;
+    position: relative;
 
     &.size-small,
     &.size-mini {
       font-size: 0.75rem;
+    }
+
+    &.is-required {
+      &::before {
+        content: '*';
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        color: red;
+      }
     }
   }
 
@@ -31,6 +43,18 @@
 
     .arco-picker {
       width: 100%;
+    }
+
+    .easy-coder-input-error-tip {
+      margin: 4px 0 0;
+      color: rgb(var(--danger-6));
+      font-size: 0.75rem;
+    }
+
+    .easy-coder-input-extra-tip {
+      margin: 4px 0 0;
+      color: var(--color-text-2);
+      font-size: 0.75rem;
     }
   }
 }

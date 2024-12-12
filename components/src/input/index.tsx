@@ -22,6 +22,9 @@ export interface InputProps extends EasyCoderElement.DataProps {
   labelStyle?: React.CSSProperties
   labelClassName?: string
   label?: string
+  extraText?: string
+  required?: boolean
+
   direction?: 'row' | 'column'
   size?: ArcoInputProps['size']
 
@@ -33,8 +36,11 @@ export interface InputProps extends EasyCoderElement.DataProps {
 export interface InputExport {
   value?: number | string | LookupInRecord | string[] | LookupInRecord[]
   isDisabled?: boolean
+  hasError?: boolean
   setValue: (value?: number | string | LookupInRecord | string[] | LookupInRecord[]) => void
   setDisabled: (disabled?: boolean) => void
+  setExtraText: (text?: string) => void
+  setErrorText: (text?: string) => void
 }
 
 export const supportTypes: InputProps['type'][] = [
@@ -62,6 +68,8 @@ export default function Input({
   labelStyle,
   labelClassName,
   label,
+  extraText,
+  required,
   direction = 'row',
   size = 'default',
   disabled,
@@ -71,6 +79,8 @@ export default function Input({
 }: InputProps) {
   const [_value, setValue] = useState(value)
   const [_disabled, setDisabled] = useState(disabled)
+  const [errorText, setErrorText] = useState<string>()
+  const [_extraText, setExtraText] = useState<string>(extraText)
   const isChangeBySelf = useRef(false)
 
   const { isPreviewing } = useEnv()
@@ -94,6 +104,10 @@ export default function Input({
   }, [disabled])
 
   useEffect(() => {
+    setExtraText(extraText)
+  }, [extraText])
+
+  useEffect(() => {
     if (isChangeBySelf.current) return
 
     setValue(value)
@@ -108,9 +122,15 @@ export default function Input({
   }, [_value])
 
   useEffect(() => {
+    exportAttr('hasError', !!errorText)
+  }, [errorText])
+
+  useEffect(() => {
     exportEvent({
       setValue: handleChangeValue,
       setDisabled,
+      setErrorText,
+      setExtraText,
     })
   }, [])
 
@@ -129,7 +149,7 @@ export default function Input({
       {...extra}>
       {label && (
         <label
-          className={classNames('easy-coder-input-label', `size-${size}`, labelClassName)}
+          className={classNames('easy-coder-input-label', `size-${size}`, required && 'is-required', labelClassName)}
           style={labelStyle}>
           {label}
         </label>
@@ -144,6 +164,8 @@ export default function Input({
           value={_value}
           onChange={handleChangeValue}
         />
+        {errorText && <p className="easy-coder-input-error-tip">{errorText}</p>}
+        {_extraText && <p className="easy-coder-input-extra-tip">{_extraText}</p>}
       </div>
     </div>
   )

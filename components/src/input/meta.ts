@@ -114,6 +114,18 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       type: 'string',
       label: '标签',
     },
+    extraText: {
+      type: 'string',
+      label: '提示文本',
+    },
+    disabled: {
+      type: 'boolean',
+      label: '是否禁用',
+    },
+    required: {
+      type: 'boolean',
+      label: '是否必填',
+    },
     value: {
       type: 'string',
       label: '默认值',
@@ -137,10 +149,6 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
           fn: (props?: InputProps) => props?.maxLength,
         },
       },
-    },
-    disabled: {
-      type: 'boolean',
-      label: '是否禁用',
     },
 
     direction: {
@@ -177,7 +185,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       props: {
         title: '数据类型配置',
       },
-      childrenOfAttr: ['type', 'modalName', 'enumGroupName', 'maxLength', 'label', 'disabled', 'value'],
+      childrenOfAttr: ['type', 'modalName', 'enumGroupName', 'maxLength', 'label', 'extraText', 'disabled', 'required', 'value'],
     },
     {
       id: 'line1',
@@ -205,6 +213,10 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
         type: 'boolean',
         label: '是否禁用',
       },
+      hasError: {
+        type: 'boolean',
+        label: '是否有错误',
+      },
     },
     event: {
       setValue: {
@@ -217,6 +229,24 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
           {
             type: 'boolean',
             label: '是否禁用',
+          },
+        ],
+      },
+      setExtraText: {
+        label: '设置提示文本',
+        params: [
+          {
+            type: 'string',
+            label: '提示文本',
+          },
+        ],
+      },
+      setErrorText: {
+        label: '设置错误文本',
+        params: [
+          {
+            type: 'string',
+            label: '错误文本',
           },
         ],
       },
