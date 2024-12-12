@@ -1,0 +1,27 @@
+.easy-coder-display {
+  display: flex;
+  &.direction-row {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    .easy-coder-display-label {
+      margin-right: 8px;
+    }
+  }
+  &.direction-column {
+    flex-direction: column;
+    .easy-coder-display-label {
+      margin-bottom: 6px;
+    }
+  }
+
+  .easy-coder-display-label {
+    display: inline-block;
+    word-break: keep-all;
+    white-space: nowrap;
+  }
+
+  .easy-coder-display-inner {
+    flex: 1;
+  }
+}

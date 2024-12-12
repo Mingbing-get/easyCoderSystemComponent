@@ -1,0 +1,42 @@
+.easy-coder-tag-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.easy-coder-file-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  & > img {
+    max-height: 40px;
+    font-size: 0;
+  }
+}
+
+.easy-coder-display-text {
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.easy-coder-display-tag-true {
+  color: rgb(var(--success-4));
+}
+
+.easy-coder-display-tag-false {
+  color: rgb(var(--warning-4));
+}
+
+.easy-coder-display-enum {
+  color: rgb(var(--primary-6));
+}
+
+.easy-coder-display-lookup {
+  color: rgb(var(--cyan-6));
+}
