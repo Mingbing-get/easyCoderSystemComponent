@@ -23,6 +23,7 @@ export interface FormExport {
 export default function Form({ children, modalConfig, fieldReflexInputElement, defaultValue, onChange, ...extra }: FormProps) {
   const customIsEdit = useRef(false)
   const [value, setValue] = useState({})
+  const valueRef = useRef({})
   const { variableStore } = useStore()
 
   const { exportAttr, exportEvent } = useElementContext<FormExport, FormProps>()
@@ -37,6 +38,8 @@ export default function Form({ children, modalConfig, fieldReflexInputElement, d
         const setInputValue = variableStore.getValue<((v?: any) => void) | undefined>([COMPONENT_EVENT, fieldReflexInputElement[key], 'setValue'])
         setInputValue?.(newValue?.[key])
       }
+
+      valueRef.current = newValue
     },
     [fieldReflexInputElement]
   )
@@ -92,7 +95,7 @@ export default function Form({ children, modalConfig, fieldReflexInputElement, d
       for (const fieldName in fieldReflexInputElement) {
         const needUpdatePath = [COMPONENT_VARIABLE, fieldReflexInputElement[fieldName], 'value']
 
-        const currentElementValueIsChange = paths.some((path) => {
+        const elementValueIsChange = paths.some((path) => {
           for (let i = 0; i < needUpdatePath.length; i++) {
             if (path[i] !== needUpdatePath[i]) return false
           }
@@ -100,9 +103,23 @@ export default function Form({ children, modalConfig, fieldReflexInputElement, d
           return true
         })
 
-        if (!currentElementValueIsChange) continue
+        if (elementValueIsChange) {
+          handleChangeValueByField(fieldName, variableStore.getValue(needUpdatePath))
+        }
 
-        handleChangeValueByField(fieldName, variableStore.getValue(needUpdatePath))
+        const needUpdateFnPath = [COMPONENT_EVENT, fieldReflexInputElement[fieldName], 'setValue']
+        const elementSetValueIsChange = paths.some((path) => {
+          for (let i = 0; i < needUpdateFnPath.length - 1; i++) {
+            if (path[i] !== needUpdateFnPath[i]) return false
+          }
+
+          return true
+        })
+
+        if (elementSetValueIsChange) {
+          const setInputValue = variableStore.getValue<((v?: any) => void) | undefined>(needUpdateFnPath)
+          setInputValue?.(valueRef.current?.[fieldName])
+        }
       }
     })
   }, [fieldReflexInputElement])

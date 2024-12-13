@@ -1,7 +1,10 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { ModalMetaSetter, onModalDependencies } from '@easy-coder/sdk/design'
+import { GroupDecorator, onModalDependencies } from '@easy-coder/sdk/design'
 
+import FormModalSetter from './setter/formModalSetter'
 import FieldReflexInputSetter from './setter/fieldReflexInputSetter'
+import FormDefaultValueSetter from './setter/formDefaultValueSetter'
+import { onFormFieldDependencies } from './setter/onFormFieldDependencies'
 import Form, { FormProps } from '.'
 
 function createTypeFn(label: string) {
@@ -36,8 +39,22 @@ const formMeta: EasyCoderElement.Desc<FormProps> = {
       type: 'object',
       label: '数据模型',
       prototype: {},
-      setter: ModalMetaSetter,
+      setter: FormModalSetter,
       onDependencies: onModalDependencies,
+    },
+    defaultValue: {
+      type: 'object',
+      label: '默认值',
+      prototype: {},
+      setter: FormDefaultValueSetter,
+      setterProps: {
+        title: '默认值',
+        modalName: {
+          _type: 'dynamic',
+          fn: (props?: FormProps) => props?.modalConfig?.name,
+        },
+      },
+      onDependencies: onFormFieldDependencies,
     },
     fieldReflexInputElement: {
       type: 'object',
@@ -53,6 +70,17 @@ const formMeta: EasyCoderElement.Desc<FormProps> = {
       },
     },
   },
+  attrDecorators: [
+    {
+      id: 'data_setting',
+      Render: GroupDecorator,
+      props: {
+        title: '数据配置',
+        canFold: false,
+      },
+      childrenOfAttr: ['modalConfig', 'defaultValue', 'fieldReflexInputElement'],
+    },
+  ],
   slot: {
     children: {
       label: '子节点',

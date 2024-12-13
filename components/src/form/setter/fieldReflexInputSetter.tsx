@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Checkbox } from '@arco-design/web-react'
 import { WithLabel } from '@easy-coder/sdk/design'
 import { Modal, useDataCenter } from '@easy-coder/sdk/data'
-import { useElementContext, useInsertElement, useRemoveElement, useStateById, SLOT_VARIABLE } from '@easy-coder/sdk/store'
+import { useElementContext, useInsertElement, useRemoveElement, useStateById } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 
 import { InputProps } from '../../input'
@@ -73,10 +73,6 @@ export default function FieldReflexInputSetter({ modalName, title, isVertical, v
         type: field.type,
         label: field.label,
         required: field.required,
-        value: {
-          _type: 'fx',
-          code: `$${SLOT_VARIABLE}.${slotId}.value.${fieldName}`,
-        } as any,
       }
       if (field.type === 'lookup') {
         defaultProps.modalName = { name: field.modalName }

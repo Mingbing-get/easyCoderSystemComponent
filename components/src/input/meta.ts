@@ -179,6 +179,12 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
         ],
       },
     },
+
+    isInForm: {
+      type: 'boolean',
+      label: '是否是表单的字段',
+      setter: () => null,
+    },
   },
   attrDecorators: [
     {
