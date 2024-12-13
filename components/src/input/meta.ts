@@ -86,13 +86,14 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
         title: '输入框类型',
         options: variableTypeOptions.filter((option) => supportTypes.includes(option.value as any)),
       },
+      visible: (props: InputProps) => !props?.isInForm,
     },
     modalName: {
       type: 'string',
       label: '数据模型',
       setter: ModalMetaSetter,
       onDependencies: onModalDependencies,
-      visible: (props) => props?.type === 'lookup' || props?.type === 'multipleLookup',
+      visible: (props: InputProps) => !props?.isInForm && (props?.type === 'lookup' || props?.type === 'multipleLookup'),
     },
     enumGroupName: {
       type: 'string',
@@ -102,13 +103,13 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       setterProps: {
         title: '选项组',
       },
-      visible: (props) => props?.type === 'enum' || props?.type === 'multipleEnum',
+      visible: (props: InputProps) => !props?.isInForm && (props?.type === 'enum' || props?.type === 'multipleEnum'),
     },
     maxLength: {
       type: 'number',
       label: '最多文件数',
       disabledFx: true,
-      visible: (props) => props?.type === 'file',
+      visible: (props: InputProps) => !props?.isInForm && props?.type === 'file',
     },
     label: {
       type: 'string',
@@ -149,6 +150,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
           fn: (props?: InputProps) => props?.maxLength,
         },
       },
+      visible: (props: InputProps) => !props?.isInForm,
     },
 
     direction: {

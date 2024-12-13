@@ -24,6 +24,7 @@ export interface InputProps extends EasyCoderElement.DataProps {
   label?: string
   extraText?: string
   required?: boolean
+  isInForm?: boolean
 
   direction?: 'row' | 'column'
   size?: ArcoInputProps['size']
@@ -70,6 +71,7 @@ export default function Input({
   label,
   extraText,
   required,
+  isInForm,
   direction = 'row',
   size = 'default',
   disabled,
@@ -77,7 +79,7 @@ export default function Input({
   onChange,
   ...extra
 }: InputProps) {
-  const [_value, setValue] = useState(value)
+  const [_value, setValue] = useState(isInForm ? undefined : value)
   const [_disabled, setDisabled] = useState(disabled)
   const [errorText, setErrorText] = useState<string>()
   const [_extraText, setExtraText] = useState<string>(extraText)
@@ -108,10 +110,10 @@ export default function Input({
   }, [extraText])
 
   useEffect(() => {
-    if (isChangeBySelf.current) return
+    if (isChangeBySelf.current || isInForm) return
 
     setValue(value)
-  }, [value])
+  }, [value, isInForm])
 
   useEffect(() => {
     exportAttr('isDisabled', _disabled)
