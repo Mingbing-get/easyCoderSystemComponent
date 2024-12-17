@@ -216,6 +216,11 @@ const tableMeta: EasyCoderElement.Desc<TableProps> = {
     attr: {
       selectedRows: createMultipleModalType('选中行'),
     },
+    event: {
+      reload: {
+        label: '刷新',
+      },
+    },
   },
   Render: Table,
 }

@@ -105,14 +105,14 @@ function DisplayStringOrNumber({ value, onClick, style, className }: Pick<Props,
 }
 
 function DisplayBoolean({ value, tagSize, onClick, style, className }: Pick<Props, 'tagSize' | CommonPropsKey>) {
-  if (typeof value !== 'boolean') return '-'
+  const transformValue = useMemo(() => !!value, [value])
 
   return (
     <Tag
       size={tagSize}
       style={style}
-      className={classNames(`easy-coder-display-tag-${value}`, className)}
-      onClick={() => onClick?.(value)}>{`${value}`}</Tag>
+      className={classNames(`easy-coder-display-tag-${transformValue}`, className)}
+      onClick={() => onClick?.(transformValue)}>{`${transformValue}`}</Tag>
   )
 }
 

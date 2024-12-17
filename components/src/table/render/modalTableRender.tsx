@@ -1,10 +1,13 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { Table, TableProps, Empty } from '@arco-design/web-react'
+import { useElementContext } from '@easy-coder/sdk/store'
+import { useEffectCallback } from '@easy-coder/sdk/helper'
 
 import { useEasyCoderTable } from '../context'
 import { useModalTableColumns, useModalRecordsForTable } from '../context/hooks'
 import AddColumn from './addColumn'
+import { TableExport } from '..'
 
 import './index.scss'
 
@@ -14,19 +17,47 @@ interface Props extends Omit<TableProps, 'columns' | 'borderCell'> {
 }
 
 export default function ModalTableRender({ className, style, showSelection, onSelectionChange, ...props }: Props) {
+  const { exportEvent } = useElementContext<TableExport>()
+
+  const [currentPage, setCurrentPage] = useState(1)
   const { canEdit } = useEasyCoderTable()
   const columns = useModalTableColumns()
 
   const { records, loading, total, fetchByPage } = useModalRecordsForTable()
+
+  const handleChangePage = useCallback(async (page: number) => {
+    setCurrentPage(page)
+    await fetchByPage(page)
+  }, [])
+
+  const handleReload = useEffectCallback(async () => {
+    await fetchByPage(currentPage)
+    onSelectionChange?.(undefined)
+  }, [currentPage])
+
+  useEffect(() => {
+    exportEvent('reload', handleReload)
+
+    return () => {
+      exportEvent('reload', async () => {})
+    }
+  }, [])
+
+  const handleChangeSelected = useEffectCallback(
+    (ids: number[], records: Record<string, any>[]) => {
+      onSelectionChange?.(records)
+    },
+    [onSelectionChange]
+  )
 
   const rowSelection = useMemo(() => {
     if (!showSelection) return
 
     return {
       fixed: true,
-      onChange: (_: any, records: Record<string, any>[]) => onSelectionChange?.(records),
+      onChange: handleChangeSelected,
     }
-  }, [showSelection, onSelectionChange])
+  }, [showSelection])
 
   if (!columns.length) {
     if (!canEdit) return null
@@ -67,9 +98,10 @@ export default function ModalTableRender({ className, style, showSelection, onSe
       }}
       pagination={{
         total,
+        current: currentPage,
         pageSize: 10,
         hideOnSinglePage: true,
-        onChange: fetchByPage,
+        onChange: handleChangePage,
       }}
     />
   )
