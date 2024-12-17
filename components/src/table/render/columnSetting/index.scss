@@ -1,0 +1,24 @@
+.easy-coder-table-column-setting-icon {
+  &:hover {
+    color: rgb(var(--primary-6));
+  }
+}
+
+.easy-coder-table-column-setting-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .easy-coder-table-column-setting-row {
+    display: flex;
+    align-items: center;
+
+    .easy-coder-table-column-setting-label {
+      word-break: keep-all;
+      white-space: nowrap;
+      margin-right: 8px;
+      display: inline-block;
+      width: 80px;
+    }
+  }
+}

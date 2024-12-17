@@ -1,0 +1,31 @@
+.easy-coder-table {
+  .arco-table-th-item,
+  .arco-table-td {
+    padding: 0;
+  }
+
+  .easy-coder-header {
+    position: relative;
+    .easy-coder-header-mask {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.2);
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    &:hover {
+      .easy-coder-header-mask {
+        display: flex;
+      }
+    }
+  }
+
+  .easy-coder-slot:empty {
+    height: 1.4rem;
+  }
+}

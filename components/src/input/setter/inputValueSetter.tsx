@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { SetterVariable } from '@easy-coder/sdk/variable'
+import { useVariableDefine } from '@easy-coder/sdk/store'
 
 import { InputProps } from '..'
 import { createDefineFromProps } from '../utils'
@@ -12,11 +13,13 @@ interface Props extends Pick<InputProps, 'type' | 'modalName' | 'enumGroupName' 
 }
 
 export default function InputValueSetter({ label, value, disabled, onChange, type, enumGroupName, modalName, maxLength }: Props) {
+  const { initComplete, variableDefine } = useVariableDefine()
+
   const define = useMemo(() => {
     return createDefineFromProps({ type, enumGroupName, modalName, maxLength }, { label })
   }, [type, enumGroupName, modalName, maxLength, label])
 
-  if (!define) return null
+  if (!define || !initComplete) return null
 
   return (
     <SetterVariable
@@ -24,6 +27,7 @@ export default function InputValueSetter({ label, value, disabled, onChange, typ
       value={value}
       disabled={disabled}
       onChange={onChange}
+      variables={variableDefine}
       size="mini"
       useFx
     />

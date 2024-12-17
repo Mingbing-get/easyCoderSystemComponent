@@ -1,0 +1,14 @@
+.easy-coder-table-delete-column-icon {
+  color: red;
+  cursor: pointer;
+}
+
+.easy-coder-table-delete-column-popover {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  p {
+    margin: 0;
+  }
+}
