@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
+import { useEffectCallback } from '@easy-coder/sdk/helper'
 import classnames from 'classnames'
 
 import './index.scss'
@@ -20,10 +21,16 @@ interface ButtonExport {
   setLoading?: (loading?: boolean) => void
 }
 
-export default function Button({ disabled, loading, children, className, ...extra }: ButtonProps) {
+export default function Button({ disabled, loading, children, className, onClick, ...extra }: ButtonProps) {
   const { exportAttr, exportEvent } = useElementContext<ButtonExport>()
   const [_disabled, setDisabled] = useState(disabled)
   const [_loading, setLoading] = useState(loading)
+
+  const handleClick = useEffectCallback(() => {
+    if (_disabled || _loading) return
+
+    onClick?.()
+  }, [onClick, _disabled, _loading])
 
   useEffect(() => {
     setDisabled(disabled)
@@ -51,6 +58,7 @@ export default function Button({ disabled, loading, children, className, ...extr
   return (
     <button
       className={classnames('easy-coder-system-button', disabled && 'is-disabled', loading && 'is-loading', className)}
+      onClick={handleClick}
       {...extra}>
       {children?.()}
     </button>
