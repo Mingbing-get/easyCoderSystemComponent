@@ -38,10 +38,10 @@ export interface InputExport {
   value?: number | string | LookupInRecord | string[] | LookupInRecord[]
   isDisabled?: boolean
   hasError?: boolean
-  setValue: (value?: number | string | LookupInRecord | string[] | LookupInRecord[]) => void
-  setDisabled: (disabled?: boolean) => void
-  setExtraText: (text?: string) => void
-  setErrorText: (text?: string) => void
+  setValue?: (value?: number | string | LookupInRecord | string[] | LookupInRecord[]) => void
+  setDisabled?: (disabled?: boolean) => void
+  setExtraText?: (text?: string) => void
+  setErrorText?: (text?: string) => void
 }
 
 export const supportTypes: InputProps['type'][] = [
@@ -134,6 +134,8 @@ export default function Input({
       setErrorText,
       setExtraText,
     })
+
+    return () => exportEvent({})
   }, [])
 
   if (!define) {

@@ -38,9 +38,7 @@ export default function ModalTableRender({ className, style, showSelection, onSe
   useEffect(() => {
     exportEvent('reload', handleReload)
 
-    return () => {
-      exportEvent('reload', async () => {})
-    }
+    return () => exportEvent('reload', undefined)
   }, [])
 
   const handleChangeSelected = useEffectCallback(

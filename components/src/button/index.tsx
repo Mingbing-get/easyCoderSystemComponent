@@ -53,6 +53,8 @@ export default function Button({ disabled, loading, children, className, onClick
       setDisabled,
       setLoading,
     })
+
+    return () => exportEvent({})
   }, [])
 
   return (

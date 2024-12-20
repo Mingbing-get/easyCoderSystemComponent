@@ -53,6 +53,8 @@ export interface TableProps extends EasyCoderElement.DataProps {
 export interface TableExport {
   reload: () => Promise<void>
   selectedRows?: Record<string, any>[]
+
+  setLoading: (loading: boolean) => void
 }
 
 export default function Table({

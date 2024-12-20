@@ -44,7 +44,7 @@ export default function AddColumn({ refColumnId }: Props) {
           }
           await updateProps(
             {
-              columns: [{ id: columnId, slotId }],
+              columns: [{ id: columnId, slotId, width: 160 }],
               rows: newRows,
             },
             true
@@ -53,7 +53,7 @@ export default function AddColumn({ refColumnId }: Props) {
           const refColumn = findColumnById(columns, refColumnId)
           if (!refColumn) return
 
-          const newColumns = insertColumn(columns, refColumnId, position, { id: columnId, slotId })
+          const newColumns = insertColumn(columns, refColumnId, position, { id: columnId, slotId, width: 160 })
 
           let newRows = rows
           const needInsertCell = position === 'left' || position === 'right' || (position === 'bottom' && refColumn.children?.length)
@@ -109,7 +109,7 @@ export default function AddColumn({ refColumnId }: Props) {
 
           await updateProps(
             {
-              columns: [{ id: columnId, slotId, fieldKeys: option?.value }],
+              columns: [{ id: columnId, slotId, fieldKeys: option?.value, width: 160 }],
               loopRow: { [columnId]: rowSlotId },
             },
             true
@@ -119,7 +119,7 @@ export default function AddColumn({ refColumnId }: Props) {
           if (!refColumn) return
 
           const newLoopRow = { ...loopRow }
-          const newColumns = insertColumn(columns, refColumnId, position, { id: columnId, slotId, fieldKeys: option?.value })
+          const newColumns = insertColumn(columns, refColumnId, position, { id: columnId, slotId, fieldKeys: option?.value, width: 160 })
           const needInsertCell = position === 'left' || position === 'right' || (position === 'bottom' && refColumn.children?.length)
           if (needInsertCell) {
             const rowSlotIds = await insertSlot('rowRender', ['单元格插槽'])

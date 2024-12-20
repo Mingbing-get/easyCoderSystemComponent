@@ -16,8 +16,8 @@ export interface FormProps extends EasyCoderElement.DataProps {
 
 export interface FormExport {
   value: Record<string, any>
-  setValue: (value?: Record<string, any>) => void
-  clear: () => void
+  setValue?: (value?: Record<string, any>) => void
+  clear?: () => void
 }
 
 export default function Form({ children, modalConfig, fieldReflexInputElement, defaultValue, onChange, ...extra }: FormProps) {
@@ -145,6 +145,8 @@ export default function Form({ children, modalConfig, fieldReflexInputElement, d
       setValue: handleChangeValue,
       clear: handleClear,
     })
+
+    return () => exportEvent({})
   }, [])
 
   return <div {...extra}>{children?.({ value })}</div>

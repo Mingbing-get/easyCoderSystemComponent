@@ -39,6 +39,8 @@ export default function Text({ text, maxLine = 1, disabledPopover, style, classN
 
   useEffect(() => {
     exportEvent('setText', setText)
+
+    return () => exportEvent('setText', undefined)
   }, [])
 
   useEffect(() => {

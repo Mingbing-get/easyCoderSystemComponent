@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { Table, TableProps, Empty } from '@arco-design/web-react'
+import { useElementContext } from '@easy-coder/sdk/store'
 
 import { useEasyCoderTable } from '../context'
 import { useModalTableColumns } from '../context/hooks'
 import AddColumn from './addColumn'
+import { TableExport } from '..'
 
 import './index.scss'
 
@@ -14,6 +17,14 @@ interface Props extends Omit<TableProps, 'columns' | 'borderCell'> {
 export default function VariableTableRender({ className, style, variableValue, ...props }: Props) {
   const { canEdit } = useEasyCoderTable()
   const columns = useModalTableColumns()
+  const { exportEvent } = useElementContext<TableExport>()
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    exportEvent('setLoading', setLoading)
+
+    return () => exportEvent('setLoading', undefined)
+  }, [])
 
   if (!columns.length) {
     if (!canEdit) return null
@@ -46,6 +57,7 @@ export default function VariableTableRender({ className, style, variableValue, .
       borderCell
       data={variableValue}
       columns={columns}
+      loading={loading}
       scroll={{
         x: '100%',
       }}

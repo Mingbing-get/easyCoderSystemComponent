@@ -218,7 +218,16 @@ const tableMeta: EasyCoderElement.Desc<TableProps> = {
     },
     event: {
       reload: {
-        label: '刷新',
+        label: '刷新(仅【数据模型】时生效)',
+      },
+      setLoading: {
+        label: '设置加载中(仅【关联变量】时生效)',
+        params: [
+          {
+            type: 'boolean',
+            label: '是否加载中',
+          },
+        ],
       },
     },
   },
