@@ -1,0 +1,18 @@
+.notify-list {
+  max-height: 40vh;
+
+  .arco-list-header {
+    padding: 0 0 4px 4px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+  }
+
+  .notify-list-header {
+    h2 {
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+}
