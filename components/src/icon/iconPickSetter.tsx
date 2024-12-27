@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import * as iconsFa from 'react-icons/fa'
 import { WithLabel } from '@easy-coder/sdk/design'
@@ -15,9 +15,16 @@ interface Props {
 }
 
 export default function IconPickSetter({ title, isVertical, value = 'FaPlus', disabled, onChange }: Props) {
+  const [searchText, setSearchText] = useState<string>()
   const allIconNames = useMemo(() => Object.keys(iconsFa), [])
 
   const Render = useMemo(() => iconsFa[value] || iconsFa.FaPlus, [value])
+
+  const afterFilterIconNames = useMemo(() => {
+    if (!searchText) return allIconNames
+
+    return allIconNames.filter((iconName) => iconName.toLowerCase().includes(searchText.toLowerCase()))
+  }, [searchText])
 
   return (
     <WithLabel
@@ -26,10 +33,17 @@ export default function IconPickSetter({ title, isVertical, value = 'FaPlus', di
       <Select
         size="mini"
         value={value}
-        renderFormat={() => <Render />}
+        showSearch
+        onSearch={setSearchText}
+        renderFormat={() => (
+          <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <span>{value.substring(2)}</span>
+            <Render />
+          </span>
+        )}
         dropdownRender={() => (
           <div className={classNames('easy-coder-icon-pick-setter', disabled && 'is-disabled')}>
-            {allIconNames.map((iconName) => {
+            {afterFilterIconNames.map((iconName) => {
               const Render = iconsFa[iconName]
 
               return (
@@ -38,6 +52,7 @@ export default function IconPickSetter({ title, isVertical, value = 'FaPlus', di
                   key={iconName}
                   onClick={disabled ? undefined : () => onChange?.(iconName)}>
                   <Render />
+                  <span className="icon-name">{iconName.substring(2)}</span>
                 </div>
               )
             })}

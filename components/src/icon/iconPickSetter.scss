@@ -8,6 +8,11 @@
   padding: 4px;
 
   .easy-coder-icon-pick-cell {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50px;
+    gap: 2px;
     padding: 4px;
     border-radius: 2px;
     border: 1px solid transparent;
@@ -22,6 +27,13 @@
     &.is-select {
       background-color: #94bfff;
       color: #fff;
+    }
+
+    .icon-name {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
