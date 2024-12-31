@@ -1,9 +1,11 @@
+import { Divider as DividerBase, DividerProps as DividerBaseProps } from '@arco-design/web-react'
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 
-export interface Props extends EasyCoderElement.DataProps {
-  
+export interface DividerProps extends EasyCoderElement.DataProps, Omit<DividerBaseProps, 'className' | 'children'> {
+  className?: string
+  text?: string
 }
 
-export default function Divider({ ...extra }: Props) {
-  return <div {...extra}></div>
+export default function Divider({ text, ...extra }: DividerProps) {
+  return <DividerBase {...extra}>{text}</DividerBase>
 }
