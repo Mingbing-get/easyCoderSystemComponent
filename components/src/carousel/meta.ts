@@ -166,7 +166,6 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
         prototype: {
           id: { type: 'string', label: 'ID' },
           label: { type: 'string', label: '标签' },
-          slotId: { type: 'string', label: '插槽ID' },
         },
       },
       setter: ObjectListSetter,

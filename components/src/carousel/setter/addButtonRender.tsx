@@ -18,7 +18,7 @@ export default function AddButton({ onAdd }: AddButtonProps<CustomCarouselItem>)
     const slotId = slots[0].slotId
 
     onAdd?.({
-      id: generateId('menu_item'),
+      id: generateId('carousel_item'),
       slotId,
       label: '轮播项',
     })
