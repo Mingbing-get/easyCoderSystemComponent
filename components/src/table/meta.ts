@@ -2,7 +2,7 @@ import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, LineDecorator, ModalMetaSetter, SelectSetter, onModalDependencies } from '@easy-coder/sdk/design'
 
 import onColumnDependencies from './setter/onColumnDependencies'
-import DataFromSetter from './setter/dataFromSetter'
+import ResetSelectSetter from '../alert/setter/resetSelectSetter'
 
 import Table, { TableProps } from '.'
 
@@ -74,9 +74,44 @@ const tableMeta: EasyCoderElement.Desc<TableProps> = {
     dataFrom: {
       type: 'string',
       label: '数据来源',
-      setter: DataFromSetter,
+      setter: ResetSelectSetter,
       setterProps: {
         title: '数据来源',
+        options: [
+          { value: 'modal', label: '数据模型' },
+          { value: 'variable', label: '关联变量' },
+          { value: 'custom', label: '自定义' },
+        ],
+        when: {
+          modal: [
+            { key: 'variableValue', type: 'attr' },
+            { key: 'columns', type: 'attr' },
+            { key: 'rows', type: 'attr' },
+            { key: 'loopRow', type: 'attr' },
+            { key: 'headerRender', type: 'multipleSlot' },
+            { key: 'customCellRender', type: 'multipleSlot' },
+            { key: 'rowRender', type: 'multipleSlot' },
+          ],
+          variable: [
+            { key: 'modalConfig', type: 'attr' },
+            { key: 'columns', type: 'attr' },
+            { key: 'rows', type: 'attr' },
+            { key: 'loopRow', type: 'attr' },
+            { key: 'headerRender', type: 'multipleSlot' },
+            { key: 'customCellRender', type: 'multipleSlot' },
+            { key: 'rowRender', type: 'multipleSlot' },
+          ],
+          custom: [
+            { key: 'modalConfig', type: 'attr' },
+            { key: 'variableValue', type: 'attr' },
+            { key: 'columns', type: 'attr' },
+            { key: 'rows', type: 'attr' },
+            { key: 'loopRow', type: 'attr' },
+            { key: 'headerRender', type: 'multipleSlot' },
+            { key: 'customCellRender', type: 'multipleSlot' },
+            { key: 'rowRender', type: 'multipleSlot' },
+          ],
+        },
       },
     },
     modalConfig: {
