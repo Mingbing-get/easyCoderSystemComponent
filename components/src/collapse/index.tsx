@@ -31,6 +31,7 @@ export interface CollapseProps extends EasyCoderElement.DataProps {
 
   dataFrom?: 'modal' | 'variable' | 'custom'
   modalConfig?: ModalConfig
+  fetchCount?: number
 
   variableValue?: any[]
   extraRender?: (payload: { item?: any }) => React.ReactNode

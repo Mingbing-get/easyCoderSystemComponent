@@ -42,6 +42,7 @@ export interface TimelineProps extends EasyCoderElement.DataProps {
 
   dataFrom?: 'modal' | 'variable' | 'custom'
   modalConfig?: ModalConfig
+  fetchCount?: number
 
   variableValue?: any[]
   customData?: CustomTimelineItem[]

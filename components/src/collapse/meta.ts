@@ -45,6 +45,7 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
   label: '折叠面板',
   defaultAttr: {
     dataFrom: 'modal',
+    fetchCount: 10,
     bordered: true,
     triggerRegion: 'header',
   },
@@ -116,6 +117,12 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
       visible: (props: CollapseProps) => props?.dataFrom === 'modal',
       onDependencies: onModalDependencies,
     },
+    fetchCount: {
+      type: 'number',
+      label: '获取条数',
+      disabledFx: true,
+      visible: (props: CollapseProps) => props?.dataFrom === 'modal',
+    },
     variableValue: {
       type: 'ref',
       canAcceptTypes: ['array', 'multipleEnum', 'multipleLookup'],
@@ -172,7 +179,7 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
         title: '数据配置',
         canFold: true,
       },
-      childrenOfAttr: ['dataFrom', 'modalConfig', 'variableValue', 'customData'],
+      childrenOfAttr: ['dataFrom', 'modalConfig', 'fetchCount', 'variableValue', 'customData'],
     },
     {
       id: 'line',

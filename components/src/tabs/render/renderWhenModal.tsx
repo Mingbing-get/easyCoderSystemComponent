@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Tabs, Spin } from '@arco-design/web-react'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { EasyCoderElement, useModelRecords } from '@easy-coder/sdk/store'
@@ -7,8 +7,20 @@ import { TabsProps } from '..'
 
 interface Props extends Omit<TabsProps, 'dataFrom' | 'variableValue' | 'customData' | 'customRender'> {}
 
-export default function RenderWhenModal({ panelClassName, panelStyle, extraRender, modalConfig, titleRender, contentRender, onChange, ...extra }: Props) {
+export default function RenderWhenModal({
+  panelClassName,
+  panelStyle,
+  extraRender,
+  modalConfig,
+  fetchCount,
+  titleRender,
+  contentRender,
+  onChange,
+  ...extra
+}: Props) {
   const [activeKey, setActiveKey] = useState<string>()
+
+  const autoFetch = useMemo(() => ({ limit: fetchCount || 10, condition: modalConfig?.condition }), [modalConfig?.condition, fetchCount])
 
   const { records, loading } = useModelRecords({
     modalName: modalConfig?.name,
@@ -17,10 +29,7 @@ export default function RenderWhenModal({ panelClassName, panelStyle, extraRende
     useApiId: true,
     useExampleWhenPreview: true,
     exampleCount: 5,
-    autoFetch: {
-      limit: 20,
-      condition: modalConfig?.condition,
-    },
+    autoFetch,
   })
 
   const handleChange = useEffectCallback(

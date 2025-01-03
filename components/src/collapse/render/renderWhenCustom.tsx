@@ -4,7 +4,8 @@ import { EasyCoderState, useElementContext, useStore } from '@easy-coder/sdk/sto
 
 import { CollapseProps } from '..'
 
-interface Props extends Omit<CollapseProps, 'triggerRegion' | 'dataFrom' | 'modalConfig' | 'variableValue' | 'extraRender' | 'headerRender' | 'contentRender'> {
+interface Props
+  extends Omit<CollapseProps, 'triggerRegion' | 'dataFrom' | 'modalConfig' | 'variableValue' | 'extraRender' | 'headerRender' | 'contentRender' | 'autoFetch'> {
   triggerRegion?: 'header' | 'icon'
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Collapse, Spin } from '@arco-design/web-react'
 import { EasyCoderElement, useEnv, useModelRecords } from '@easy-coder/sdk/store'
 
@@ -8,9 +8,21 @@ interface Props extends Omit<CollapseProps, 'triggerRegion' | 'dataFrom' | 'vari
   triggerRegion?: 'header' | 'icon'
 }
 
-export default function RenderWhenModal({ itemClassName, itemStyle, contentStyle, modalConfig, headerRender, extraRender, contentRender, ...extra }: Props) {
+export default function RenderWhenModal({
+  itemClassName,
+  itemStyle,
+  contentStyle,
+  modalConfig,
+  fetchCount,
+  headerRender,
+  extraRender,
+  contentRender,
+  ...extra
+}: Props) {
   const [activeKeys, setActiveKeys] = useState<string[]>()
   const { isPreviewing } = useEnv()
+
+  const autoFetch = useMemo(() => ({ limit: fetchCount || 10, condition: modalConfig?.condition }), [modalConfig?.condition, fetchCount])
 
   const { records, loading } = useModelRecords({
     modalName: modalConfig?.name,
@@ -19,10 +31,7 @@ export default function RenderWhenModal({ itemClassName, itemStyle, contentStyle
     useApiId: true,
     useExampleWhenPreview: true,
     exampleCount: 5,
-    autoFetch: {
-      limit: 20,
-      condition: modalConfig?.condition,
-    },
+    autoFetch: autoFetch,
   })
 
   useEffect(() => {

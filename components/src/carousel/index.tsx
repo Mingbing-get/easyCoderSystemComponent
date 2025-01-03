@@ -27,6 +27,7 @@ export interface CarouselProps
 
   dataFrom?: 'modal' | 'variable' | 'custom'
   modalConfig?: ModalConfig
+  fetchCount?: number
 
   variableValue?: any[]
   itemRender?: (payload: { item?: any }) => React.ReactNode
@@ -42,6 +43,7 @@ export default function Carousel({
   autoPlayInterval,
   dataFrom,
   modalConfig,
+  fetchCount,
   variableValue,
   itemRender,
   customData,
@@ -86,6 +88,7 @@ export default function Carousel({
       <RenderWhenModal
         {...extra}
         autoPlay={_autoPlay}
+        fetchCount={fetchCount}
         modalConfig={modalConfig}
         itemRender={itemRender}
       />

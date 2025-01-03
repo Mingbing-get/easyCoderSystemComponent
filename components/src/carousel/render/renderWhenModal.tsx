@@ -6,12 +6,13 @@ import { useEffectCallback } from '@easy-coder/sdk/helper'
 
 interface Props extends Omit<CarouselProps, 'onChange'> {
   modalConfig?: ModalConfig
+  fetchCount?: number
   itemRender?: (payload: { item?: any }) => React.ReactNode
   onChange?: (item: Record<string, any>) => void
 }
 
-export default function RenderWhenModal({ modalConfig, itemRender, onChange, ...extra }: Props) {
-  const autoFetch = useMemo(() => ({ limit: 10, condition: modalConfig?.condition }), [modalConfig?.condition])
+export default function RenderWhenModal({ modalConfig, fetchCount, itemRender, onChange, ...extra }: Props) {
+  const autoFetch = useMemo(() => ({ limit: fetchCount || 10, condition: modalConfig?.condition }), [modalConfig?.condition, fetchCount])
 
   const { records, loading } = useModelRecords({
     modalName: modalConfig?.name,

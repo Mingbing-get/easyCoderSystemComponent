@@ -62,6 +62,7 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
   label: '标签页',
   defaultAttr: {
     dataFrom: 'modal',
+    fetchCount: 10,
     direction: 'horizontal',
     overflow: 'scroll',
     scrollPosition: 'auto',
@@ -149,6 +150,12 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       },
       visible: (props: TabsProps) => props?.dataFrom === 'modal',
       onDependencies: onModalDependencies,
+    },
+    fetchCount: {
+      type: 'number',
+      label: '获取条数',
+      disabledFx: true,
+      visible: (props: TabsProps) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
@@ -273,7 +280,7 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
         title: '数据配置',
         canFold: true,
       },
-      childrenOfAttr: ['dataFrom', 'variableValue', 'modalConfig', 'customData'],
+      childrenOfAttr: ['dataFrom', 'variableValue', 'modalConfig', 'fetchCount', 'customData'],
     },
     {
       id: 'line1',

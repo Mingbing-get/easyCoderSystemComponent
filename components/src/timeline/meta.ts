@@ -53,6 +53,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
     mode: 'top',
     dotType: 'solid',
     lineType: 'solid',
+    fetchCount: 10,
   },
   style: {
     style: {
@@ -135,6 +136,12 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       },
       visible: (props: TimelineProps) => props?.dataFrom === 'modal',
       onDependencies: onModalDependencies,
+    },
+    fetchCount: {
+      type: 'number',
+      label: '获取条数',
+      disabledFx: true,
+      visible: (props: TimelineProps) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
@@ -255,7 +262,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
         title: '数据配置',
         canFold: true,
       },
-      childrenOfAttr: ['dataFrom', 'variableValue', 'modalConfig', 'customData'],
+      childrenOfAttr: ['dataFrom', 'variableValue', 'modalConfig', 'fetchCount', 'customData'],
     },
     {
       id: 'line1',

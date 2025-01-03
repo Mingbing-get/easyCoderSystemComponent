@@ -4,7 +4,7 @@ import { useEffectCallback } from '@easy-coder/sdk/helper'
 
 import { TabsProps } from '..'
 
-interface Props extends Omit<TabsProps, 'dataFrom' | 'modalConfig' | 'customData' | 'customRender'> {}
+interface Props extends Omit<TabsProps, 'dataFrom' | 'modalConfig' | 'customData' | 'customRender' | 'fetchCount'> {}
 
 export default function RenderWhenVariable({ panelClassName, panelStyle, extraRender, variableValue, titleRender, contentRender, onChange, ...extra }: Props) {
   const [activeKey, setActiveKey] = useState<string>()

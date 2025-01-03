@@ -5,7 +5,7 @@ import { EasyCoderState, useElementContext, useStore } from '@easy-coder/sdk/sto
 
 import { CustomTabItem, TabsProps } from '..'
 
-interface Props extends Omit<TabsProps, 'dataFrom' | 'modalConfig' | 'variableValue' | 'titleRender' | 'contentRender'> {}
+interface Props extends Omit<TabsProps, 'dataFrom' | 'modalConfig' | 'variableValue' | 'titleRender' | 'contentRender' | 'fetchCount'> {}
 
 export default function RenderWhenCustom({ panelClassName, panelStyle, extraRender, customData, customRender, onChange, ...extra }: Props) {
   const { id } = useElementContext()

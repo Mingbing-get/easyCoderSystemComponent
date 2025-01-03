@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Spin, Timeline } from '@arco-design/web-react'
 import { EasyCoderElement, useModelRecords } from '@easy-coder/sdk/store'
 
@@ -15,10 +16,13 @@ export default function RenderWhenModal({
   pendingRender,
   useCustomDot,
   modalConfig,
+  fetchCount,
   contentRender,
   customDotRender,
   ...extra
 }: Props) {
+  const autoFetch = useMemo(() => ({ limit: fetchCount || 10, condition: modalConfig?.condition }), [modalConfig?.condition, fetchCount])
+
   const { records, loading } = useModelRecords({
     modalName: modalConfig?.name,
     fields: modalConfig?.fields,
@@ -26,10 +30,7 @@ export default function RenderWhenModal({
     useApiId: true,
     useExampleWhenPreview: true,
     exampleCount: 5,
-    autoFetch: {
-      limit: 20,
-      condition: modalConfig?.condition,
-    },
+    autoFetch,
   })
 
   if (loading) {

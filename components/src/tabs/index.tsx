@@ -36,6 +36,7 @@ export interface TabsProps extends EasyCoderElement.DataProps {
 
   dataFrom?: 'modal' | 'variable' | 'custom'
   modalConfig?: ModalConfig
+  fetchCount?: number
 
   variableValue?: any[]
   titleRender?: (payload: { item: any }) => React.ReactNode

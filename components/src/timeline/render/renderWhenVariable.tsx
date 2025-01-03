@@ -2,7 +2,7 @@ import { Timeline } from '@arco-design/web-react'
 
 import { TimelineProps } from '..'
 
-interface Props extends Omit<TimelineProps, 'dataFrom' | 'modalConfig' | 'customData' | 'customRender'> {}
+interface Props extends Omit<TimelineProps, 'dataFrom' | 'modalConfig' | 'customData' | 'customRender' | 'fetchCount'> {}
 
 export default function RenderWhenVariable({
   itemClassName,

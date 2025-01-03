@@ -3,7 +3,7 @@ import { useEnv } from '@easy-coder/sdk/store'
 
 import { CollapseProps } from '..'
 
-interface Props extends Omit<CollapseProps, 'triggerRegion' | 'dataFrom' | 'modalConfig' | 'customData' | 'customRender'> {
+interface Props extends Omit<CollapseProps, 'triggerRegion' | 'dataFrom' | 'modalConfig' | 'customData' | 'customRender' | 'autoFetch'> {
   triggerRegion?: 'header' | 'icon'
 }
 

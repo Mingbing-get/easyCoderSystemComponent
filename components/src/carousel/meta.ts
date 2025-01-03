@@ -61,6 +61,7 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
   label: '轮播',
   defaultAttr: {
     dataFrom: 'modal',
+    fetchCount: 10,
     moveSpeed: 500,
     animation: 'slide',
     direction: 'horizontal',
@@ -151,6 +152,12 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
       },
       visible: (props: CarouselProps) => props?.dataFrom === 'modal',
       onDependencies: onModalDependencies,
+    },
+    fetchCount: {
+      type: 'number',
+      label: '条数获取',
+      disabledFx: true,
+      visible: (props: CarouselProps) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
@@ -276,7 +283,7 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
         title: '数据配置',
         canFold: true,
       },
-      childrenOfAttr: ['dataFrom', 'modalConfig', 'variableValue', 'customData'],
+      childrenOfAttr: ['dataFrom', 'modalConfig', 'fetchCount', 'variableValue', 'customData'],
     },
     {
       id: 'line1',
