@@ -1,4 +1,5 @@
 import { Collapse } from '@arco-design/web-react'
+import { useEnv } from '@easy-coder/sdk/store'
 
 import { CollapseProps } from '..'
 
@@ -16,9 +17,12 @@ export default function RenderWhenVariable({
   contentRender,
   ...extra
 }: Props) {
+  const { isPreviewing } = useEnv()
+
   return (
     <Collapse
       {...extra}
+      defaultActiveKey={isPreviewing ? ['0'] : undefined}
       destroyOnHide>
       {variableValue?.map((item, index) => (
         <Collapse.Item

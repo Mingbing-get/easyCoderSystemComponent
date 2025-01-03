@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Collapse, Spin } from '@arco-design/web-react'
-import { EasyCoderElement, useModelRecords } from '@easy-coder/sdk/store'
+import { EasyCoderElement, useEnv, useModelRecords } from '@easy-coder/sdk/store'
 
 import { CollapseProps } from '..'
 
@@ -8,6 +9,9 @@ interface Props extends Omit<CollapseProps, 'triggerRegion' | 'dataFrom' | 'vari
 }
 
 export default function RenderWhenModal({ itemClassName, itemStyle, contentStyle, modalConfig, headerRender, extraRender, contentRender, ...extra }: Props) {
+  const [activeKeys, setActiveKeys] = useState<string[]>()
+  const { isPreviewing } = useEnv()
+
   const { records, loading } = useModelRecords({
     modalName: modalConfig?.name,
     fields: modalConfig?.fields,
@@ -20,6 +24,16 @@ export default function RenderWhenModal({ itemClassName, itemStyle, contentStyle
       condition: modalConfig?.condition,
     },
   })
+
+  useEffect(() => {
+    if (!records?.length || !isPreviewing) return
+
+    setActiveKeys((old) => {
+      if (old?.length) return old
+
+      return [records[0]._id]
+    })
+  }, [isPreviewing, records])
 
   if (loading) {
     const dataProps: EasyCoderElement.DataProps = {}
@@ -42,6 +56,8 @@ export default function RenderWhenModal({ itemClassName, itemStyle, contentStyle
   return (
     <Collapse
       {...extra}
+      activeKey={activeKeys}
+      onChange={(_, keys) => setActiveKeys(keys)}
       destroyOnHide>
       {records?.map((record) => (
         <Collapse.Item
