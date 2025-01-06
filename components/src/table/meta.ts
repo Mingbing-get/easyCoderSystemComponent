@@ -1,8 +1,7 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, LineDecorator, ModalMetaSetter, SelectSetter, onModalDependencies } from '@easy-coder/sdk/design'
+import { GroupDecorator, LineDecorator, ModalMetaSetter, SelectSetter, onModalDependencies, ResetSelectSetter } from '@easy-coder/sdk/design'
 
 import onColumnDependencies from './setter/onColumnDependencies'
-import ResetSelectSetter from '../alert/setter/resetSelectSetter'
 
 import Table, { TableProps } from '.'
 

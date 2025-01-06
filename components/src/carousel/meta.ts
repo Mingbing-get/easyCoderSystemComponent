@@ -1,7 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, LineDecorator, ModalMetaSetter, ObjectListSetter, SelectSetter, onModalDependencies } from '@easy-coder/sdk/design'
+import { GroupDecorator, LineDecorator, ModalMetaSetter, ObjectListSetter, SelectSetter, onModalDependencies, ResetSelectSetter } from '@easy-coder/sdk/design'
 
-import ResetSelectSetter from '../alert/setter/resetSelectSetter'
 import AddButton from './setter/addButtonRender'
 import RemoveButton from './setter/removeButtonRender'
 import Carousel, { CarouselProps } from '.'

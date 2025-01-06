@@ -1,7 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, LineDecorator } from '@easy-coder/sdk/design'
+import { GroupDecorator, LineDecorator, ResetSwitchSetter } from '@easy-coder/sdk/design'
 
-import ResetSwitchSetter from '../alert/setter/resetSwitchSetter'
 import Rate, { RateProps } from '.'
 
 const rateMeta: EasyCoderElement.Desc<RateProps> = {

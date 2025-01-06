@@ -1,7 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, SelectSetter } from '@easy-coder/sdk/design'
+import { GroupDecorator, SelectSetter, ResetSwitchSetter } from '@easy-coder/sdk/design'
 
-import ResetSwitchSetter from '../alert/setter/resetSwitchSetter'
 import Tag, { TagProps } from '.'
 
 const tagMeta: EasyCoderElement.Desc<TagProps> = {

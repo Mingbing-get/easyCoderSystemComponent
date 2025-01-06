@@ -9,12 +9,12 @@ import {
   onModalFieldDependencies,
   SingleModalFieldPickSetter,
   VariableNextLevelSetter,
+  ResetSelectSetter,
 } from '@easy-coder/sdk/design'
 
 import Menu, { MenuProps } from '.'
 import AddTreeNode from './setter/addTreeNode'
 import RemoveTreeNode from './setter/removeTreeNode'
-import ResetSelectSetter from '../alert/setter/resetSelectSetter'
 
 const customItemDefine: Record<string, EasyCoderElement.OmitApiNameVariable> = {
   id: {

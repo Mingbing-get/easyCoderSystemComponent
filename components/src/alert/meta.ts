@@ -1,7 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, LineDecorator, SelectSetter } from '@easy-coder/sdk/design'
+import { GroupDecorator, LineDecorator, SelectSetter, ResetSwitchSetter } from '@easy-coder/sdk/design'
 
-import ResetSwitchSetter from './setter/resetSwitchSetter'
 import Alert, { AlertUiProps } from '.'
 
 const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {

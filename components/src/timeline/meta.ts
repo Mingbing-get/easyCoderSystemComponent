@@ -1,8 +1,15 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, LineDecorator, ModalMetaSetter, ObjectListSetter, SelectSetter, onModalDependencies } from '@easy-coder/sdk/design'
+import {
+  GroupDecorator,
+  LineDecorator,
+  ModalMetaSetter,
+  ObjectListSetter,
+  SelectSetter,
+  onModalDependencies,
+  ResetSelectSetter,
+  ResetSwitchSetter,
+} from '@easy-coder/sdk/design'
 
-import ResetSwitchSetter from '../alert/setter/resetSwitchSetter'
-import ResetSelectSetter from '../alert/setter/resetSelectSetter'
 import useCustomDotSetter from './setter/useCustomDotSetter'
 import AddButton from './setter/addButtonRender'
 import RemoveButton from './setter/removeButtonRender'
