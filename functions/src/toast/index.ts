@@ -1,10 +1,6 @@
-type ToastType = 'info' | 'success' | 'error' | 'warn'
+import Toast, { ToastType, ToastOption } from './toast'
 
-interface ToastPro {
-  canClose?: boolean
-  duration?: number
-}
-
-export default async function ({ dataCenter }: FunctionContext, content: string, type?: ToastType, pro?: ToastPro) {
-  console.log(content, type, pro)
+export default async function ({ dataCenter }: FunctionContext, content: string, type?: ToastType, option?: ToastOption) {
+  const instance = new Toast(content, type, option)
+  instance.show()
 }

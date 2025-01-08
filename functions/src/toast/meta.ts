@@ -4,7 +4,6 @@ const toastMeta: FunctionDefine = {
   apiId: 'system_component_ohxddMCgepXhRexG',
   apiName: 'system_component_toast',
   label: '显示提示',
-  description: '类型支持: info, success, error, warn; 若填写的不是其中的一个, 则使用info',
   params: [
     {
       type: 'string',
@@ -13,14 +12,21 @@ const toastMeta: FunctionDefine = {
       required: true,
     },
     {
-      type: 'string',
+      type: 'enum',
       label: '类型',
       apiName: 'type',
-    },
+      enumGroupName: '',
+      options: [
+        { value: 'info', label: '信息' },
+        { value: 'success', label: '成功' },
+        { value: 'error', label: '错误' },
+        { value: 'warn', label: '警告' },
+      ],
+    } as any,
     {
       type: 'object',
       label: '属性配置',
-      apiName: 'pro',
+      apiName: 'option',
       prototype: {
         canClose: {
           type: 'boolean',
