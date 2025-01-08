@@ -8,8 +8,6 @@ import { useDataCenter } from '@easy-coder/sdk/data'
 import NotifyList from './notifyList'
 import NotifyWhenReceive from './notifyWhenReceive'
 
-import '@arco-design/web-react/es/Badge/style/index.css'
-import '@arco-design/web-react/es/Notification/style/index.css'
 import './index.scss'
 
 export interface NotificationProps extends EasyCoderElement.DataProps {

@@ -4,7 +4,6 @@ import { Alert, AlertProps } from '@arco-design/web-react'
 import { useEnv } from '@easy-coder/sdk/store'
 
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import '@arco-design/web-react/es/Alert/style/index.css'
 
 import './index.scss'
 

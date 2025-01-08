@@ -6,7 +6,6 @@ import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenModal from './render/renderWhenModal'
 import RenderWhenVariable from './render/renderWhenVariable'
 
-import '@arco-design/web-react/es/Collapse/style/index.css'
 import './index.scss'
 
 export interface CustomCollapseItem {

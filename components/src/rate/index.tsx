@@ -4,7 +4,6 @@ import { Rate as RateBase, RateProps as RateBaseProps } from '@arco-design/web-r
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
 
-import '@arco-design/web-react/es/Rate/style/index.css'
 import './index.scss'
 
 export interface RateProps

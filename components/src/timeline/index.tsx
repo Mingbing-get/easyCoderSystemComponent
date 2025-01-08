@@ -6,7 +6,6 @@ import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenVariable from './render/renderWhenVariable'
 import RenderWhenModal from './render/renderWhenModal'
 
-import '@arco-design/web-react/es/Timeline/style/index.css'
 import './index.scss'
 
 export interface CustomTimelineItem {

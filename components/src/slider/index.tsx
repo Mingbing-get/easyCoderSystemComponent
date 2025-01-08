@@ -4,7 +4,6 @@ import { Slider as SliderBase, SliderProps as SliderBaseProps } from '@arco-desi
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
 
-import '@arco-design/web-react/es/Slider/style/index.css'
 import './index.scss'
 
 export interface SliderProps

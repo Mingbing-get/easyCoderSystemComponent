@@ -7,8 +7,6 @@ import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenModal from './render/renderWhenModal'
 import RenderWhenVariable from './render/renderWhenVariable'
 
-import '@arco-design/web-react/es/Carousel/style/index.css'
-
 export interface CustomCarouselItem {
   id: string
   slotId: string

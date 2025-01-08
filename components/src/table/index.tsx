@@ -3,8 +3,6 @@ import { EasyCoderElement, useEnv, useElementContext } from '@easy-coder/sdk/sto
 import { ModalConfig } from '@easy-coder/sdk/design'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 
-import '@arco-design/web-react/es/Table/style/index.css'
-
 import { EasyCoderTableProvider } from './context'
 import CustomTableRender from './render/customTableRender'
 import ModalTableRender from './render/modalTableRender'

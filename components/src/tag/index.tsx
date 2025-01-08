@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import { Tag as TagBase, TagProps as TagBaseProps } from '@arco-design/web-react'
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 
-import '@arco-design/web-react/es/Tag/style/index.css'
 import './index.scss'
 
 export interface TagProps extends EasyCoderElement.DataProps, Pick<TagBaseProps, 'size' | 'bordered' | 'style'> {
