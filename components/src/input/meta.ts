@@ -1,11 +1,22 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { EnumGroupSetter, GroupDecorator, LineDecorator, ModalMetaSetter, SelectSetter, onEnumDependencies, onModalDependencies } from '@easy-coder/sdk/design'
+import {
+  EnumGroupSetter,
+  GroupDecorator,
+  LineDecorator,
+  ModalConditionSetter,
+  ModalMetaSetter,
+  SelectSetter,
+  onEnumDependencies,
+  onModalDependencies,
+  onModalConditionDependencies,
+} from '@easy-coder/sdk/design'
 import { variableTypeOptions } from '@easy-coder/sdk/variable'
 
 import InputTypeSetter from './setter/inputTypeSetter'
 import InputValueSetter from './setter/inputValueSetter'
 import { createDefineFromProps } from './utils'
 import Input, { InputProps, supportTypes } from '.'
+import EnumDisabledSetter from './setter/enumDisabledSetter'
 
 const inputMeta: EasyCoderElement.Desc<InputProps> = {
   type: 'system_component_input',
@@ -95,6 +106,21 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       onDependencies: onModalDependencies,
       visible: (props: InputProps) => !props?.isInForm && (props?.type === 'lookup' || props?.type === 'multipleLookup'),
     },
+    condition: {
+      type: 'object',
+      label: '过滤条件',
+      prototype: {},
+      setter: ModalConditionSetter,
+      onDependencies: onModalConditionDependencies,
+      setterProps: {
+        title: '过滤条件',
+        modalName: {
+          _type: 'dynamic',
+          fn: (props: InputProps) => props?.modalName?.name || '',
+        },
+      },
+      visible: (props: InputProps) => (props?.type === 'lookup' || props?.type === 'multipleLookup') && !!props?.modalName,
+    },
     enumGroupName: {
       type: 'string',
       label: '选项组',
@@ -104,6 +130,22 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
         title: '选项组',
       },
       visible: (props: InputProps) => !props?.isInForm && (props?.type === 'enum' || props?.type === 'multipleEnum'),
+    },
+    disableEnumNames: {
+      type: 'array',
+      label: '可用选项',
+      item: {
+        type: 'string',
+      },
+      setter: EnumDisabledSetter,
+      setterProps: {
+        title: '可用选项',
+        enumGroupName: {
+          _type: 'dynamic',
+          fn: (props: InputProps) => props?.enumGroupName || '',
+        },
+      },
+      visible: (props: InputProps) => (props?.type === 'enum' || props?.type === 'multipleEnum') && !!props.enumGroupName,
     },
     maxLength: {
       type: 'number',
@@ -193,7 +235,19 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       props: {
         title: '数据类型配置',
       },
-      childrenOfAttr: ['type', 'modalName', 'enumGroupName', 'maxLength', 'label', 'extraText', 'disabled', 'required', 'value'],
+      childrenOfAttr: [
+        'type',
+        'modalName',
+        'condition',
+        'enumGroupName',
+        'disableEnumNames',
+        'maxLength',
+        'label',
+        'extraText',
+        'disabled',
+        'required',
+        'value',
+      ],
     },
     {
       id: 'line1',

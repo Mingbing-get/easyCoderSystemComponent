@@ -22,7 +22,7 @@ const toastMeta: FunctionDefine = {
         { value: 'error', label: '错误' },
         { value: 'warn', label: '警告' },
       ],
-    } as any,
+    },
     {
       type: 'object',
       label: '属性配置',

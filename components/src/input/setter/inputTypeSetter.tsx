@@ -13,6 +13,8 @@ export default function InputTypeSetter({ onChange, ...extra }: SelectSetterProp
         {
           modalName: undefined,
           maxLength: undefined,
+          disableEnumNames: undefined,
+          condition: undefined,
           enumGroupName: undefined,
           value: undefined,
         },

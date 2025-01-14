@@ -2,19 +2,22 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { InputProps as ArcoInputProps } from '@arco-design/web-react'
 import { EasyCoderElement, useEnv, useElementContext } from '@easy-coder/sdk/store'
-import { SetterVariable, VariableDefine } from '@easy-coder/sdk/variable'
+import { VariableCondition, VariableDefine } from '@easy-coder/sdk/variable'
 import { LookupInRecord } from '@easy-coder/sdk/data'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { ModalConfig } from '@easy-coder/sdk/design'
 
 import { createDefineFromProps } from './utils'
+import Base from './base'
 
 import './index.scss'
 
 export interface InputProps extends EasyCoderElement.DataProps {
   type: Exclude<VariableDefine.Desc['type'], 'object' | 'array' | 'json'>
   enumGroupName?: string
+  disableEnumNames?: string[]
   modalName?: ModalConfig
+  condition?: VariableCondition.Desc
   maxLength?: number
 
   style?: React.CSSProperties
@@ -62,7 +65,9 @@ export const supportTypes: InputProps['type'][] = [
 export default function Input({
   type,
   enumGroupName,
+  disableEnumNames,
   modalName,
+  condition,
   maxLength,
   style,
   className,
@@ -159,12 +164,12 @@ export default function Input({
         </label>
       )}
       <div className="easy-coder-input-inner">
-        <SetterVariable
+        <Base
           size={size}
           define={define}
+          disabledNames={disableEnumNames}
+          condition={condition}
           disabled={_disabled}
-          useFx={false}
-          showLabel={false}
           value={_value}
           onChange={handleChangeValue}
         />
