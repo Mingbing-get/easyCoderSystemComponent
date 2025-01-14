@@ -11,6 +11,7 @@ export interface TextProps extends EasyCoderElement.DataProps {
   text?: string
   maxLine?: number
   disabledPopover?: boolean
+  onClick?: () => void
 }
 
 interface TextExport {

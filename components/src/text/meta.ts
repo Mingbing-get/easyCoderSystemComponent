@@ -57,6 +57,11 @@ const textMeta: EasyCoderElement.Desc<TextProps> = {
       label: '是否禁止提示',
     },
   },
+  event: {
+    onClick: {
+      label: '点击时',
+    },
+  },
   export: {
     attr: {
       text: {
