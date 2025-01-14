@@ -142,7 +142,7 @@ export default class Toast {
     this.toastWrapper = document.createElement('div')
     this.toastWrapper.setAttribute(
       'style',
-      'padding: 10px 16px; opacity: 0; transform: translate(-20px, -20px); border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,.1);border: 1px solid rgb(229,230,235); display: flex; align-items: center; gap: 0.6rem; transition: opacity 0.2s linear,transform 0.2s linear;'
+      'background-color:#fff; padding: 10px 16px; opacity: 0; transform: translate(-20px, -20px); border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,.1);border: 1px solid rgb(229,230,235); display: flex; align-items: center; gap: 0.6rem; transition: opacity 0.2s linear,transform 0.2s linear;'
     )
     this.toastWrapper.innerHTML = `
     <span style="color: ${this.getColorByType(
