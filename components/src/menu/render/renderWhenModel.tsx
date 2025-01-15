@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
-import { LookupInRecord } from '@easy-coder/sdk/data'
+import { CRUD, LookupInRecord } from '@easy-coder/sdk/data'
 import { useModelRecords, useEnv } from '@easy-coder/sdk/store'
-import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { useEffectCallback, useCompareCache } from '@easy-coder/sdk/helper'
+import { isSameModalCondition } from '@easy-coder/sdk/variable'
 
 import { MenuProps } from '..'
 import BaseMenu from '../base'
@@ -45,6 +46,14 @@ export default function RenderWhenModel<T extends LookupInRecord>({
 }: Props) {
   const [records, setRecords] = useState<T[]>([])
   const [currentActiveRecordId, setCurrentActiveRecordId] = useState<number>()
+  const [modalCondition, setModalCondition] = useState<CRUD.Condition<any> | false>()
+  const cacheModalCondition = useCompareCache(modalCondition, (before, after) => {
+    if (before === false && after === false) return true
+
+    if (before === false || after === false) return false
+
+    return isSameModalCondition(before, after)
+  })
   const { isPreviewing } = useEnv()
 
   const fields = useMemo(() => {
@@ -57,7 +66,7 @@ export default function RenderWhenModel<T extends LookupInRecord>({
     return fieldNames
   }, [modalConfig?.fields, parentFieldName])
 
-  const { initComplete, fetchRecords, transformCondition } = useModelRecords<T, '', true>({
+  const { fetchRecords, transformCondition } = useModelRecords<T, '', true>({
     modalName: modalConfig?.name,
     fields,
     orders: modalConfig?.orders,
@@ -66,28 +75,31 @@ export default function RenderWhenModel<T extends LookupInRecord>({
     exampleCount: 4,
   })
 
+  useEffect(() => {
+    transformCondition(modalConfig?.condition).then(setModalCondition)
+  }, [modalConfig?.condition, transformCondition])
+
   const fetchNextLevelRecords = useEffectCallback(
-    async (parentId?: number | number[]) => {
-      let condition = modalConfig?.condition
+    async (baseCondition?: CRUD.Condition<any> | false, parentId?: number | number[]) => {
+      if (baseCondition === false) return
+
+      let condition = baseCondition
       if (parentFieldName) {
         if (!parentId) {
-          condition = { id: '', op: 'and', children: [{ op: 'isNull', keyPath: [parentFieldName], id: '' }] }
+          condition = { op: 'and', subCondition: [{ op: 'isNull', key: parentFieldName }] }
         } else if (typeof parentId === 'number') {
-          condition = { id: '', op: 'and', children: [{ op: 'eq', keyPath: [parentFieldName], value: parentId, id: '' }] }
+          condition = { op: 'and', subCondition: [{ op: 'eq', key: parentFieldName, value: parentId }] }
         } else {
-          condition = { id: '', op: 'and', children: [{ op: 'in', keyPath: [parentFieldName], value: parentId, id: '' }] }
+          condition = { op: 'and', subCondition: [{ op: 'in', key: parentFieldName, value: parentId }] }
         }
 
-        if (modalConfig?.condition) {
-          condition.children.push(modalConfig?.condition)
+        if (baseCondition) {
+          condition.subCondition.push(baseCondition)
         }
       }
 
-      const modalCondition = await transformCondition(condition)
-      if (modalCondition === false) return
-
       const res = await fetchRecords({
-        condition: modalCondition,
+        condition,
       })
 
       if (!res) return
@@ -109,16 +121,14 @@ export default function RenderWhenModel<T extends LookupInRecord>({
       const ids: number[] = res.records.map((record) => record._id)
       if (ids.length === 0) return
 
-      await fetchNextLevelRecords(ids)
+      await fetchNextLevelRecords(baseCondition, ids)
     },
-    [transformCondition, modalConfig?.condition, parentFieldName]
+    [parentFieldName]
   )
 
   useEffect(() => {
-    if (!initComplete) return
-
-    fetchNextLevelRecords()
-  }, [modalConfig?.name, modalConfig?.orders, modalConfig?.condition, fields, parentFieldName, initComplete])
+    fetchNextLevelRecords(cacheModalCondition)
+  }, [modalConfig?.name, modalConfig?.orders, cacheModalCondition, fields, parentFieldName])
 
   useEffect(() => {
     setCurrentActiveRecordId((old) => {
