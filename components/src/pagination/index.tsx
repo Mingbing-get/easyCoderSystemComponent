@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Pagination as PaginationUi, PaginationProps as PaginationUiProps } from '@arco-design/web-react'
-import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
+import { EasyCoderElement, useElementContext, useEnv } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 
 export interface PaginationProps extends EasyCoderElement.DataProps, PaginationUiProps {}
@@ -14,12 +14,13 @@ export interface PaginationExport {
   setTotal?: (total: number) => void
 }
 
-export default function Pagination({ total, defaultCurrent, defaultPageSize, onChange, onPageSizeChange, ...extra }: PaginationProps) {
+export default function Pagination({ total, defaultCurrent, defaultPageSize, hideOnSinglePage, onChange, onPageSizeChange, ...extra }: PaginationProps) {
   const [_total, setTotal] = useState<number>()
   const [_current, setCurrent] = useState<number>()
   const [_pageSize, setPageSize] = useState<number>()
   const changeFlag = useRef({ total: false, current: false, pageSize: false })
   const { exportAttr, exportEvent } = useElementContext<PaginationExport>()
+  const { isPreviewing } = useEnv()
 
   const handleChange = useEffectCallback(
     (pageNumber: number, pageSize: number) => {
@@ -113,7 +114,8 @@ export default function Pagination({ total, defaultCurrent, defaultPageSize, onC
   return (
     <PaginationUi
       {...extra}
-      total={total}
+      hideOnSinglePage={isPreviewing ? false : hideOnSinglePage}
+      total={_total}
       current={_current}
       pageSize={_pageSize}
       onChange={handleChange}
