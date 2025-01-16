@@ -4,6 +4,7 @@ import { variableTypeOptions } from '@easy-coder/sdk/variable'
 
 import InputTypeSetter from '../input/setter/inputTypeSetter'
 import InputValueSetter from '../input/setter/inputValueSetter'
+import onInputValueDependencies from '../input/setter/onInputValueDependencies'
 import { supportTypes } from '../input'
 import { createDefineFromProps } from '../input/utils'
 import Display, { DisplayProps } from '.'
@@ -135,6 +136,7 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       type: 'string',
       label: '值',
       setter: InputValueSetter,
+      onDependencies: onInputValueDependencies,
       setterProps: {
         label: '值',
         type: {

@@ -14,6 +14,7 @@ import { variableTypeOptions } from '@easy-coder/sdk/variable'
 
 import InputTypeSetter from './setter/inputTypeSetter'
 import InputValueSetter from './setter/inputValueSetter'
+import onInputValueDependencies from './setter/onInputValueDependencies'
 import { createDefineFromProps } from './utils'
 import Input, { InputProps, supportTypes } from '.'
 import EnumDisabledSetter from './setter/enumDisabledSetter'
@@ -173,6 +174,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       type: 'string',
       label: '默认值',
       setter: InputValueSetter,
+      onDependencies: onInputValueDependencies,
       setterProps: {
         label: '默认值',
         type: {
