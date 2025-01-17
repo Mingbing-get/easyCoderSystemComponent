@@ -23,6 +23,8 @@
   word-break: keep-all;
   white-space: nowrap;
   overflow-x: auto;
+  display: inline-block;
+  max-width: 100%;
 }
 
 .easy-coder-display-tag-true {

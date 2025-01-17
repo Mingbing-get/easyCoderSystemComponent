@@ -9,7 +9,7 @@ export interface FormProps extends EasyCoderElement.DataProps {
   modalConfig?: ModalConfig
   fieldReflexInputElement?: Record<string, string>
   defaultValue?: Record<string, any>
-  children?: (value?: Record<string, any>) => React.ReactNode
+  children?: (payload: { value?: Record<string, any> }) => React.ReactNode
 
   onChange?: (value: Record<string, any>) => void
 }
