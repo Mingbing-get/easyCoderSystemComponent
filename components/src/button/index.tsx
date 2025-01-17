@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
-import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
-import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import classnames from 'classnames'
+import { Modal } from '@arco-design/web-react'
+import { EasyCoderElement, useElementContext, useGetModalContainer, useEventBus } from '@easy-coder/sdk/store'
+import { useEffectCallback } from '@easy-coder/sdk/helper'
 
 import './index.scss'
 
@@ -10,7 +11,11 @@ export interface ButtonProps extends EasyCoderElement.DataProps {
   className?: string
   disabled?: boolean
   loading?: boolean
-  onClick?: () => void
+  needConfirm?: boolean
+  confirmTitle?: string
+  confirmDescription?: () => React.ReactNode
+
+  onClick?: () => Promise<void>
   children?: () => React.ReactNode
 }
 
@@ -21,16 +26,44 @@ interface ButtonExport {
   setLoading?: (loading?: boolean) => void
 }
 
-export default function Button({ disabled, loading, children, className, onClick, ...extra }: ButtonProps) {
+export default function Button({ disabled, loading, needConfirm, confirmTitle, confirmDescription, children, className, onClick, ...extra }: ButtonProps) {
   const { exportAttr, exportEvent } = useElementContext<ButtonExport>()
   const [_disabled, setDisabled] = useState(disabled)
   const [_loading, setLoading] = useState(loading)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const [modal, modalHandle] = Modal.useModal()
+  const getModalContainer = useGetModalContainer()
+  const eventBus = useEventBus()
 
-  const handleClick = useEffectCallback(() => {
-    if (_disabled || _loading) return
+  const handleCancelActive = useCallback(() => {
+    eventBus.triggerListener('changeArea', {})
+  }, [])
 
-    onClick?.()
-  }, [onClick, _disabled, _loading])
+  const handleClick = useEffectCallback(
+    (e: React.MouseEvent) => {
+      if (_disabled || _loading || !buttonRef.current?.contains(e.target as HTMLElement)) return
+
+      if (needConfirm) {
+        handleCancelActive()
+        modal.confirm({
+          getPopupContainer: getModalContainer,
+          getChildrenPopupContainer: () => document.body,
+          title: confirmTitle,
+          content: confirmDescription?.(),
+          onOk: async () => {
+            handleCancelActive()
+            await onClick?.()
+          },
+          onCancel: handleCancelActive,
+          icon: null,
+          closable: true,
+        })
+      } else {
+        onClick?.()
+      }
+    },
+    [onClick, _disabled, _loading, needConfirm, confirmTitle, confirmDescription]
+  )
 
   useEffect(() => {
     setDisabled(disabled)
@@ -59,10 +92,12 @@ export default function Button({ disabled, loading, children, className, onClick
 
   return (
     <button
-      className={classnames('easy-coder-system-button', disabled && 'is-disabled', loading && 'is-loading', className)}
+      ref={buttonRef}
+      className={classnames('easy-coder-system-button', _disabled && 'is-disabled', _loading && 'is-loading', className)}
       onClick={handleClick}
       {...extra}>
       {children?.()}
+      {modalHandle}
     </button>
   )
 }

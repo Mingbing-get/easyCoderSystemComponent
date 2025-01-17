@@ -88,11 +88,25 @@ const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
       type: 'boolean',
       label: '加载中',
     },
+    needConfirm: {
+      type: 'boolean',
+      label: '开启二次确认',
+      disabledFx: true,
+    },
+    confirmTitle: {
+      type: 'string',
+      label: '二次确认标题',
+      visible: (props: ButtonProps) => props?.needConfirm,
+    },
   },
   slot: {
     children: {
       defaultStyle: {},
       label: '子节点',
+    },
+    confirmDescription: {
+      defaultStyle: {},
+      label: '二次确认描述',
     },
   },
   event: {
