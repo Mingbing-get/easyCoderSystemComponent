@@ -1,21 +1,49 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
+import { StringOrMultilingualSetter } from '@easy-coder/sdk/design'
+import { i18n, Multilingual } from '@easy-coder/sdk/i18n'
+import { isFxValue } from '@easy-coder/sdk/variable'
 
 import Text, { TextProps } from '.'
 
+function createTextTypeFn(label: Multilingual) {
+  return async (props: TextProps) => {
+    let type: 'string' | 'multilingual' = 'multilingual'
+    if (isFxValue(props.text)) {
+      if ((props.text as any)._r !== 'multilingual') {
+        type = 'string'
+      }
+    }
+
+    return { type, label }
+  }
+}
+
 const textMeta: EasyCoderElement.Desc<TextProps> = {
   type: 'system_component_text',
-  label: '文本',
+  label: {
+    zh: '文本',
+    en: 'Text',
+  },
   defaultAttr: {
-    text: '内容',
+    text: {
+      zh: '内容',
+      en: 'Content',
+    },
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -45,34 +73,51 @@ const textMeta: EasyCoderElement.Desc<TextProps> = {
   },
   attr: {
     text: {
-      type: 'string',
-      label: '内容',
+      type: 'multilingual',
+      label: {
+        zh: '内容',
+        en: 'Content',
+      },
+      setter: StringOrMultilingualSetter,
+      setterProps: {
+        title: i18n.translate({ zh: '内容', en: 'Content' }),
+        size: 'mini',
+      },
     },
     maxLine: {
       type: 'number',
-      label: '最大显示行数',
+      label: {
+        zh: '最大显示行数',
+        en: 'Max show lines',
+      },
     },
     disabledPopover: {
       type: 'boolean',
-      label: '是否禁止提示',
+      label: {
+        zh: '是否禁止提示',
+        en: 'Is disabled popover',
+      },
     },
   },
   event: {
     onClick: {
-      label: '点击时',
+      label: {
+        zh: '点击时',
+        en: 'On click',
+      },
     },
   },
   export: {
     attr: {
-      text: {
-        type: 'string',
-        label: '文本内容',
-      },
+      text: createTextTypeFn({ zh: '文本内容', en: 'Content' }),
     },
     event: {
       setText: {
-        params: [{ type: 'text', label: '新值' }],
-        label: '修改变量值',
+        params: [createTextTypeFn({ zh: '新值', en: 'New value' })],
+        label: {
+          zh: '修改变量值',
+          en: 'Set value',
+        },
       },
     },
   },

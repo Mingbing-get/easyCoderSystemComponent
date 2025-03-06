@@ -4,6 +4,7 @@ import { IconPlus } from '@arco-design/web-react/icon'
 import { AddButtonProps } from '@easy-coder/sdk/design'
 import { useElementContext } from '@easy-coder/sdk/store'
 import { generateId, useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { CustomCarouselItem, CarouselProps } from '..'
 
@@ -11,7 +12,7 @@ export default function AddButton({ onAdd }: AddButtonProps<CustomCarouselItem>)
   const { insertSlot } = useElementContext<any, CarouselProps>()
 
   const handleAdd = useEffectCallback(async () => {
-    const slots = await insertSlot('customRender', ['自定义插槽'])
+    const slots = await insertSlot('customRender', [i18n.translate({ zh: '自定义插槽', en: 'Custom slot' })])
 
     if (slots.length !== 1) return
 
@@ -20,7 +21,10 @@ export default function AddButton({ onAdd }: AddButtonProps<CustomCarouselItem>)
     onAdd?.({
       id: generateId('carousel_item'),
       slotId,
-      label: '轮播项',
+      label: {
+        zh: '轮播项',
+        en: 'Carousel item',
+      },
     })
   }, [onAdd])
 
@@ -28,7 +32,7 @@ export default function AddButton({ onAdd }: AddButtonProps<CustomCarouselItem>)
     <Popover
       trigger="hover"
       position="top"
-      content="添加轮播项">
+      content={i18n.translate({ zh: '添加轮播项', en: 'Add a carousel item' })}>
       <IconPlus
         className="add-icon"
         onClick={handleAdd}

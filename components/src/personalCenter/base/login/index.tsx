@@ -2,10 +2,13 @@ import { useCallback, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { Form, Input, Button, Message } from '@arco-design/web-react'
 import { IconUser } from '@arco-design/web-react/icon'
+
 import { useDataCenter } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { User } from '../editUser'
 import Register from './register'
+import { local } from '../local'
 
 import './index.scss'
 
@@ -29,9 +32,9 @@ export default function Login({ inModal, onComplete }: Props) {
       const res = await dataCenter.login(count, password)
 
       if (res.code !== 0) {
-        Message.warning(res.msg || '网络错误')
+        Message.warning(res.msg || i18n.translate(local.networkError))
       } else {
-        Message.success('登录成功')
+        Message.success(i18n.translate(local.loginSuccess))
         setCount(undefined)
         setPassword(undefined)
         onComplete?.(res.data)
@@ -75,41 +78,45 @@ export default function Login({ inModal, onComplete }: Props) {
   return (
     <div className={classNames('login-wrapper', inModal && 'is-in-modal')}>
       <Form
+        layout="vertical"
         className="login-form"
         autoComplete="off">
         <div className="login-logo">
           <IconUser className="login-logo-icon" />
         </div>
         <Form.Item
-          label="账号"
+          label={i18n.translate(local.account)}
           required>
           <Input
             value={count}
             onChange={setCount}
-            placeholder="请输入账号"
+            placeholder={i18n.translate(local.placeInputAccount)}
           />
         </Form.Item>
         <Form.Item
-          label="密码"
+          label={i18n.translate(local.password)}
           required>
           <Input
             value={password}
             onChange={setPassword}
             type="password"
-            placeholder="请输入密码"
+            placeholder={i18n.translate(local.placeInputPassword)}
           />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 5 }}>
+        <Form.Item>
           <Button
+            long
             disabled={!canSubmit}
             loading={loading}
             type="primary"
             onClick={() => handleSubmit(count || '', password || '')}>
-            登录
+            {i18n.translate(local.login)}
           </Button>
         </Form.Item>
         <div className="link-tip">
-          <span onClick={() => setShowRegister(true)}>没有账号，去注册?</span>
+          <span onClick={() => setShowRegister(true)}>
+            {i18n.translate(local.notAccount)}, {i18n.translate(local.toRegister)}?
+          </span>
         </div>
       </Form>
     </div>

@@ -3,9 +3,10 @@ import { WithLabel } from '@easy-coder/sdk/design'
 import { Checkbox, Message } from '@arco-design/web-react'
 import { useDataCenter, Enum } from '@easy-coder/sdk/data'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 interface Props {
-  title?: string
+  title?: Multilingual
   enumGroupName: string
 
   value?: string[]
@@ -22,7 +23,7 @@ export default function EnumDisabledSetter({ title, enumGroupName, value, disabl
       const enumGroup = enumGroups.find((group) => group.name === enumGroupName)
       if (!enumGroup) {
         setEnums([])
-        Message.error(`未找到选项组: ${enumGroupName}`)
+        Message.error(`${i18n.translateFillEmpty({ zh: '未找到选项组', en: 'Enum group not found' })}: ${enumGroupName}`)
         return
       }
 
@@ -56,7 +57,7 @@ export default function EnumDisabledSetter({ title, enumGroupName, value, disabl
   )
 
   return (
-    <WithLabel title={title}>
+    <WithLabel title={i18n.translate(title)}>
       <Checkbox.Group
         disabled={disabled}
         value={checkedList}
@@ -65,7 +66,7 @@ export default function EnumDisabledSetter({ title, enumGroupName, value, disabl
           <Checkbox
             value={item.name}
             key={item.name}>
-            {item.label}
+            {i18n.translate(item.label)}
           </Checkbox>
         ))}
       </Checkbox.Group>

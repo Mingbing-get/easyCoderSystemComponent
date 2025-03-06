@@ -1,15 +1,16 @@
 import { VariableDefine } from '@easy-coder/sdk/variable'
+import { Multilingual } from '@easy-coder/sdk/i18n'
 
 import { InputProps, supportTypes } from '.'
 
 interface Options {
-  label?: string
+  label?: Multilingual
   apiName?: string
 }
 
 export function createDefineFromProps(
   { type, modalName, enumGroupName, maxLength }: Pick<InputProps, 'type' | 'modalName' | 'enumGroupName' | 'maxLength'>,
-  { label = '', apiName = '' }: Options = {}
+  { label = {}, apiName = '' }: Options = {}
 ): Exclude<VariableDefine.Desc, VariableDefine.Object | VariableDefine.Array | VariableDefine.Json> | undefined {
   if (!type || !supportTypes.includes(type)) return
 

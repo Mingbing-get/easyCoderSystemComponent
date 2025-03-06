@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { ModalConfig } from '@easy-coder/sdk/design'
 import { EasyCoderElement } from '@easy-coder/sdk/store'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenVariable from './render/renderWhenVariable'
@@ -10,7 +11,7 @@ import './index.scss'
 
 export interface CustomTimelineItem {
   id: string
-  label: string
+  label: Multilingual
   contentSlotId: string
   dotSlotId?: string
   dotType?: 'hollow' | 'solid'
@@ -83,5 +84,5 @@ export default function Timeline({ dataFrom, className, ...extra }: TimelineProp
     }
   }
 
-  return <span {...dataProps}>配置错误</span>
+  return <span {...dataProps}>{i18n.translate({ zh: '配置错误', en: 'Config error' })}</span>
 }

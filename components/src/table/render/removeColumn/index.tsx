@@ -1,7 +1,9 @@
 import { Popover, Button } from '@arco-design/web-react'
 import { IconDelete } from '@arco-design/web-react/icon'
+
 import { useElementContext } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { useEasyCoderTable } from '../../context'
 import { TableColumn, TableProps } from '../..'
@@ -86,13 +88,13 @@ export default function RemoveColumn({ refColumnId }: Props) {
       position="top"
       content={
         <div className="easy-coder-table-delete-column-popover">
-          <p>删除当前列及其子列</p>
+          <p>{i18n.translate({ zh: '删除当前列及其子列', en: 'Delete the current column and its sub columns' })}</p>
           <Button
             type="primary"
             status="danger"
             size="mini"
             onClick={handleDeleteColumn}>
-            删除
+            {i18n.translate({ zh: '删除', en: 'Delete' })}
           </Button>
         </div>
       }>

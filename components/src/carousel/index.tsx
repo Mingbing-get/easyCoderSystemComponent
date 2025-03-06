@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { CarouselProps as CarouselBaseProps } from '@arco-design/web-react'
 import { ModalConfig } from '@easy-coder/sdk/design'
 import { EasyCoderElement, useEnv } from '@easy-coder/sdk/store'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenModal from './render/renderWhenModal'
@@ -10,7 +11,7 @@ import RenderWhenVariable from './render/renderWhenVariable'
 export interface CustomCarouselItem {
   id: string
   slotId: string
-  label: string
+  label: Multilingual
 }
 
 export type CustomCarouselItemRender = (payload: Pick<CustomCarouselItem, 'id' | 'label'>) => React.ReactNode
@@ -100,5 +101,5 @@ export default function Carousel({
     }
   }
 
-  return <span {...dataProps}>配置错误</span>
+  return <span {...dataProps}>{i18n.translate({ zh: '配置错误', en: 'Config error' })}</span>
 }

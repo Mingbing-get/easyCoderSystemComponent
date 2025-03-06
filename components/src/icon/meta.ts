@@ -1,17 +1,24 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import IconPickSetter from './iconPickSetter'
 import Icon, { IconProps } from '.'
 
 const iconMeta: EasyCoderElement.Desc<IconProps> = {
   type: 'system_component_icon',
-  label: '图标',
+  label: {
+    zh: '图标',
+    en: 'Icon',
+  },
   defaultAttr: {
     iconName: 'FaPlus',
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -33,17 +40,23 @@ const iconMeta: EasyCoderElement.Desc<IconProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'classname',
+      },
     },
   },
   attr: {
     iconName: {
       type: 'string',
       required: true,
-      label: '图标',
+      label: {
+        zh: '图标',
+        en: 'Icon',
+      },
       setter: IconPickSetter,
       setterProps: {
-        title: '图标',
+        title: i18n.translate({ zh: '图标', en: 'Icon' }),
       },
     },
   },

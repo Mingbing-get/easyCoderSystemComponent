@@ -11,6 +11,7 @@ import {
   VariableNextLevelSetter,
   ResetSelectSetter,
 } from '@easy-coder/sdk/design'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import Menu, { MenuProps } from '.'
 import AddTreeNode from './setter/addTreeNode'
@@ -19,11 +20,17 @@ import RemoveTreeNode from './setter/removeTreeNode'
 const customItemDefine: Record<string, EasyCoderElement.OmitApiNameVariable> = {
   id: {
     type: 'string',
-    label: 'ID',
+    label: {
+      zh: 'ID',
+      en: 'ID',
+    },
   },
   label: {
     type: 'string',
-    label: '名称',
+    label: {
+      zh: '名称',
+      en: 'Name',
+    },
   },
 }
 
@@ -32,7 +39,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<MenuProps> = 
     return {
       type: 'lookup',
       modalName: props.modalConfig.name,
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current item',
+      },
     }
   }
 
@@ -42,7 +52,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<MenuProps> = 
     if (refVariableType?.type === 'array') {
       return {
         ...refVariableType.item,
-        label: '当前项',
+        label: {
+          zh: '当前项',
+          en: 'Current item',
+        },
       }
     }
   }
@@ -50,7 +63,7 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<MenuProps> = 
   return undefined
 }
 
-function createGetItemTypeFn(label: string = '当前项') {
+function createGetItemTypeFn(label: Multilingual = { zh: '当前项', en: 'Current item' }) {
   const getItemType: EasyCoderElement.DynamicVariable<MenuProps> = async (props, getAttrType) => {
     if (props.dataFrom === 'custom') {
       return {
@@ -68,7 +81,10 @@ function createGetItemTypeFn(label: string = '当前项') {
 
 const menuMeta: EasyCoderElement.Desc<MenuProps> = {
   type: 'system_component_menu',
-  label: '导航栏',
+  label: {
+    zh: '导航栏',
+    en: 'Menu',
+  },
   defaultAttr: {
     mode: 'vertical',
     theme: 'light',
@@ -78,10 +94,16 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
   },
   style: {
     style: {
-      label: '外层样式',
+      label: {
+        zh: '外层样式',
+        en: 'Outer style',
+      },
     },
     menuStyle: {
-      label: '菜单样式',
+      label: {
+        zh: '菜单样式',
+        en: 'Menu style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -102,7 +124,10 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       ],
     },
     contentStyle: {
-      label: '内容区样式',
+      label: {
+        zh: '内容区样式',
+        en: 'Content style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -133,26 +158,38 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
   },
   className: {
     className: {
-      label: '外层样式名',
+      label: {
+        zh: '外层样式名',
+        en: 'Outer classname',
+      },
     },
     menuClassName: {
-      label: '菜单样式名',
+      label: {
+        zh: '菜单样式名',
+        en: 'Menu classname',
+      },
     },
     contentClassName: {
-      label: '内容区样式名',
+      label: {
+        zh: '内容区样式名',
+        en: 'Content classname',
+      },
     },
   },
   attr: {
     dataFrom: {
       type: 'string',
-      label: '数据来源',
+      label: {
+        zh: '数据来源',
+        en: 'Data from',
+      },
       setter: ResetSelectSetter,
       setterProps: {
-        title: '数据来源',
+        title: i18n.translate({ zh: '数据来源', en: 'Data from' }),
         options: [
-          { value: 'modal', label: '数据模型' },
-          { value: 'variable', label: '关联变量' },
-          { value: 'custom', label: '自定义' },
+          { value: 'modal', label: i18n.translate({ zh: '数据模型', en: 'Data modal' }) },
+          { value: 'variable', label: i18n.translate({ zh: '关联变量', en: 'Variable' }) },
+          { value: 'custom', label: i18n.translate({ zh: '自定义', en: 'Custom' }) },
         ],
         when: {
           modal: [
@@ -182,24 +219,33 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     },
     customData: {
       type: 'array',
-      label: '菜单项配置',
+      label: {
+        zh: '菜单项配置',
+        en: 'Menu item config',
+      },
       item: {
         type: 'object',
         prototype: {
           id: {
             type: 'string',
-            label: 'ID',
+            label: {
+              zh: 'ID',
+              en: 'ID',
+            },
             required: true,
           },
           label: {
-            type: 'string',
-            label: '名称',
+            type: 'multilingual',
+            label: {
+              zh: '名称',
+              en: 'Name',
+            },
           },
         },
       },
       setter: ObjectTreeSetter,
       setterProps: {
-        title: '菜单项配置',
+        title: i18n.translate({ zh: '菜单项配置', en: 'Menu item config' }),
         labelRender: {
           fieldName: 'label',
           canEdit: true,
@@ -211,7 +257,10 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     },
     modalConfig: {
       type: 'object',
-      label: '数据模型',
+      label: {
+        zh: '数据模型',
+        en: 'Data modal',
+      },
       prototype: {},
       setter: ModalMetaSetter,
       onDependencies: onModalDependencies,
@@ -224,11 +273,14 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     },
     parentFieldName: {
       type: 'string',
-      label: '关联父级字段',
+      label: {
+        zh: '关联父级字段',
+        en: 'Parent field',
+      },
       setter: SingleModalFieldPickSetter,
       onDependencies: (options) => onModalFieldDependencies(options?.props?.modalConfig?.name, options),
       setterProps: {
-        title: '关联父级字段',
+        title: i18n.translate({ zh: '关联父级字段', en: 'Parent field' }),
         modalName: {
           _type: 'dynamic',
           fn: (props: MenuProps) => props?.modalConfig?.name,
@@ -239,17 +291,23 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     },
     variableValue: {
       type: 'ref',
-      label: '选择变量',
+      label: {
+        zh: '选择变量',
+        en: 'Select variable',
+      },
       canAcceptTypes: ['array'],
       visible: (props) => props?.dataFrom === 'variable',
     },
     childKeyName: {
       type: 'string',
-      label: '下级字段',
+      label: {
+        zh: '下级字段',
+        en: 'Child field',
+      },
       visible: (props) => props?.dataFrom === 'variable',
       setter: VariableNextLevelSetter,
       setterProps: {
-        title: '下级字段',
+        title: i18n.translate({ zh: '下级字段', en: 'Child field' }),
         path: {
           _type: 'dynamic',
           fn: (props: MenuProps) => props?.variableValue,
@@ -259,11 +317,14 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     },
     idKeyName: {
       type: 'string',
-      label: '唯一值字段',
+      label: {
+        zh: '唯一值字段',
+        en: 'Unique value field',
+      },
       visible: (props) => props?.dataFrom === 'variable',
       setter: VariableNextLevelSetter,
       setterProps: {
-        title: '唯一值字段',
+        title: i18n.translate({ zh: '唯一值字段', en: 'Unique value field' }),
         path: {
           _type: 'dynamic',
           fn: (props: MenuProps) => props?.variableValue,
@@ -274,50 +335,62 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
 
     mode: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         displayAs: 'button',
         options: [
           {
             value: 'vertical',
-            label: '垂直',
+            label: i18n.translate({ zh: '垂直', en: 'Vertical' }),
           },
           {
             value: 'horizontal',
-            label: '水平',
+            label: i18n.translate({ zh: '水平', en: 'Horizontal' }),
           },
         ],
       },
     },
     theme: {
       type: 'string',
-      label: '主题',
+      label: {
+        zh: '主题',
+        en: 'Theme',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '主题',
+        title: i18n.translate({ zh: '主题', en: 'Theme' }),
         displayAs: 'button',
         options: [
           {
             value: 'light',
-            label: '白色',
+            label: i18n.translate({ zh: '亮色', en: 'Light' }),
           },
           {
             value: 'dark',
-            label: '黑色',
+            label: i18n.translate({ zh: '暗色', en: 'Dark' }),
           },
         ],
       },
     },
     canResizeMenu: {
       type: 'boolean',
-      label: '是否可拖拽大小',
+      label: {
+        zh: '是否可拖拽大小',
+        en: 'Can resize',
+      },
       visible: (props) => props?.mode === 'vertical',
     },
     defaultWidth: {
       type: 'number',
-      label: '默认宽度',
+      label: {
+        zh: '默认宽度',
+        en: 'Default width',
+      },
       visible: (props) => props?.mode === 'vertical',
     },
   },
@@ -327,7 +400,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       childrenOfAttr: ['dataFrom', 'customData', 'modalConfig', 'parentFieldName', 'variableValue', 'childKeyName', 'idKeyName'],
       Render: GroupDecorator,
       props: {
-        title: '数据配置',
+        title: i18n.translate({ zh: '数据配置', en: 'Data settings' }),
         canFold: true,
       },
     },
@@ -340,14 +413,17 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       childrenOfAttr: ['mode', 'theme', 'canResizeMenu', 'defaultWidth'],
       Render: GroupDecorator,
       props: {
-        title: '外观',
+        title: i18n.translate({ zh: '外观', en: 'Appearance' }),
         canFold: true,
       },
     },
   ],
   slot: {
     customRender: {
-      label: '自定义插槽',
+      label: {
+        zh: '自定义插槽',
+        en: 'Custom slot',
+      },
       isMultiple: true,
       defaultStyle: {
         padding: [
@@ -360,19 +436,31 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       payload: {
         id: {
           type: 'string',
-          label: 'ID',
+          label: {
+            zh: 'ID',
+            en: 'ID',
+          },
         },
         label: {
-          type: 'string',
-          label: '名称',
+          type: 'multilingual',
+          label: {
+            zh: '名称',
+            en: 'Name',
+          },
         },
       },
     },
     extraRender: {
-      label: '额外插槽',
+      label: {
+        zh: '额外插槽',
+        en: 'Extra slot',
+      },
     },
     labelRender: {
-      label: '标签插槽',
+      label: {
+        zh: '标签插槽',
+        en: 'Label slot',
+      },
       defaultStyle: {
         padding: [
           { value: 6, unit: 'px' },
@@ -384,19 +472,25 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       payload: { item: getModalOrVariableItemType },
     },
     contentRender: {
-      label: '内容插槽',
+      label: {
+        zh: '内容插槽',
+        en: 'Content slot',
+      },
       payload: { item: getModalOrVariableItemType },
     },
   },
   event: {
     onActiveChange: {
-      label: '选中改变时',
+      label: {
+        zh: '选中改变时',
+        en: 'Active change',
+      },
       params: [createGetItemTypeFn()],
     },
   },
   export: {
     attr: {
-      activeItem: createGetItemTypeFn('选中项'),
+      activeItem: createGetItemTypeFn({ zh: '选中项', en: 'Active item' }),
     },
   },
   Render: Menu,

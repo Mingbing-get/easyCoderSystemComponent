@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { Message } from '@arco-design/web-react'
+
 import { useDataCenter } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import EditUser, { User } from '../editUser'
+import { local } from '../local'
 
 interface Props {
   inModal?: boolean
@@ -20,12 +23,12 @@ export default function Register({ inModal, onComplete, toLogin }: Props) {
     if (res?.code === 0) {
       setCount(`${res.data}`)
     } else {
-      Message.error('生成账号错误')
+      Message.error(i18n.translate(local.createAccountError))
     }
   }, [])
 
   const initUser = useMemo(() => {
-    const initUser = { count: count || '', _id: 0, role: 'user', nickName: '' } as User
+    const initUser = { count: count || '', _id: 0, role: 'user', nickName: {} } as User
 
     return initUser
   }, [count])
@@ -41,10 +44,10 @@ export default function Register({ inModal, onComplete, toLogin }: Props) {
 
       const res = await dataCenter.post<number>('/user/register', temp)
       if (res?.code !== 0) {
-        Message.error('注册失败')
+        Message.error(i18n.translate(local.registerError))
         return
       }
-      Message.success('注册成功')
+      Message.success(i18n.translate(local.registerSuccess))
 
       // 自动登录
       onComplete?.(user.count, user.password || '')
@@ -59,10 +62,12 @@ export default function Register({ inModal, onComplete, toLogin }: Props) {
         admin={initUser}
         fields={['count', 'nickName', 'avatar', 'email', 'password', 'phone', 'confirmPassword']}
         onSubmit={handleSubmit as any}
-        header={<h3 className="register-title">注册</h3>}
+        header={<h3 className="register-title">{i18n.translate(local.register)}</h3>}
         footer={
           <div className="link-tip">
-            <span onClick={toLogin}>已有账号，去登录?</span>
+            <span onClick={toLogin}>
+              {i18n.translate(local.hasAccount)}, {i18n.translate(local.toLogin)}?
+            </span>
           </div>
         }
       />

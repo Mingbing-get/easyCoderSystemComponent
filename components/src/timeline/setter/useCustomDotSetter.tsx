@@ -3,6 +3,7 @@ import { Switch, SwitchProps } from '@arco-design/web-react'
 import { WithLabel } from '@easy-coder/sdk/design'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { useElementContext, useStore, depRemoveEditor, depRemoveElement, EasyCoderState } from '@easy-coder/sdk/store'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { TimelineProps } from '..'
 
@@ -14,7 +15,7 @@ interface Props extends Pick<SwitchProps, 'size'> {
   isVertical?: boolean
 }
 
-export default function useCustomDotSetter({ onChange, title, value, disabled, isVertical, size }: Props) {
+export default function UseCustomDotSetter({ onChange, title, value, disabled, isVertical, size }: Props) {
   const { id, insertSlot } = useElementContext<any, TimelineProps>()
   const { state } = useStore()
 
@@ -33,7 +34,7 @@ export default function useCustomDotSetter({ onChange, title, value, disabled, i
           if (checked) {
             const slots = await insertSlot(
               'customRender',
-              new Array(props.customData.length).fill(1).map(() => '自定义点插槽')
+              new Array(props.customData.length).fill(1).map(() => i18n.translate({ zh: '自定义点插槽', en: 'Custom dot slot' }))
             )
 
             if (slots.length !== props.customData.length) return

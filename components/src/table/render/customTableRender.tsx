@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { Table, TableProps, Empty } from '@arco-design/web-react'
 
+import { i18n } from '@easy-coder/sdk/i18n'
+
 import { useEasyCoderTable } from '../context'
 import { useCustomTableColumns } from '../context/hooks'
 import AddColumn from './addColumn'
@@ -32,7 +34,7 @@ export default function CustomTableRender({ className, style, ...props }: Props)
         style={style}>
         <Empty
           icon={<AddColumn />}
-          description="当前表格未配置列，点击插入列"
+          description={i18n.translate({ zh: '当前表格未配置列，点击插入列', en: 'The current table has no columns configured. Click to insert a column' })}
         />
       </div>
     )

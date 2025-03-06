@@ -1,5 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, LineDecorator, ModalMetaSetter, ObjectListSetter, SelectSetter, onModalDependencies, ResetSelectSetter } from '@easy-coder/sdk/design'
+import { i18n, Multilingual } from '@easy-coder/sdk/i18n'
 
 import AddButton from './setter/addButtonRender'
 import RemoveButton from './setter/removeButtonRender'
@@ -9,11 +10,17 @@ import Tabs, { TabsProps } from '.'
 const customItemDefine: Record<string, EasyCoderElement.OmitApiNameVariable> = {
   id: {
     type: 'string',
-    label: 'ID',
+    label: {
+      zh: 'ID',
+      en: 'ID',
+    },
   },
   label: {
-    type: 'string',
-    label: '名称',
+    type: 'multilingual',
+    label: {
+      zh: '名称',
+      en: 'Name',
+    },
   },
 }
 
@@ -22,7 +29,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<TabsProps> = 
     return {
       type: 'lookup',
       modalName: props.modalConfig.name,
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current Item',
+      },
     }
   }
 
@@ -32,7 +42,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<TabsProps> = 
     if (refVariableType?.type === 'array') {
       return {
         ...refVariableType.item,
-        label: '当前项',
+        label: {
+          zh: '当前项',
+          en: 'Current Item',
+        },
       }
     }
   }
@@ -40,7 +53,7 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<TabsProps> = 
   return undefined
 }
 
-function createGetItemTypeFn(label: string = '当前项') {
+function createGetItemTypeFn(label: Multilingual = { zh: '当前项', en: 'Current Item' }) {
   const getItemType: EasyCoderElement.DynamicVariable<TabsProps> = async (props, getAttrType) => {
     if (props.dataFrom === 'custom') {
       return {
@@ -58,7 +71,10 @@ function createGetItemTypeFn(label: string = '当前项') {
 
 const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
   type: 'system_component_tabs',
-  label: '标签页',
+  label: {
+    zh: '标签页',
+    en: 'Tabs',
+  },
   defaultAttr: {
     dataFrom: 'modal',
     fetchCount: 10,
@@ -71,7 +87,10 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -93,29 +112,41 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       ],
     },
     panelStyle: {
-      label: '面板样式',
+      label: {
+        zh: '面板样式',
+        en: 'Panel style',
+      },
       supportModels: ['background', 'height', 'margin', 'maxHeight', 'minHeight', 'padding'],
     },
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
     panelClassName: {
-      label: '面板样式名',
+      label: {
+        zh: '面板样式名',
+        en: 'Panel classname',
+      },
     },
   },
   attr: {
     dataFrom: {
       type: 'string',
-      label: '数据来源',
+      label: {
+        zh: '数据来源',
+        en: 'Data from',
+      },
       setter: ResetSelectSetter,
       setterProps: {
-        title: '数据来源',
+        title: i18n.translate({ zh: '数据来源', en: 'Data from' }),
         options: [
-          { value: 'modal', label: '数据模型' },
-          { value: 'variable', label: '关联变量' },
-          { value: 'custom', label: '自定义' },
+          { value: 'modal', label: i18n.translate({ zh: '数据模型', en: 'Data modal' }) },
+          { value: 'variable', label: i18n.translate({ zh: '关联变量', en: 'Variable' }) },
+          { value: 'custom', label: i18n.translate({ zh: '自定义', en: 'Custom' }) },
         ],
         when: {
           modal: [
@@ -140,7 +171,10 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
     modalConfig: {
       type: 'object',
       prototype: {},
-      label: '数据源',
+      label: {
+        zh: '数据源',
+        en: 'Data source',
+      },
       setter: ModalMetaSetter,
       setterProps: {
         showField: true,
@@ -152,29 +186,38 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
     },
     fetchCount: {
       type: 'number',
-      label: '获取条数',
+      label: {
+        zh: '获取条数',
+        en: 'Fetch count',
+      },
       disabledFx: true,
       visible: (props: TabsProps) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
       canAcceptTypes: ['array', 'multipleEnum', 'multipleLookup'],
-      label: '关联变量',
+      label: {
+        zh: '关联变量',
+        en: 'Variable',
+      },
       visible: (props: TabsProps) => props?.dataFrom === 'variable',
     },
     customData: {
       type: 'array',
-      label: '标签项',
+      label: {
+        zh: '标签项',
+        en: 'Tab items',
+      },
       item: {
         type: 'object',
         prototype: {
-          id: { type: 'string', label: 'ID' },
-          label: { type: 'string', label: '标签' },
+          id: { type: 'string', label: { zh: 'ID', en: 'ID' } },
+          label: { type: 'multilingual', label: { zh: '标签', en: 'Label' } },
         },
       },
       setter: ObjectListSetter,
       setterProps: {
-        title: '标签项',
+        title: i18n.translate({ zh: '标签项', en: 'Tab items' }),
         labelRender: {
           fieldName: 'label',
           canEdit: true,
@@ -187,86 +230,104 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
 
     direction: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         displayAs: 'button',
         options: [
-          { value: 'horizontal', label: '水平' },
-          { value: 'vertical', label: '垂直' },
+          { value: 'horizontal', label: i18n.translate({ zh: '水平', en: 'Horizontal' }) },
+          { value: 'vertical', label: i18n.translate({ zh: '垂直', en: 'Vertical' }) },
         ],
       },
     },
     overflow: {
       type: 'string',
-      label: '溢出方式',
+      label: {
+        zh: '溢出方式',
+        en: 'Overflow',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '溢出方式',
+        title: i18n.translate({ zh: '溢出方式', en: 'Overflow' }),
         displayAs: 'button',
         options: [
-          { value: 'scroll', label: '滚动' },
-          { value: 'dropdown', label: '下拉' },
+          { value: 'scroll', label: i18n.translate({ zh: '滚动', en: 'Scroll' }) },
+          { value: 'dropdown', label: i18n.translate({ zh: '下拉', en: 'Dropdown' }) },
         ],
       },
     },
     scrollPosition: {
       type: 'string',
-      label: '选中标签位置',
+      label: {
+        zh: '选中标签位置',
+        en: 'Selected tab position',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '选中标签位置',
+        title: i18n.translate({ zh: '选中标签位置', en: 'Selected tab position' }),
         options: [
-          { value: 'auto', label: '自动' },
-          { value: 'start', label: '开始' },
-          { value: 'center', label: '居中' },
-          { value: 'end', label: '结尾' },
+          { value: 'auto', label: i18n.translate({ zh: '自动', en: 'Auto' }) },
+          { value: 'start', label: i18n.translate({ zh: '开始', en: 'Start' }) },
+          { value: 'center', label: i18n.translate({ zh: '居中', en: 'Center' }) },
+          { value: 'end', label: i18n.translate({ zh: '结束', en: 'End' }) },
         ],
       },
     },
     size: {
       type: 'string',
-      label: '尺寸',
+      label: {
+        zh: '尺寸',
+        en: 'Size',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '尺寸',
+        title: i18n.translate({ zh: '尺寸', en: 'Size' }),
         options: [
-          { value: 'mini', label: '极小' },
-          { value: 'small', label: '小' },
-          { value: 'default', label: '默认' },
-          { value: 'large', label: '大' },
+          { value: 'mini', label: i18n.translate({ zh: '极小', en: 'Mini' }) },
+          { value: 'small', label: i18n.translate({ zh: '小', en: 'Small' }) },
+          { value: 'default', label: i18n.translate({ zh: '默认', en: 'Default' }) },
+          { value: 'large', label: i18n.translate({ zh: '大', en: 'Large' }) },
         ],
       },
     },
     tabPosition: {
       type: 'string',
-      label: '选项卡位置',
+      label: {
+        zh: '选项卡位置',
+        en: 'Tab header position',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '选项卡位置',
+        title: i18n.translate({ zh: '选项卡位置', en: 'Tab header position' }),
         options: [
-          { value: 'top', label: '上' },
-          { value: 'right', label: '右' },
-          { value: 'bottom', label: '下' },
-          { value: 'left', label: '左' },
+          { value: 'top', label: i18n.translate({ zh: '顶部', en: 'Top' }) },
+          { value: 'right', label: i18n.translate({ zh: '右侧', en: 'Right' }) },
+          { value: 'bottom', label: i18n.translate({ zh: '底部', en: 'Bottom' }) },
+          { value: 'left', label: i18n.translate({ zh: '左侧', en: 'Left' }) },
         ],
       },
       visible: (props: TabsProps) => props.direction !== 'vertical',
     },
     type: {
       type: 'string',
-      label: '选项卡类型',
+      label: {
+        zh: '选项卡类型',
+        en: 'Tab header type',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '选项卡类型',
+        title: i18n.translate({ zh: '选项卡类型', en: 'Tab header type' }),
         options: [
-          { value: 'line', label: '线' },
-          { value: 'card', label: '卡片' },
-          { value: 'card-gutter', label: '卡片留间隙' },
-          { value: 'text', label: '文本' },
-          { value: 'rounded', label: '圆角' },
-          { value: 'capsule', label: '胶囊' },
+          { value: 'line', label: i18n.translate({ zh: '线', en: 'Line' }) },
+          { value: 'card', label: i18n.translate({ zh: '卡片', en: 'Card' }) },
+          { value: 'card-gutter', label: i18n.translate({ zh: '卡片（带间隔）', en: 'Card (with gutter)' }) },
+          { value: 'text', label: i18n.translate({ zh: '文字', en: 'Text' }) },
+          { value: 'rounded', label: i18n.translate({ zh: '圆角', en: 'Rounded' }) },
+          { value: 'capsule', label: i18n.translate({ zh: '胶囊', en: 'Capsule' }) },
         ],
       },
     },
@@ -276,7 +337,7 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       id: 'data',
       Render: GroupDecorator,
       props: {
-        title: '数据配置',
+        title: i18n.translate({ zh: '数据配置', en: 'Data setting' }),
         canFold: true,
       },
       childrenOfAttr: ['dataFrom', 'variableValue', 'modalConfig', 'fetchCount', 'customData'],
@@ -289,7 +350,7 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       id: 'style',
       Render: GroupDecorator,
       props: {
-        title: '外观',
+        title: i18n.translate({ zh: '外观', en: 'Appearance' }),
         canFold: true,
       },
       childrenOfAttr: ['direction', 'overflow', 'scrollPosition', 'size', 'tabPosition', 'type'],
@@ -297,7 +358,10 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
   ],
   slot: {
     titleRender: {
-      label: '标签头插槽',
+      label: {
+        zh: '标签头插槽',
+        en: 'Tab header slot',
+      },
       defaultStyle: {
         padding: [],
       },
@@ -306,7 +370,10 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       },
     },
     contentRender: {
-      label: '内容插槽',
+      label: {
+        zh: '内容插槽',
+        en: 'Content slot',
+      },
       defaultStyle: {
         padding: [],
       },
@@ -315,13 +382,19 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       },
     },
     extraRender: {
-      label: '额外插槽',
+      label: {
+        zh: '额外插槽',
+        en: 'Extra slot',
+      },
       defaultStyle: {
         padding: [],
       },
     },
     customRender: {
-      label: '自定义插槽',
+      label: {
+        zh: '自定义插槽',
+        en: 'Custom slot',
+      },
       defaultStyle: {
         padding: [],
       },
@@ -331,13 +404,16 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
   },
   event: {
     onChange: {
-      label: '改变时',
+      label: {
+        zh: '改变时',
+        en: 'On change',
+      },
       params: [createGetItemTypeFn()],
     },
   },
   export: {
     attr: {
-      activeItem: createGetItemTypeFn('激活项'),
+      activeItem: createGetItemTypeFn({ zh: '激活项', en: 'Active item' }),
     },
   },
   Render: Tabs,

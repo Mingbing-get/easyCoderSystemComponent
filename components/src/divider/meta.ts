@@ -1,58 +1,82 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, SelectSetter } from '@easy-coder/sdk/design'
+import { GroupDecorator, SelectSetter, StringOrMultilingualSetter } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import Divider, { DividerProps } from '.'
 
 const dividerMeta: EasyCoderElement.Desc<DividerProps> = {
   type: 'system_component_divider',
-  label: '分割线',
+  label: {
+    zh: '分割线',
+    en: 'Divider',
+  },
   defaultAttr: {
     type: 'horizontal',
     orientation: 'center',
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: ['background', 'height', 'margin', 'maxHeight', 'maxWidth', 'minHeight', 'minWidth', 'padding', 'transform', 'transition', 'width'],
     },
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   attr: {
     type: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         displayAs: 'button',
         options: [
-          { value: 'horizontal', label: '水平' },
-          { value: 'vertical', label: '垂直' },
+          { value: 'horizontal', label: i18n.translate({ zh: '水平', en: 'Horizontal' }) },
+          { value: 'vertical', label: i18n.translate({ zh: '垂直', en: 'Vertical' }) },
         ],
       },
     },
     orientation: {
       type: 'string',
-      label: '文字位置',
+      label: {
+        zh: '文字位置',
+        en: 'Text location',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '文字位置',
+        title: i18n.translate({ zh: '文字位置', en: 'Text location' }),
         displayAs: 'button',
         options: [
-          { value: 'left', label: '左' },
-          { value: 'center', label: '中' },
-          { value: 'right', label: '右' },
+          { value: 'left', label: i18n.translate({ zh: '左', en: 'Left' }) },
+          { value: 'center', label: i18n.translate({ zh: '中', en: 'Center' }) },
+          { value: 'right', label: i18n.translate({ zh: '右', en: 'Right' }) },
         ],
       },
       visible: (props: DividerProps) => props.type !== 'vertical',
     },
     text: {
-      type: 'string',
-      label: '文字',
+      type: 'multilingual',
+      label: {
+        zh: '文字',
+        en: 'Text',
+      },
+      setter: StringOrMultilingualSetter,
+      setterProps: {
+        title: i18n.translate({ zh: '文字', en: 'Text' }),
+        size: 'mini',
+      },
       visible: (props: DividerProps) => props.type !== 'vertical',
     },
   },
@@ -61,7 +85,7 @@ const dividerMeta: EasyCoderElement.Desc<DividerProps> = {
       id: 'base',
       Render: GroupDecorator,
       props: {
-        title: '基础属性',
+        title: i18n.translate({ zh: '基础属性', en: 'Base attributes' }),
       },
       childrenOfAttr: ['type', 'orientation', 'text'],
     },

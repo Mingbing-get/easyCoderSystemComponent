@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { Popover, InputNumber, Select } from '@arco-design/web-react'
 import { IconSettings } from '@arco-design/web-react/icon'
+
 import { useElementContext } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { useEasyCoderTable } from '../../context'
 import { TableProps, TableColumn } from '../..'
@@ -15,9 +17,12 @@ interface Props {
 }
 
 const fixedOptions = [
-  { value: 'left', label: '左' },
-  { value: 'right', label: '右' },
+  { value: 'left', label: i18n.translate({ zh: '左', en: 'Left' }) },
+  { value: 'right', label: i18n.translate({ zh: '右', en: 'Right' }) },
 ]
+
+const columnWidth = i18n.translate({ zh: '列宽', en: 'width' })
+const columnFixed = i18n.translate({ zh: '固定', en: 'fixed' })
 
 export default function ColumnSetting({ refColumnId }: Props) {
   const { updateProps } = useElementContext<any, TableProps>()
@@ -48,7 +53,7 @@ export default function ColumnSetting({ refColumnId }: Props) {
       content={
         <div className="easy-coder-table-column-setting-wrapper">
           <div className="easy-coder-table-column-setting-row">
-            <label className="easy-coder-table-column-setting-label">列宽</label>
+            <label className="easy-coder-table-column-setting-label">{columnWidth}</label>
             <InputNumber
               size="mini"
               value={refColumn.width}
@@ -56,7 +61,7 @@ export default function ColumnSetting({ refColumnId }: Props) {
             />
           </div>
           <div className="easy-coder-table-column-setting-row">
-            <label className="easy-coder-table-column-setting-label">固定</label>
+            <label className="easy-coder-table-column-setting-label">{columnFixed}</label>
             <Select
               size="mini"
               value={refColumn.fixed}

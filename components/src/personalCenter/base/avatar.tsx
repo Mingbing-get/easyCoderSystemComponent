@@ -1,7 +1,10 @@
 import { Avatar } from '@arco-design/web-react'
 import { IconUser } from '@arco-design/web-react/icon'
 
+import { i18n } from '@easy-coder/sdk/i18n'
+
 import { User } from './editUser'
+import { local } from './local'
 
 interface Props {
   style?: React.CSSProperties
@@ -16,7 +19,7 @@ export default function NavAvatar({ user, onClick, ...extra }: Props) {
     <Avatar
       {...extra}
       onClick={onClick}>
-      {!user ? '未登录' : user.avatar ? <img src={user.avatar} /> : <IconUser />}
+      {!user ? i18n.translate(local.notLogin) : user.avatar ? <img src={user.avatar} /> : <IconUser />}
     </Avatar>
   )
 }

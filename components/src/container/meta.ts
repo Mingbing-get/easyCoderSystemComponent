@@ -8,18 +8,27 @@ const createSlotPayloadType: EasyCoderElement.DynamicVariable<ContainerProps> = 
 
   if (listType.type === 'array') {
     return {
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current Item',
+      },
       ...listType.item,
     }
   } else if (listType.type === 'multipleEnum') {
     return {
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current Item',
+      },
       type: 'enum',
       enumGroupName: listType.enumGroupName,
     }
   } else if (listType.type === 'multipleLookup') {
     return {
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current Item',
+      },
       type: 'lookup',
       modalName: listType.modalName,
     }
@@ -28,27 +37,42 @@ const createSlotPayloadType: EasyCoderElement.DynamicVariable<ContainerProps> = 
 
 const containerMeta: EasyCoderElement.Desc<ContainerProps> = {
   type: 'system_component_container',
-  label: '容器',
+  label: {
+    zh: '容器',
+    en: 'Container',
+  },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
     },
   },
   attr: {
     list: {
       type: 'ref',
-      label: '遍历数据',
+      label: {
+        zh: '遍历数据',
+        en: 'Traverse data',
+      },
       canAcceptTypes: ['array', 'multipleEnum', 'multipleLookup'],
     },
   },
   slot: {
     children: {
-      label: '子节点',
+      label: {
+        zh: '子节点',
+        en: 'Subnode',
+      },
       payload: {
         item: createSlotPayloadType,
       },

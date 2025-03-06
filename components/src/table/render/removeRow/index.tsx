@@ -1,7 +1,9 @@
 import { Popover } from '@arco-design/web-react'
 import { IconDelete } from '@arco-design/web-react/icon'
+
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { useElementContext } from '@easy-coder/sdk/store'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { TableProps } from '../..'
 import { useEasyCoderTable } from '../../context'
@@ -29,7 +31,7 @@ export default function RemoveRow({ index }: Props) {
     <Popover
       trigger="hover"
       position="top"
-      content="删除行">
+      content={i18n.translate({ zh: '删除行', en: 'Delete row' })}>
       <IconDelete
         className="easy-coder-table-delete-column-icon"
         onClick={handleDeleteRow}

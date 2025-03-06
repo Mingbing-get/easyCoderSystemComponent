@@ -1,5 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, onModalDependencies } from '@easy-coder/sdk/design'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import FormModalSetter from './setter/formModalSetter'
 import FieldReflexInputSetter from './setter/fieldReflexInputSetter'
@@ -7,7 +8,7 @@ import FormDefaultValueSetter from './setter/formDefaultValueSetter'
 import { onFormFieldDependencies } from './setter/onFormFieldDependencies'
 import Form, { FormProps } from '.'
 
-function createTypeFn(label: string) {
+function createTypeFn(label: Multilingual) {
   const createTypeFromProps: EasyCoderElement.DynamicVariable<FormProps> = async (props) => {
     if (!props?.modalConfig?.name) return
 
@@ -23,32 +24,47 @@ function createTypeFn(label: string) {
 
 const formMeta: EasyCoderElement.Desc<FormProps> = {
   type: 'system_component_form',
-  label: '表单',
+  label: {
+    zh: '表单',
+    en: 'Form',
+  },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
     },
   },
   attr: {
     modalConfig: {
       type: 'object',
-      label: '数据模型',
+      label: {
+        zh: '数据模型',
+        en: 'Data model',
+      },
       prototype: {},
       setter: FormModalSetter,
       onDependencies: onModalDependencies,
     },
     defaultValue: {
       type: 'object',
-      label: '默认值',
+      label: {
+        zh: '默认值',
+        en: 'Default value',
+      },
       prototype: {},
       setter: FormDefaultValueSetter,
       setterProps: {
-        title: '默认值',
+        title: i18n.translate({ zh: '默认值', en: 'Default value' }),
         modalName: {
           _type: 'dynamic',
           fn: (props?: FormProps) => props?.modalConfig?.name,
@@ -58,11 +74,14 @@ const formMeta: EasyCoderElement.Desc<FormProps> = {
     },
     fieldReflexInputElement: {
       type: 'object',
-      label: '字段配置',
+      label: {
+        zh: '字段配置',
+        en: 'Field configuration',
+      },
       prototype: {},
       setter: FieldReflexInputSetter,
       setterProps: {
-        title: '字段配置',
+        title: i18n.translate({ zh: '字段配置', en: 'Field configuration' }),
         modalName: {
           _type: 'dynamic',
           fn: (props: FormProps) => props?.modalConfig?.name,
@@ -75,7 +94,7 @@ const formMeta: EasyCoderElement.Desc<FormProps> = {
       id: 'data_setting',
       Render: GroupDecorator,
       props: {
-        title: '数据配置',
+        title: i18n.translate({ zh: '数据配置', en: 'Data configuration' }),
         canFold: false,
       },
       childrenOfAttr: ['modalConfig', 'defaultValue', 'fieldReflexInputElement'],
@@ -83,29 +102,41 @@ const formMeta: EasyCoderElement.Desc<FormProps> = {
   ],
   slot: {
     children: {
-      label: '子节点',
+      label: {
+        zh: '子节点',
+        en: 'Children',
+      },
       payload: {
-        value: createTypeFn('值'),
+        value: createTypeFn({ zh: '值', en: 'Value' }),
       },
     },
   },
   event: {
     onChange: {
-      label: '值改变时',
-      params: [createTypeFn('新值')],
+      label: {
+        zh: '值改变时',
+        en: 'Value change',
+      },
+      params: [createTypeFn({ zh: '新值', en: 'New value' })],
     },
   },
   export: {
     attr: {
-      value: createTypeFn('值'),
+      value: createTypeFn({ zh: '值', en: 'Value' }),
     },
     event: {
       setValue: {
-        label: '设置值',
-        params: [createTypeFn('新值')],
+        label: {
+          zh: '设置值',
+          en: 'Set value',
+        },
+        params: [createTypeFn({ zh: '新值', en: 'New value' })],
       },
       clear: {
-        label: '清空值',
+        label: {
+          zh: '清空值',
+          en: 'Clear value',
+        },
       },
     },
   },

@@ -1,5 +1,6 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, LineDecorator, ModalMetaSetter, ObjectListSetter, SelectSetter, onModalDependencies, ResetSelectSetter } from '@easy-coder/sdk/design'
+import { i18n, Multilingual } from '@easy-coder/sdk/i18n'
 
 import AddButton from './setter/addButtonRender'
 import RemoveButton from './setter/removeButtonRender'
@@ -8,11 +9,17 @@ import Carousel, { CarouselProps } from '.'
 const customItemDefine: Record<string, EasyCoderElement.OmitApiNameVariable> = {
   id: {
     type: 'string',
-    label: 'ID',
+    label: {
+      zh: 'ID',
+      en: 'Id',
+    },
   },
   label: {
-    type: 'string',
-    label: '名称',
+    type: 'multilingual',
+    label: {
+      zh: '名称',
+      en: 'Name',
+    },
   },
 }
 
@@ -21,7 +28,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<CarouselProps
     return {
       type: 'lookup',
       modalName: props.modalConfig.name,
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current item',
+      },
     }
   }
 
@@ -31,7 +41,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<CarouselProps
     if (refVariableType?.type === 'array') {
       return {
         ...refVariableType.item,
-        label: '当前项',
+        label: {
+          zh: '当前项',
+          en: 'Current item',
+        },
       }
     }
   }
@@ -39,7 +52,7 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<CarouselProps
   return undefined
 }
 
-function createGetItemTypeFn(label: string = '当前项') {
+function createGetItemTypeFn(label: Multilingual = { zh: '当前项', en: 'Current item' }) {
   const getItemType: EasyCoderElement.DynamicVariable<CarouselProps> = async (props, getAttrType) => {
     if (props.dataFrom === 'custom') {
       return {
@@ -57,7 +70,10 @@ function createGetItemTypeFn(label: string = '当前项') {
 
 const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
   type: 'system_component_carousel',
-  label: '轮播',
+  label: {
+    zh: '轮播',
+    en: 'Carousel',
+  },
   defaultAttr: {
     dataFrom: 'modal',
     fetchCount: 10,
@@ -71,7 +87,10 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -99,26 +118,38 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
   },
   className: {
     className: {
-      label: '容器样式名',
+      label: {
+        zh: '容器样式名',
+        en: 'Container class name',
+      },
     },
     arrowClassName: {
-      label: '剪头样式名',
+      label: {
+        zh: '箭头样式名',
+        en: 'Arrow class name',
+      },
     },
     indicatorClassName: {
-      label: '指示器样式名',
+      label: {
+        zh: '指示器样式名',
+        en: 'Indicator class name',
+      },
     },
   },
   attr: {
     dataFrom: {
       type: 'string',
-      label: '数据来源',
+      label: {
+        zh: '数据来源',
+        en: 'Data from',
+      },
       setter: ResetSelectSetter,
       setterProps: {
-        title: '数据来源',
+        title: i18n.translate({ zh: '数据来源', en: 'Data from' }),
         options: [
-          { value: 'modal', label: '数据模型' },
-          { value: 'variable', label: '关联变量' },
-          { value: 'custom', label: '自定义' },
+          { value: 'modal', label: i18n.translate({ zh: '数据模型', en: 'Data modal' }) },
+          { value: 'variable', label: i18n.translate({ zh: '关联变量', en: 'Variable' }) },
+          { value: 'custom', label: i18n.translate({ zh: '自定义', en: 'Custom' }) },
         ],
         when: {
           modal: [
@@ -142,7 +173,10 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
     modalConfig: {
       type: 'object',
       prototype: {},
-      label: '数据源',
+      label: {
+        zh: '数据源',
+        en: 'Data source',
+      },
       setter: ModalMetaSetter,
       setterProps: {
         showField: true,
@@ -154,29 +188,38 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
     },
     fetchCount: {
       type: 'number',
-      label: '条数获取',
+      label: {
+        zh: '获取条数',
+        en: 'Get the number of items',
+      },
       disabledFx: true,
       visible: (props: CarouselProps) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
       canAcceptTypes: ['array', 'multipleEnum', 'multipleLookup'],
-      label: '关联变量',
+      label: {
+        zh: '关联变量',
+        en: 'Variable',
+      },
       visible: (props: CarouselProps) => props?.dataFrom === 'variable',
     },
     customData: {
       type: 'array',
-      label: '轮播项',
+      label: {
+        zh: '轮播项',
+        en: 'Carousel item',
+      },
       item: {
         type: 'object',
         prototype: {
-          id: { type: 'string', label: 'ID' },
-          label: { type: 'string', label: '标签' },
+          id: { type: 'string', label: { zh: 'ID', en: 'ID' } },
+          label: { type: 'multilingual', label: { zh: '标签', en: 'Label' } },
         },
       },
       setter: ObjectListSetter,
       setterProps: {
-        title: '轮播项',
+        title: i18n.translate({ zh: '轮播项', en: 'Carousel item' }),
         labelRender: {
           fieldName: 'label',
           canEdit: true,
@@ -189,86 +232,110 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
 
     animation: {
       type: 'string',
-      label: '切换方式',
+      label: {
+        zh: '切换方式',
+        en: 'Switching method',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '切换方式',
+        title: i18n.translate({ zh: '切换方式', en: 'Switching method' }),
         options: [
-          { value: 'slide', label: '滑动' },
-          { value: 'card', label: '卡片' },
-          { value: 'fade', label: '渐隐' },
+          { value: 'slide', label: i18n.translate({ zh: '滑动', en: 'Slide' }) },
+          { value: 'card', label: i18n.translate({ zh: '卡片', en: 'Card' }) },
+          { value: 'fade', label: i18n.translate({ zh: '渐隐', en: 'Fade' }) },
         ],
       },
     },
     moveSpeed: {
       type: 'number',
-      label: '切换速度(ms)',
+      label: {
+        zh: '切换速度(ms)',
+        en: 'Switching speed (ms)',
+      },
       disabledFx: true,
     },
     autoPlay: {
       type: 'boolean',
-      label: '自动播放',
+      label: {
+        zh: '自动播放',
+        en: 'Auto play',
+      },
       disabledFx: true,
     },
     autoPlayInterval: {
       type: 'number',
-      label: '自动播放间隔时长(ms)',
+      label: {
+        zh: '自动播放间隔时长(ms)',
+        en: 'Automatic playback interval duration (ms)',
+      },
       disabledFx: true,
       visible: (props: CarouselProps) => !!props.autoPlay,
     },
 
     direction: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         displayAs: 'button',
         options: [
-          { value: 'horizontal', label: '水平' },
-          { value: 'vertical', label: '垂直' },
+          { value: 'horizontal', label: i18n.translate({ zh: '水平', en: 'Horizontal' }) },
+          { value: 'vertical', label: i18n.translate({ zh: '垂直', en: 'Vertical' }) },
         ],
       },
     },
     showArrow: {
       type: 'string',
-      label: '显示箭头的时机',
+      label: {
+        zh: '显示箭头的时机',
+        en: 'Timing of displaying arrows',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '显示箭头的时机',
+        title: i18n.translate({ zh: '显示箭头的时机', en: 'Timing of displaying arrows' }),
         options: [
-          { value: 'hover', label: '鼠标进入' },
-          { value: 'always', label: '一直显示' },
-          { value: 'never', label: '不显示' },
+          { value: 'hover', label: i18n.translate({ zh: '鼠标进入', en: 'Mouse enter' }) },
+          { value: 'always', label: i18n.translate({ zh: '一直显示', en: 'Always' }) },
+          { value: 'never', label: i18n.translate({ zh: '不显示', en: 'Never' }) },
         ],
       },
     },
     indicatorType: {
       type: 'string',
-      label: '指示器类型',
+      label: {
+        zh: '指示器类型',
+        en: 'Indicator type',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '指示器类型',
+        title: i18n.translate({ zh: '指示器类型', en: 'Indicator type' }),
         options: [
-          { value: 'dot', label: '点' },
-          { value: 'line', label: '线' },
-          { value: 'slider', label: '滑块' },
-          { value: 'never', label: '不显示' },
+          { value: 'dot', label: i18n.translate({ zh: '点', en: 'Dot' }) },
+          { value: 'line', label: i18n.translate({ zh: '线', en: 'Line' }) },
+          { value: 'slider', label: i18n.translate({ zh: '滑块', en: 'Slider' }) },
+          { value: 'never', label: i18n.translate({ zh: '不显示', en: 'Never' }) },
         ],
       },
     },
     indicatorPosition: {
       type: 'string',
-      label: '指示器位置',
+      label: {
+        zh: '指示器位置',
+        en: 'Indicator position',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '指示器位置',
+        title: i18n.translate({ zh: '指示器位置', en: 'Indicator position' }),
         options: [
-          { value: 'bottom', label: '下方' },
-          { value: 'top', label: '上方' },
-          { value: 'left', label: '左侧' },
-          { value: 'right', label: '右侧' },
-          { value: 'outer', label: '外部' },
+          { value: 'bottom', label: i18n.translate({ zh: '下方', en: 'Bottom' }) },
+          { value: 'top', label: i18n.translate({ zh: '上方', en: 'Top' }) },
+          { value: 'left', label: i18n.translate({ zh: '左侧', en: 'Left' }) },
+          { value: 'right', label: i18n.translate({ zh: '右侧', en: 'Right' }) },
+          { value: 'outer', label: i18n.translate({ zh: '外部', en: 'Outer' }) },
         ],
       },
       visible: (props: CarouselProps) => props.indicatorType !== 'never',
@@ -279,7 +346,7 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
       id: 'data',
       Render: GroupDecorator,
       props: {
-        title: '数据配置',
+        title: i18n.translate({ zh: '数据配置', en: 'Data setting' }),
         canFold: true,
       },
       childrenOfAttr: ['dataFrom', 'modalConfig', 'fetchCount', 'variableValue', 'customData'],
@@ -292,7 +359,7 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
       id: 'transition',
       Render: GroupDecorator,
       props: {
-        title: '过度配置',
+        title: i18n.translate({ zh: '过度配置', en: 'Transition setting' }),
         canFold: true,
       },
       childrenOfAttr: ['animation', 'moveSpeed', 'autoPlay', 'autoPlayInterval'],
@@ -305,7 +372,7 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
       id: 'style',
       Render: GroupDecorator,
       props: {
-        title: '外观',
+        title: i18n.translate({ zh: '外观', en: 'Appearance' }),
         canFold: true,
       },
       childrenOfAttr: ['direction', 'showArrow', 'indicatorPosition', 'indicatorType'],
@@ -313,17 +380,26 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
   ],
   event: {
     onChange: {
-      label: '切换时',
+      label: {
+        zh: '切换时',
+        en: 'When switching',
+      },
       params: [createGetItemTypeFn()],
     },
   },
   slot: {
     itemRender: {
-      label: '循环插槽',
+      label: {
+        zh: '循环插槽',
+        en: 'Circular slot',
+      },
       payload: { item: getModalOrVariableItemType },
     },
     customRender: {
-      label: '自定义插槽',
+      label: {
+        zh: '自定义插槽',
+        en: 'Custom slot',
+      },
       isMultiple: true,
       payload: customItemDefine,
     },

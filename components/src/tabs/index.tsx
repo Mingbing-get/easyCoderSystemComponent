@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { ModalConfig } from '@easy-coder/sdk/design'
 import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenVariable from './render/renderWhenVariable'
@@ -12,7 +13,7 @@ import './index.scss'
 
 export interface CustomTabItem {
   id: string
-  label: string
+  label: Multilingual
   titleSlotId: string
   contentSlotId: string
 }
@@ -103,5 +104,5 @@ export default function Tabs({ dataFrom, className, onChange, ...extra }: TabsPr
     }
   }
 
-  return <span {...dataProps}>配置错误</span>
+  return <span {...dataProps}>{i18n.translate({ zh: '配置错误', en: 'Config error' })}</span>
 }

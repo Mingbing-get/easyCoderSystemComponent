@@ -3,7 +3,7 @@
 declare interface FaasDefine {
   apiId: string
   apiName: string
-  label: string
+  label: I18n.Multilingual
   description?: string
   params?: VariableDefine.Desc[]
   result?: VariableDefine.Desc

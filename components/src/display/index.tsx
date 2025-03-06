@@ -5,6 +5,7 @@ import { LookupInRecord } from '@easy-coder/sdk/data'
 import { ModalConfig } from '@easy-coder/sdk/design'
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { VariableDefine } from '@easy-coder/sdk/variable'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import DisplayVariable from './main'
 
@@ -22,11 +23,11 @@ export interface DisplayProps extends EasyCoderElement.DataProps {
   valueStyle?: React.CSSProperties
   valueClassName?: string
 
-  label?: string
+  label?: string | Multilingual
   direction?: 'row' | 'column'
   tagSize?: TagProps['size']
-  value?: number | string | LookupInRecord | string[] | LookupInRecord[]
-  onClick?: (value: number | string | LookupInRecord) => void
+  value?: number | string | LookupInRecord | Multilingual | string[] | LookupInRecord[]
+  onClick?: (value: number | string | Multilingual | LookupInRecord) => void
 }
 
 export default function Display({
@@ -58,7 +59,7 @@ export default function Display({
         <label
           className={classNames('easy-coder-display-label', labelClassName)}
           style={labelStyle}>
-          {label}
+          {i18n.translate(label)}
         </label>
       )}
       <div className="easy-coder-display-inner">

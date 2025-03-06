@@ -4,6 +4,7 @@ import { RemoveButtonProps } from '@easy-coder/sdk/design'
 
 import { useElementContext } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { CustomMenu, MenuProps } from '..'
 
@@ -21,7 +22,7 @@ export default function RemoveTreeNode({ item, onRemove }: RemoveButtonProps<Cus
     <Popover
       trigger="hover"
       position="top"
-      content="删除菜单项">
+      content={i18n.translate({ zh: '删除菜单项', en: 'Delete menu item' })}>
       <IconDelete
         className="easy-coder-delete-icon"
         onClick={handleRemove}

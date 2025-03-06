@@ -4,10 +4,16 @@ import Notification, { NotificationProps } from '.'
 
 const notificationMeta: EasyCoderElement.Desc<NotificationProps> = {
   type: 'system_component_notification',
-  label: '通知',
+  label: {
+    zh: '通知',
+    en: 'Notification',
+  },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -33,14 +39,20 @@ const notificationMeta: EasyCoderElement.Desc<NotificationProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   attr: {
     showWhenReceive: {
       type: 'boolean',
       disabledFx: true,
-      label: '收到通知弹窗',
+      label: {
+        zh: '收到通知弹窗',
+        en: 'Received notification pop-up window',
+      },
     },
   },
   Render: Notification,

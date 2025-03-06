@@ -1,8 +1,11 @@
 import { useCallback } from 'react'
 import { Message } from '@arco-design/web-react'
+
 import { useDataCenter } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import EditAdmin, { User } from '../editUser'
+import { local } from '../local'
 
 interface Props {
   user?: User
@@ -20,17 +23,17 @@ export default function UpdateSelfInfo({ user, onComplete }: Props) {
           ...dataCenter.getAuth(),
           user: res.data,
         })
-        Message.success('修改信息成功')
+        Message.success(i18n.translate(local.updateInfoSuccess))
         onComplete?.()
       } else {
-        Message.error('修改信息失败')
+        Message.error(i18n.translate(local.updateInfoError))
       }
     },
     [onComplete]
   )
 
   if (!user) {
-    return <span>请先登录</span>
+    return <span>{i18n.translate(local.palceLogin)}</span>
   }
 
   return (

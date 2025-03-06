@@ -1,17 +1,24 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, LineDecorator, ResetSwitchSetter } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import Rate, { RateProps } from '.'
 
 const rateMeta: EasyCoderElement.Desc<RateProps> = {
   type: 'system_component_rate',
-  label: '评分',
+  label: {
+    zh: '评分',
+    en: 'Rate',
+  },
   defaultAttr: {
     count: 5,
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -35,32 +42,47 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   attr: {
     defaultValue: {
       type: 'number',
-      label: '默认值',
+      label: {
+        zh: '默认值',
+        en: 'Default value',
+      },
     },
     count: {
       type: 'number',
-      label: '星的总数',
+      label: {
+        zh: '星的总数',
+        en: 'Total of Star',
+      },
     },
     tooltips: {
       type: 'array',
-      label: '每项提示',
+      label: {
+        zh: '每项提示',
+        en: 'Tip of item',
+      },
       item: {
-        type: 'string',
+        type: 'multilingual',
       },
     },
 
     grading: {
       type: 'boolean',
-      label: '使用笑脸分级',
+      label: {
+        zh: '使用笑脸分级',
+        en: 'Use smiley face grading',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '使用笑脸分级',
+        title: i18n.translate({ zh: '使用笑脸分级', en: 'Use smiley face grading' }),
         size: 'small',
         whenFalse: [
           { key: 'useCustomCharacter', type: 'attr' },
@@ -70,10 +92,13 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
     },
     useCustomCharacter: {
       type: 'boolean',
-      label: '使用自定义字符',
+      label: {
+        zh: '使用自定义字符',
+        en: 'Use custom characters',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '使用自定义字符',
+        title: i18n.translate({ zh: '使用自定义字符', en: 'Use custom characters' }),
         size: 'small',
         whenFalse: [{ key: 'characterRender', type: 'slot' }],
       },
@@ -82,17 +107,26 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
 
     allowClear: {
       type: 'boolean',
-      label: '是否允许清除',
+      label: {
+        zh: '是否允许清除',
+        en: 'Allow clearing',
+      },
       disabledFx: true,
     },
     allowHalf: {
       type: 'boolean',
-      label: '是否允许半选',
+      label: {
+        zh: '是否允许半选',
+        en: 'Is half selection allowed',
+      },
       disabledFx: true,
     },
     disabled: {
       type: 'boolean',
-      label: '是否禁用',
+      label: {
+        zh: '是否禁用',
+        en: 'Is disabled',
+      },
     },
   },
   attrDecorators: [
@@ -100,7 +134,7 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
       id: 'data',
       Render: GroupDecorator,
       props: {
-        title: '数据设置',
+        title: i18n.translate({ zh: '数据设置', en: 'Data setting' }),
       },
       childrenOfAttr: ['defaultValue', 'count', 'tooltips', 'disabled'],
     },
@@ -112,7 +146,7 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
       id: 'chart',
       Render: GroupDecorator,
       props: {
-        title: '字符设置',
+        title: i18n.translate({ zh: '字符设置', en: 'Chart setting' }),
       },
       childrenOfAttr: ['grading', 'useCustomCharacter'],
     },
@@ -124,31 +158,43 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
       id: 'pro',
       Render: GroupDecorator,
       props: {
-        title: '功能设置',
+        title: i18n.translate({ zh: '功能设置', en: 'Function setting' }),
       },
       childrenOfAttr: ['allowClear', 'allowHalf'],
     },
   ],
   event: {
     onChange: {
-      label: '值改变时',
-      params: [{ type: 'number', label: '新值' }],
+      label: {
+        zh: '值改变时',
+        en: 'On change',
+      },
+      params: [{ type: 'number', label: { zh: '新值', en: 'New value' } }],
     },
     onHoverChange: {
-      label: '鼠标经过时',
-      params: [{ type: 'number', label: '数值' }],
+      label: {
+        zh: '鼠标经过时',
+        en: 'When the mouse passes by',
+      },
+      params: [{ type: 'number', label: { zh: '新值', en: 'New value' } }],
     },
   },
   slot: {
     characterRender: {
-      label: '字符渲染',
+      label: {
+        zh: '字符渲染',
+        en: 'Character rendering',
+      },
       defaultStyle: {
         padding: [],
       },
       payload: {
         index: {
           type: 'number',
-          label: '顺序',
+          label: {
+            zh: '顺序',
+            en: 'Order',
+          },
         },
       },
     },
@@ -157,21 +203,33 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
     attr: {
       value: {
         type: 'number',
-        label: '值',
+        label: {
+          zh: '值',
+          en: 'Value',
+        },
       },
       isDisabled: {
         type: 'boolean',
-        label: '是否禁用',
+        label: {
+          zh: '是否禁用',
+          en: 'Is disabled',
+        },
       },
     },
     event: {
       setValue: {
-        label: '设置值',
-        params: [{ type: 'number', label: '新值' }],
+        label: {
+          zh: '设置值',
+          en: 'Set value',
+        },
+        params: [{ type: 'number', label: { zh: '新值', en: 'New value' } }],
       },
       setDisabled: {
-        label: '设置是否禁用',
-        params: [{ type: 'boolean', label: '是否禁用' }],
+        label: {
+          zh: '设置是否禁用',
+          en: 'Set disabled',
+        },
+        params: [{ type: 'boolean', label: { zh: '是否禁用', en: 'Is disabled' } }],
       },
     },
   },

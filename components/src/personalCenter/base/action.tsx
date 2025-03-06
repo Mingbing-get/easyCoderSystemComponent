@@ -1,10 +1,14 @@
 import { useCallback, useState } from 'react'
 import { Menu, Divider, Modal } from '@arco-design/web-react'
+
 import { useDataCenter } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { User } from './editUser'
 import UpdateSelfInfo from './updateSelfInfo'
 import UpdatePassword from './updatePassword'
+import ToggleLang from './toggleLang'
+import { local } from './local'
 
 interface Props {
   user: User
@@ -15,11 +19,11 @@ type MenuKey = 'update_info' | 'update_password'
 const menu: { key: MenuKey; label: string }[] = [
   {
     key: 'update_info',
-    label: '基本信息',
+    label: i18n.translate(local.baseInfo),
   },
   {
     key: 'update_password',
-    label: '修改密码',
+    label: i18n.translate(local.updatePassword),
   },
 ]
 
@@ -46,10 +50,14 @@ export default function NavAction({ user }: Props) {
           </Menu.Item>
         ))}
         <Divider style={{ margin: '4px 0' }} />
+        <ToggleLang
+          style={{ marginBottom: 4 }}
+          needPost
+        />
         <Menu.Item
           key="logout"
           onClick={handleLogout}>
-          退出登录
+          {i18n.translate(local.logout)}
         </Menu.Item>
       </Menu>
       <Modal

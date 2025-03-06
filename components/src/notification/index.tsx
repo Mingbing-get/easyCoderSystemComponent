@@ -4,6 +4,7 @@ import { Badge, Popover, Notification as NotificationUi } from '@arco-design/web
 
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { useDataCenter } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import NotifyList from './notifyList'
 import NotifyWhenReceive from './notifyWhenReceive'
@@ -15,6 +16,8 @@ export interface NotificationProps extends EasyCoderElement.DataProps {
   style?: React.CSSProperties
   showWhenReceive?: boolean
 }
+
+const topText = i18n.translate({ zh: '通知', en: 'Notification' })
 
 export default function Notification({ showWhenReceive, ...extra }: NotificationProps) {
   const [notReadCount, setNotReadCount] = useState(0)
@@ -86,7 +89,7 @@ export default function Notification({ showWhenReceive, ...extra }: Notification
       <Popover
         trigger="hover"
         position="top"
-        content="通知">
+        content={topText}>
         <Badge
           count={notReadCount}
           offset={[6, -6]}

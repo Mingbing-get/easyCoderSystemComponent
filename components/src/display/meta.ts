@@ -1,6 +1,16 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { EnumGroupSetter, GroupDecorator, LineDecorator, ModalMetaSetter, SelectSetter, onEnumDependencies, onModalDependencies } from '@easy-coder/sdk/design'
+import {
+  EnumGroupSetter,
+  GroupDecorator,
+  LineDecorator,
+  ModalMetaSetter,
+  SelectSetter,
+  StringOrMultilingualSetter,
+  onEnumDependencies,
+  onModalDependencies,
+} from '@easy-coder/sdk/design'
 import { variableTypeOptions } from '@easy-coder/sdk/variable'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import InputTypeSetter from '../input/setter/inputTypeSetter'
 import InputValueSetter from '../input/setter/inputValueSetter'
@@ -11,7 +21,10 @@ import Display, { DisplayProps } from '.'
 
 const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
   type: 'system_component_display',
-  label: '展示',
+  label: {
+    zh: '展示',
+    en: 'Display',
+  },
   defaultAttr: {
     type: 'string',
     direction: 'row',
@@ -19,7 +32,10 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -43,7 +59,10 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       ],
     },
     labelStyle: {
-      label: '标签样式',
+      label: {
+        zh: '标签样式',
+        en: 'Label style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -71,7 +90,10 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       ],
     },
     valueStyle: {
-      label: '值样式',
+      label: {
+        zh: '值样式',
+        en: 'Value style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -92,53 +114,82 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
     labelClassName: {
-      label: '标签样式名',
+      label: {
+        zh: '标签样式名',
+        en: 'Label classname',
+      },
     },
     valueClassName: {
-      label: '值样式名',
+      label: {
+        zh: '值样式名',
+        en: 'Value classname',
+      },
     },
   },
   attr: {
     type: {
       type: 'string',
-      label: '输入框类型',
+      label: {
+        zh: '输入框类型',
+        en: 'Input type',
+      },
       setter: InputTypeSetter,
       setterProps: {
-        title: '输入框类型',
+        title: i18n.translate({ zh: '输入框类型', en: 'Input type' }),
         options: variableTypeOptions.filter((option) => supportTypes.includes(option.value as any)),
       },
     },
     modalName: {
       type: 'string',
-      label: '数据模型',
+      label: {
+        zh: '数据模型',
+        en: 'Data modal',
+      },
       setter: ModalMetaSetter,
       onDependencies: onModalDependencies,
       visible: (props) => props?.type === 'lookup' || props?.type === 'multipleLookup',
     },
     enumGroupName: {
       type: 'string',
-      label: '选项组',
+      label: {
+        zh: '选项组',
+        en: 'Option group',
+      },
       setter: EnumGroupSetter,
       onDependencies: onEnumDependencies,
       setterProps: {
-        title: '选项组',
+        title: i18n.translate({ zh: '选项组', en: 'Option group' }),
       },
       visible: (props) => props?.type === 'enum' || props?.type === 'multipleEnum',
     },
     label: {
-      type: 'string',
-      label: '标签',
+      type: 'multilingual',
+      label: {
+        zh: '标签',
+        en: 'Label',
+      },
+      setter: StringOrMultilingualSetter,
+      setterProps: {
+        title: i18n.translate({ zh: '标签', en: 'Label' }),
+        size: 'mini',
+      },
     },
     value: {
       type: 'string',
-      label: '值',
+      label: {
+        zh: '值',
+        en: 'Value',
+      },
       setter: InputValueSetter,
       onDependencies: onInputValueDependencies,
       setterProps: {
-        label: '值',
+        label: i18n.translate({ zh: '值', en: 'Value' }),
         type: {
           _type: 'dynamic',
           fn: (props?: DisplayProps) => props?.type,
@@ -156,27 +207,33 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
 
     direction: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         options: [
-          { value: 'row', label: '横向' },
-          { value: 'column', label: '纵向' },
+          { value: 'row', label: i18n.translate({ zh: '横向', en: 'Row' }) },
+          { value: 'column', label: i18n.translate({ zh: '纵向', en: 'Column' }) },
         ],
       },
     },
     tagSize: {
       type: 'string',
-      label: '大小',
+      label: {
+        zh: '大小',
+        en: 'Size',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '大小',
+        title: i18n.translate({ zh: '大小', en: 'Size' }),
         options: [
-          { value: 'small', label: '小' },
-          { value: 'medium', label: '中' },
-          { value: 'default', label: '默认' },
-          { value: 'large', label: '大' },
+          { value: 'small', label: i18n.translate({ zh: '小', en: 'Small' }) },
+          { value: 'medium', label: i18n.translate({ zh: '中', en: 'Medium' }) },
+          { value: 'default', label: i18n.translate({ zh: '默认', en: 'Default' }) },
+          { value: 'large', label: i18n.translate({ zh: '大', en: 'Large' }) },
         ],
       },
       visible: (props?: DisplayProps) => ['boolean', 'enum', 'lookup', 'multipleEnum', 'multipleLookup'].includes(props?.type),
@@ -187,7 +244,7 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       id: 'define_config',
       Render: GroupDecorator,
       props: {
-        title: '数据类型配置',
+        title: i18n.translate({ zh: '数据类型配置', en: 'Data type setting' }),
       },
       childrenOfAttr: ['type', 'modalName', 'enumGroupName', 'label', 'value'],
     },
@@ -199,15 +256,18 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       id: 'style_config',
       Render: GroupDecorator,
       props: {
-        title: '外观',
+        title: i18n.translate({ zh: '外观', en: 'Appearance' }),
       },
       childrenOfAttr: ['direction', 'tagSize'],
     },
   ],
   event: {
     onClick: {
-      label: '点击时',
-      params: [async (props) => createDefineFromProps(props, { label: '值' })],
+      label: {
+        zh: '点击时',
+        en: 'On click',
+      },
+      params: [async (props) => createDefineFromProps(props, { label: { zh: '值', en: 'Value' } })],
     },
   },
   Render: Display,

@@ -4,10 +4,16 @@ import PersonalCenter, { PersonalCenterProps } from '.'
 
 const personalCenterMeta: EasyCoderElement.Desc<PersonalCenterProps> = {
   type: 'system_component_personalCenter',
-  label: '个人中心',
+  label: {
+    zh: '个人中心',
+    en: 'Personal center',
+  },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       defaultValue: {
         cursor: 'pointer',
       },
@@ -29,7 +35,10 @@ const personalCenterMeta: EasyCoderElement.Desc<PersonalCenterProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   Render: PersonalCenter,

@@ -4,6 +4,7 @@ import { WithLabel } from '@easy-coder/sdk/design'
 import { Modal, useDataCenter } from '@easy-coder/sdk/data'
 import { useElementContext, useInsertElement, useRemoveElement, useStateById } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { InputProps } from '../../input'
 
@@ -52,7 +53,7 @@ export default function FieldReflexInputSetter({ modalName, title, isVertical, v
 
       canAddOptions.push({
         value: field.name,
-        label: field.label,
+        label: i18n.translate(field.label),
       })
     })
 

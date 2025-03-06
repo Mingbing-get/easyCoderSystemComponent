@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { Modal } from '@arco-design/web-react'
 import { EasyCoderElement, useElementContext, useGetModalContainer, useEventBus } from '@easy-coder/sdk/store'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n, Multilingual } from '@easy-coder/sdk/i18n'
 
 import './index.scss'
 
@@ -12,7 +13,7 @@ export interface ButtonProps extends EasyCoderElement.DataProps {
   disabled?: boolean
   loading?: boolean
   needConfirm?: boolean
-  confirmTitle?: string
+  confirmTitle?: string | Multilingual
   confirmDescription?: () => React.ReactNode
 
   onClick?: () => Promise<void>
@@ -48,7 +49,7 @@ export default function Button({ disabled, loading, needConfirm, confirmTitle, c
         modal.confirm({
           getPopupContainer: getModalContainer,
           getChildrenPopupContainer: () => document.body,
-          title: confirmTitle,
+          title: i18n.translate(confirmTitle),
           content: confirmDescription?.(),
           onOk: async () => {
             handleCancelActive()

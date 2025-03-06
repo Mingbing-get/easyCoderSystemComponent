@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
 import { SetterVariable } from '@easy-coder/sdk/variable'
 import { useVariableDefine } from '@easy-coder/sdk/store'
+import { Multilingual } from '@easy-coder/sdk/i18n'
 
 import { InputProps } from '..'
 import { createDefineFromProps } from '../utils'
 
 interface Props extends Pick<InputProps, 'type' | 'modalName' | 'enumGroupName' | 'maxLength'> {
-  label?: string
+  label?: Multilingual
   value?: any
   disabled?: boolean
   onChange?: (value?: any) => void

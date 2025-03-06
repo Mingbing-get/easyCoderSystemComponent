@@ -20,7 +20,7 @@ export default function FormDefaultValueSetter({ modalName, value, disabled, onC
 
     return {
       type: 'lookup',
-      label: '',
+      label: {},
       apiName: '',
       modalName,
     }

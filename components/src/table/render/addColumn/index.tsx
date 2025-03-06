@@ -1,9 +1,11 @@
 import { Popover, Select } from '@arco-design/web-react'
 import { IconPlus, IconLeft, IconRight, IconUp, IconDown } from '@arco-design/web-react/icon'
+
 import { useElementContext, useStateById, useVariableDefine, useInsertElement, SLOT_VARIABLE } from '@easy-coder/sdk/store'
 import { useEffectCallback, generateId } from '@easy-coder/sdk/helper'
 import { useDataCenter } from '@easy-coder/sdk/data'
 import { VariableDefine, getVariableByPath } from '@easy-coder/sdk/variable'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { useEasyCoderTable } from '../../context'
 import { TableColumn, TableProps } from '../..'
@@ -17,6 +19,14 @@ interface Props {
 
 type InsertPosition = 'left' | 'top' | 'right' | 'bottom'
 
+const tableHeaderSlotAlias = i18n.translate({ zh: '表头插槽', en: 'Table header slot' })
+const tableCellSlotAlias = i18n.translate({ zh: '单元格插槽', en: 'Table cell slot' })
+const insertAsLeft = i18n.translate({ zh: '在左侧插入列', en: 'Insert column on the left side' })
+const insertPatent = i18n.translate({ zh: '插入父列', en: 'Insert parent column' })
+const insertAsRight = i18n.translate({ zh: '在右侧插入列', en: 'Insert column on the right side' })
+const insertChild = i18n.translate({ zh: '插入子列', en: 'Insert Child Column' })
+const custom = i18n.translate({ zh: '自定义', en: 'Custom' })
+
 export default function AddColumn({ refColumnId }: Props) {
   const { updateProps, insertSlot } = useElementContext<unknown, TableProps>()
   const { columns, rows, loopRow, dataFrom } = useEasyCoderTable()
@@ -26,7 +36,7 @@ export default function AddColumn({ refColumnId }: Props) {
     async (position?: InsertPosition, option?: WithFieldOption) => {
       if (refColumnId && (!position || !columns?.length)) return
 
-      const slotIds = await insertSlot('headerRender', ['表头插槽'])
+      const slotIds = await insertSlot('headerRender', [tableHeaderSlotAlias])
       if (slotIds.length === 0) return
 
       const slotId = slotIds[0].slotId
@@ -38,7 +48,7 @@ export default function AddColumn({ refColumnId }: Props) {
           if (rows?.length > 0) {
             const cellSlotIds = await insertSlot(
               'customCellRender',
-              new Array(rows.length).fill(1).map(() => '单元格插槽')
+              new Array(rows.length).fill(1).map(() => tableCellSlotAlias)
             )
             newRows = rows.map((_, index) => ({ [columnId]: cellSlotIds[index].slotId }))
           }
@@ -60,7 +70,7 @@ export default function AddColumn({ refColumnId }: Props) {
           if (needInsertCell && rows?.length > 0) {
             const cellSlotIds = await insertSlot(
               'customCellRender',
-              new Array(rows.length).fill(1).map(() => '单元格插槽')
+              new Array(rows.length).fill(1).map(() => tableCellSlotAlias)
             )
             newRows = rows.map((row, index) => ({ ...row, [columnId]: cellSlotIds[index].slotId }))
           } else if (position === 'bottom') {
@@ -88,7 +98,7 @@ export default function AddColumn({ refColumnId }: Props) {
         }
 
         if (!refColumnId) {
-          const rowSlotIds = await insertSlot('rowRender', ['单元格插槽'])
+          const rowSlotIds = await insertSlot('rowRender', [tableCellSlotAlias])
           if (rowSlotIds.length === 0) return
 
           const rowSlotId = rowSlotIds[0].slotId
@@ -122,7 +132,7 @@ export default function AddColumn({ refColumnId }: Props) {
           const newColumns = insertColumn(columns, refColumnId, position, { id: columnId, slotId, fieldKeys: option?.value, width: 160 })
           const needInsertCell = position === 'left' || position === 'right' || (position === 'bottom' && refColumn.children?.length)
           if (needInsertCell) {
-            const rowSlotIds = await insertSlot('rowRender', ['单元格插槽'])
+            const rowSlotIds = await insertSlot('rowRender', [tableCellSlotAlias])
             const rowSlotId = rowSlotIds[0].slotId
 
             if (option) {
@@ -176,23 +186,23 @@ export default function AddColumn({ refColumnId }: Props) {
       content={
         <div className="easy-coder-table-add-group">
           <RenderAddColumnButton
-            tipContent="在左侧插入列"
+            tipContent={insertAsLeft}
             IconRender={IconLeft}
             onAdd={(option) => handleAddColumn('left', option)}
           />
           <RenderAddColumnButton
-            tipContent="插入父列"
+            tipContent={insertPatent}
             IconRender={IconUp}
             onAdd={(option) => handleAddColumn('top', option)}
           />
           <RenderAddColumnButton
-            tipContent="在右侧插入列"
+            tipContent={insertAsRight}
             IconRender={IconRight}
             onAdd={(option) => handleAddColumn('right', option)}
           />
           {!refColumn.fieldKeys && (
             <RenderAddColumnButton
-              tipContent="插入子列"
+              tipContent={insertChild}
               IconRender={IconDown}
               onAdd={(option) => handleAddColumn('bottom', option)}
             />
@@ -216,7 +226,7 @@ interface WithFieldOption {
   modalName?: string
   enumGroupName?: string
 }
-const customField: WithFieldOption = { value: '_custom', label: '自定义' }
+const customField: WithFieldOption = { value: '_custom', label: custom }
 function RenderAddColumnButton({ IconRender, tipContent, onAdd }: RenderAddColumnButtonProps) {
   const { dataFrom, modalConfig } = useEasyCoderTable()
   const { id } = useElementContext()
@@ -257,7 +267,7 @@ function RenderAddColumnButton({ IconRender, tipContent, onAdd }: RenderAddColum
 
       return {
         value: field.name,
-        label: field.label,
+        label: i18n.translate(field.label),
         type,
         modalName: field.type === 'lookup' ? field.modalName : undefined,
         enumGroupName: field.type === 'enum' ? field.enumGroupName : undefined,
@@ -287,7 +297,7 @@ function RenderAddColumnButton({ IconRender, tipContent, onAdd }: RenderAddColum
         for (const key in _item.prototype) {
           options.push({
             value: key,
-            label: _item.prototype[key].label,
+            label: i18n.translate(_item.prototype[key].label),
             type: _item.prototype[key].type,
             modalName: (_item.prototype[key] as any).modalName,
             enumGroupName: (_item.prototype[key] as any).enumGroupName,

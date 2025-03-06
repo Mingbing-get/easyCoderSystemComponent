@@ -1,6 +1,8 @@
 import { IconDown, IconPlus, IconUp } from '@arco-design/web-react/icon'
+
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { useElementContext } from '@easy-coder/sdk/store'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { TableProps } from '../..'
 import { useEasyCoderTable } from '../../context'
@@ -11,6 +13,10 @@ interface Props {
   location?: 'pre' | 'next'
 }
 
+const tableCellSlotAlias = i18n.translate({ zh: '单元格插槽', en: 'Table cell slot' })
+const insertToTop = i18n.translate({ zh: '在上方插入行', en: 'insert rows above' })
+const insertToBottom = i18n.translate({ zh: '在下方插入行', en: 'Insert row below' })
+
 export default function AddRow({ index, location }: Props) {
   const { updateProps, insertSlot } = useElementContext<unknown, TableProps>()
   const { columns, rows } = useEasyCoderTable()
@@ -20,7 +26,7 @@ export default function AddRow({ index, location }: Props) {
 
     const slotIds = await insertSlot(
       'customCellRender',
-      columns.map(() => '单元格插槽')
+      columns.map(() => tableCellSlotAlias)
     )
     const newRow: Record<string, string> = {}
     columns.forEach((column, index) => {
@@ -45,7 +51,7 @@ export default function AddRow({ index, location }: Props) {
       <Popover
         trigger="hover"
         position="top"
-        content="在上方插入行">
+        content={insertToTop}>
         <IconUp
           className="easy-coder-table-add-column-icon"
           onClick={handleAddRow}
@@ -59,7 +65,7 @@ export default function AddRow({ index, location }: Props) {
       <Popover
         trigger="hover"
         position="top"
-        content="在下方插入行">
+        content={insertToBottom}>
         <IconDown
           className="easy-coder-table-add-column-icon"
           onClick={handleAddRow}

@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
 import { ModalConfig } from '@easy-coder/sdk/design'
+import { Multilingual } from '@easy-coder/sdk/i18n'
 
 import RenderWhenCustom, { CustomRender } from './render/renderWhenCustom'
 import RenderWhenModel from './render/renderWhenModel'
@@ -13,7 +14,7 @@ export interface CustomMenu {
   id: string
   labelSlotId: string
   contentSlotId: string
-  label?: string
+  label?: Multilingual
   children?: CustomMenu[]
 }
 

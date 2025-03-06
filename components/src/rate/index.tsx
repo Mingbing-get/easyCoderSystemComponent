@@ -1,17 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { Rate as RateBase, RateProps as RateBaseProps } from '@arco-design/web-react'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { EasyCoderElement, useElementContext } from '@easy-coder/sdk/store'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import './index.scss'
 
 export interface RateProps
   extends EasyCoderElement.DataProps,
-    Omit<RateBaseProps, 'defaultValue' | 'value' | 'className' | 'character' | 'onChange' | 'readonly'> {
+    Omit<RateBaseProps, 'defaultValue' | 'value' | 'className' | 'character' | 'onChange' | 'readonly' | 'tooltips'> {
   className?: string
   defaultValue?: number
   useCustomCharacter?: boolean
+  tooltips?: Multilingual[]
   characterRender?: (payload: { index: number }) => React.ReactNode
   onChange?: (value: number) => void
 }
@@ -23,7 +25,7 @@ export interface RateExport {
   setDisabled?: (disabled?: boolean) => void
 }
 
-export default function Rate({ defaultValue, disabled, onChange, className, useCustomCharacter, characterRender, ...extra }: RateProps) {
+export default function Rate({ defaultValue, disabled, onChange, className, useCustomCharacter, characterRender, tooltips, ...extra }: RateProps) {
   const [_value, setValue] = useState(defaultValue)
   const [_disabled, setDisabled] = useState(disabled)
   const isChangeBySelf = useRef(false)
@@ -66,6 +68,8 @@ export default function Rate({ defaultValue, disabled, onChange, className, useC
     return () => exportEvent({})
   }, [])
 
+  const translateTips = useMemo(() => tooltips?.map((item) => i18n.translate(item)), [tooltips])
+
   return (
     <RateBase
       {...extra}
@@ -74,6 +78,7 @@ export default function Rate({ defaultValue, disabled, onChange, className, useC
       disabled={_disabled}
       onChange={handleChangeValue}
       character={useCustomCharacter ? (index) => characterRender?.({ index }) : undefined}
+      tooltips={translateTips}
     />
   )
 }

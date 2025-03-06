@@ -6,6 +6,7 @@ import { VariableCondition, VariableDefine } from '@easy-coder/sdk/variable'
 import { LookupInRecord } from '@easy-coder/sdk/data'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { ModalConfig } from '@easy-coder/sdk/design'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import { createDefineFromProps } from './utils'
 import Base from './base'
@@ -24,8 +25,8 @@ export interface InputProps extends EasyCoderElement.DataProps {
   className?: string
   labelStyle?: React.CSSProperties
   labelClassName?: string
-  label?: string
-  extraText?: string
+  label?: string | Multilingual
+  extraText?: string | Multilingual
   required?: boolean
   isInForm?: boolean
 
@@ -33,18 +34,18 @@ export interface InputProps extends EasyCoderElement.DataProps {
   size?: ArcoInputProps['size']
 
   disabled?: boolean
-  value?: number | string | LookupInRecord | string[] | LookupInRecord[]
-  onChange?: (value?: number | string | LookupInRecord | string[] | LookupInRecord[]) => void
+  value?: number | string | Multilingual | LookupInRecord | string[] | LookupInRecord[]
+  onChange?: (value?: number | string | Multilingual | LookupInRecord | string[] | LookupInRecord[]) => void
 }
 
 export interface InputExport {
-  value?: number | string | LookupInRecord | string[] | LookupInRecord[]
+  value?: number | string | Multilingual | LookupInRecord | string[] | LookupInRecord[]
   isDisabled?: boolean
   hasError?: boolean
-  setValue?: (value?: number | string | LookupInRecord | string[] | LookupInRecord[]) => void
+  setValue?: (value?: number | string | Multilingual | LookupInRecord | string[] | LookupInRecord[]) => void
   setDisabled?: (disabled?: boolean) => void
-  setExtraText?: (text?: string) => void
-  setErrorText?: (text?: string) => void
+  setExtraText?: (text?: string | Multilingual) => void
+  setErrorText?: (text?: string | Multilingual) => void
 }
 
 export const supportTypes: InputProps['type'][] = [
@@ -60,6 +61,7 @@ export const supportTypes: InputProps['type'][] = [
   'number',
   'string',
   'text',
+  'multilingual',
 ]
 
 export default function Input({
@@ -86,8 +88,8 @@ export default function Input({
 }: InputProps) {
   const [_value, setValue] = useState(isInForm ? undefined : value)
   const [_disabled, setDisabled] = useState(disabled)
-  const [errorText, setErrorText] = useState<string>()
-  const [_extraText, setExtraText] = useState<string>(extraText)
+  const [errorText, setErrorText] = useState<string | Multilingual>()
+  const [_extraText, setExtraText] = useState<string | Multilingual>(extraText)
   const isChangeBySelf = useRef(false)
 
   const { isPreviewing } = useEnv()
@@ -145,7 +147,7 @@ export default function Input({
 
   if (!define) {
     if (isPreviewing) {
-      return <div {...extra}>未完成配置</div>
+      return <div {...extra}>{i18n.translate({ zh: '未完成配置', en: 'Incomplete configuration' })}</div>
     }
 
     return null
@@ -160,7 +162,7 @@ export default function Input({
         <label
           className={classNames('easy-coder-input-label', `size-${size}`, required && 'is-required', labelClassName)}
           style={labelStyle}>
-          {label}
+          {i18n.translateFillEmpty(label)}
         </label>
       )}
       <div className="easy-coder-input-inner">
@@ -173,8 +175,8 @@ export default function Input({
           value={_value}
           onChange={handleChangeValue}
         />
-        {errorText && <p className="easy-coder-input-error-tip">{errorText}</p>}
-        {_extraText && <p className="easy-coder-input-extra-tip">{_extraText}</p>}
+        {errorText && <p className="easy-coder-input-error-tip">{i18n.translateFillEmpty(errorText)}</p>}
+        {_extraText && <p className="easy-coder-input-extra-tip">{i18n.translateFillEmpty(_extraText)}</p>}
       </div>
     </div>
   )

@@ -1,22 +1,23 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { EasyCoderElement, useElementContext, useEnv } from '@easy-coder/sdk/store'
-import { Popover } from '@arco-design/web-react'
 import classNames from 'classnames'
+import { Popover } from '@arco-design/web-react'
+import { EasyCoderElement, useElementContext, useEnv } from '@easy-coder/sdk/store'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import './index.scss'
 
 export interface TextProps extends EasyCoderElement.DataProps {
   style?: React.CSSProperties
   className?: string
-  text?: string
+  text?: string | Multilingual
   maxLine?: number
   disabledPopover?: boolean
   onClick?: () => void
 }
 
 interface TextExport {
-  text?: string
-  setText: (text?: string) => void
+  text?: string | Multilingual
+  setText: (text?: string | Multilingual) => void
 }
 
 export default function Text({ text, maxLine = 1, disabledPopover, style, className, ...extra }: TextProps) {
@@ -49,9 +50,9 @@ export default function Text({ text, maxLine = 1, disabledPopover, style, classN
   }, [_text])
 
   const renderText = useMemo(() => {
-    if (!isPreviewing || !!_text) return _text
+    if (!isPreviewing || !!_text) return i18n.translate(_text)
 
-    return 'example'
+    return i18n.translate({ zh: '示例', en: 'example' })
   }, [isPreviewing, _text])
 
   return (

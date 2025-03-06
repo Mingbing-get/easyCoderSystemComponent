@@ -3,12 +3,16 @@ import { List, Message, Spin } from '@arco-design/web-react'
 
 import { useDataCenter, EasyCoderMessage, EasyCoderData } from '@easy-coder/sdk/data'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import DisplaySingleNotify from '../displaySingleNotify'
 
 import './index.scss'
 
 interface Props {}
+
+const networkError = i18n.translate({ zh: '网络错误', en: 'Network error' })
+const topText = i18n.translate({ zh: '通知', en: 'Notification' })
 
 export default function NotifyList({}: Props) {
   const [scrollLoading, setScrollLoading] = useState(false)
@@ -28,7 +32,7 @@ export default function NotifyList({}: Props) {
 
     const res = await dataCenter.post<EasyCoderData.WithPage<EasyCoderMessage.Define>>('/message/query', { page })
     if (res.code !== 0) {
-      Message.error(res.msg || '网络错误')
+      Message.error(res.msg || networkError)
     } else {
       setMessageList((old) => {
         const newList = [...old]
@@ -69,7 +73,7 @@ export default function NotifyList({}: Props) {
 
       const res = await dataCenter.read(needReadIds)
       if (res.code !== 0) {
-        Message.error(res.msg || '网络错误')
+        Message.error(res.msg || networkError)
         return
       }
 
@@ -116,7 +120,7 @@ export default function NotifyList({}: Props) {
       bordered={false}
       header={
         <div className="notify-list-header">
-          <h2>通知</h2>
+          <h2>{topText}</h2>
         </div>
       }
       render={(item) => (

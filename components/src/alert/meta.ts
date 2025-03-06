@@ -1,20 +1,33 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { GroupDecorator, LineDecorator, SelectSetter, ResetSwitchSetter } from '@easy-coder/sdk/design'
+import { GroupDecorator, LineDecorator, SelectSetter, ResetSwitchSetter, StringOrMultilingualSetter } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import Alert, { AlertUiProps } from '.'
 
 const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
   type: 'system_component_alert',
-  label: '提示',
+  label: {
+    zh: '提示',
+    en: 'Alert',
+  },
   defaultAttr: {
     type: 'info',
-    title: '标题',
-    content: '内容',
+    title: {
+      zh: '标题',
+      en: 'Title',
+    },
+    content: {
+      zh: '内容',
+      en: 'Content',
+    },
     showIcon: true,
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -38,32 +51,41 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   attr: {
     type: {
       type: 'string',
-      label: '类型',
+      label: {
+        zh: '类型',
+        en: 'Type',
+      },
       required: true,
       setter: SelectSetter,
       setterProps: {
-        title: '类型',
+        title: i18n.translate({ zh: '类型', en: 'Type' }),
         options: [
-          { value: 'info', label: '信息' },
-          { value: 'success', label: '成功' },
-          { value: 'warning', label: '警告' },
-          { value: 'error', label: '错误' },
+          { value: 'info', label: i18n.translate({ zh: '信息', en: 'Info' }) },
+          { value: 'success', label: i18n.translate({ zh: '成功', en: 'Success' }) },
+          { value: 'warning', label: i18n.translate({ zh: '警告', en: 'Warning' }) },
+          { value: 'error', label: i18n.translate({ zh: '错误', en: 'Error' }) },
         ],
       },
     },
 
     useCustomTitle: {
       type: 'boolean',
-      label: '自定义标题',
+      label: {
+        zh: '自定义标题',
+        en: 'Custom Title',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '自定义标题',
+        title: i18n.translate({ zh: '自定义标题', en: 'Custom title' }),
         size: 'small',
         whenTrue: [{ key: 'title', type: 'attr', resetValue: '标题' }],
         whenFalse: [{ key: 'titleRender', type: 'slot' }],
@@ -71,16 +93,27 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
     },
     title: {
       type: 'string',
-      label: '标题',
+      label: {
+        zh: '标题',
+        en: 'Title',
+      },
+      setter: StringOrMultilingualSetter,
+      setterProps: {
+        title: i18n.translate({ zh: '标题', en: 'Title' }),
+        size: 'mini',
+      },
       visible: (props: AlertUiProps) => !props.useCustomTitle,
     },
 
     useCustomContent: {
       type: 'boolean',
-      label: '自定义内容',
+      label: {
+        zh: '自定义内容',
+        en: 'Custom content',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '自定义内容',
+        title: i18n.translate({ zh: '自定义内容', en: 'Custom content' }),
         size: 'small',
         whenTrue: [{ key: 'content', type: 'attr', resetValue: '内容' }],
         whenFalse: [{ key: 'contentRender', type: 'slot' }],
@@ -88,16 +121,27 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
     },
     content: {
       type: 'string',
-      label: '内容',
+      label: {
+        zh: '内容',
+        en: 'Content',
+      },
+      setter: StringOrMultilingualSetter,
+      setterProps: {
+        title: i18n.translate({ zh: '内容', en: 'Content' }),
+        size: 'mini',
+      },
       visible: (props: AlertUiProps) => !props.useCustomContent,
     },
 
     showIcon: {
       type: 'boolean',
-      label: '显示图标',
+      label: {
+        zh: '显示图标',
+        en: 'Show icon',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '显示图标',
+        title: i18n.translate({ zh: '显示图标', en: 'Show icon' }),
         size: 'small',
         whenFalse: [
           { key: 'useCustomIcon', type: 'attr' },
@@ -107,10 +151,13 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
     },
     useCustomIcon: {
       type: 'boolean',
-      label: '自定义图标',
+      label: {
+        zh: '自定义图标',
+        en: 'Custom icon',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '自定义图标',
+        title: i18n.translate({ zh: '自定义图标', en: 'Custom icon' }),
         size: 'small',
         whenFalse: [{ key: 'iconRender', type: 'slot' }],
       },
@@ -119,10 +166,13 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
 
     closable: {
       type: 'boolean',
-      label: '是否可关闭',
+      label: {
+        zh: '是否可关闭',
+        en: 'Is closable',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '是否可关闭',
+        title: i18n.translate({ zh: '是否可关闭', en: 'Is closable' }),
         size: 'small',
         whenFalse: [
           { key: 'useCustomCloseIcon', type: 'attr' },
@@ -132,10 +182,13 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
     },
     useCustomCloseIcon: {
       type: 'boolean',
-      label: '自定义关闭图标',
+      label: {
+        zh: '自定义关闭图标',
+        en: 'Custom close icon',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '自定义关闭图标',
+        title: i18n.translate({ zh: '自定义关闭图标', en: 'Custom close icon' }),
         size: 'small',
         whenFalse: [{ key: 'closeIconRender', type: 'slot' }],
       },
@@ -147,7 +200,7 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
       id: 'type',
       Render: GroupDecorator,
       props: {
-        title: '基础配置',
+        title: i18n.translate({ zh: '基础配置', en: 'Basic configuration' }),
       },
       childrenOfAttr: ['type'],
     },
@@ -159,7 +212,7 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
       id: 'title',
       Render: GroupDecorator,
       props: {
-        title: '标题配置',
+        title: i18n.translate({ zh: '标题配置', en: 'Title configuration' }),
       },
       childrenOfAttr: ['title', 'useCustomTitle'],
     },
@@ -171,7 +224,7 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
       id: 'content',
       Render: GroupDecorator,
       props: {
-        title: '内容配置',
+        title: i18n.translate({ zh: '内容配置', en: 'Content configuration' }),
       },
       childrenOfAttr: ['content', 'useCustomContent'],
     },
@@ -183,7 +236,7 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
       id: 'icon',
       Render: GroupDecorator,
       props: {
-        title: '图标配置',
+        title: i18n.translate({ zh: '图标配置', en: 'Icon configuration' }),
       },
       childrenOfAttr: ['showIcon', 'useCustomIcon'],
     },
@@ -195,32 +248,44 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
       id: 'closeIcon',
       Render: GroupDecorator,
       props: {
-        title: '关闭图标配置',
+        title: i18n.translate({ zh: '关闭图标配置', en: 'Close icon configuration' }),
       },
       childrenOfAttr: ['closable', 'useCustomCloseIcon'],
     },
   ],
   slot: {
     titleRender: {
-      label: '标题插槽',
+      label: {
+        zh: '标题插槽',
+        en: 'Title slot',
+      },
       defaultStyle: {
         padding: [],
       },
     },
     contentRender: {
-      label: '内容插槽',
+      label: {
+        zh: '内容插槽',
+        en: 'Content slot',
+      },
       defaultStyle: {
         padding: [],
       },
     },
     iconRender: {
-      label: '图标插槽',
+      label: {
+        zh: '图标插槽',
+        en: 'Icon slot',
+      },
       defaultStyle: {
         padding: [],
       },
     },
     closeIconRender: {
-      label: '关闭图标插槽',
+      label: {
+        zh: '关闭图标插槽',
+        en: 'Close icon slot',
+      },
       defaultStyle: {
         padding: [],
       },
@@ -228,10 +293,16 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
   },
   event: {
     onClose: {
-      label: '关闭时',
+      label: {
+        zh: '关闭时',
+        en: 'On close',
+      },
     },
     afterClose: {
-      label: '关闭后',
+      label: {
+        zh: '关闭后',
+        en: 'After close',
+      },
     },
   },
   Render: Alert,

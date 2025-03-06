@@ -3,19 +3,28 @@ import toast from '.'
 const toastMeta: FunctionDefine = {
   apiId: 'system_component_ohxddMCgepXhRexG',
   apiName: 'system_component_toast',
-  label: '显示提示',
+  label: {
+    zh: '显示提示',
+    en: 'Show toast',
+  },
   params: [
     {
       type: 'string',
-      label: '内容',
+      label: {
+        zh: '内容',
+        en: 'Content',
+      },
       apiName: 'content',
       required: true,
     },
     {
       type: 'enum',
-      label: '类型',
+      label: {
+        zh: '类型',
+        en: 'Type',
+      },
       apiName: 'type',
-      enumGroupName: '',
+      enumGroupName: '_role',
       options: [
         { value: 'info', label: '信息' },
         { value: 'success', label: '成功' },
@@ -25,17 +34,26 @@ const toastMeta: FunctionDefine = {
     },
     {
       type: 'object',
-      label: '属性配置',
+      label: {
+        zh: '属性配置',
+        en: 'Attribute configuration',
+      },
       apiName: 'option',
       prototype: {
         canClose: {
           type: 'boolean',
-          label: '是否可手动关闭',
+          label: {
+            zh: '是否可手动关闭',
+            en: 'Whether it can be closed manually',
+          },
           apiName: 'canClose',
         },
         duration: {
           type: 'number',
-          label: '显示时间(ms)',
+          label: {
+            zh: '显示时间(ms)',
+            en: 'Display time (ms)',
+          },
           apiName: 'duration',
         },
       },

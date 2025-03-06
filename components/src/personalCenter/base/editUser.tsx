@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Input, Button, Form, Message } from '@arco-design/web-react'
+
 import { BaseRecord } from '@easy-coder/sdk/data'
+import { Multilingual, LanguageCode, MultilingualInput, i18n } from '@easy-coder/sdk/i18n'
 
 import UploadImg from './uploadImg'
+import { local } from './local'
 
 type AdminField = keyof User | 'password' | 'confirmPassword'
 
 export interface User extends BaseRecord {
   count: string
-  nickName: string
+  nickName: Multilingual
   email?: string
   phone?: string
   avatar?: string
   role?: 'super' | 'admin' | 'user'
   isActive: boolean
+  langCode?: LanguageCode
 }
 
 interface Props {
@@ -77,7 +81,7 @@ export default function EditUser({ className, style, fields, admin, header, foot
     if (!confirmPassword || !fields.includes('confirmPassword')) return
 
     if (confirmPassword !== _admin.password) {
-      Message.warning('两次密码不一致')
+      Message.warning(i18n.translate(local.passwordIsDiff))
     }
   }
 
@@ -98,12 +102,13 @@ export default function EditUser({ className, style, fields, admin, header, foot
 
   return (
     <Form
+      layout="vertical"
       className={className}
       style={style}>
       {header}
       {fields.includes('count') && (
         <Form.Item
-          label="账号"
+          label={i18n.translate(local.account)}
           required>
           <Input
             readOnly
@@ -113,16 +118,16 @@ export default function EditUser({ className, style, fields, admin, header, foot
       )}
       {fields.includes('nickName') && (
         <Form.Item
-          label="昵称"
+          label={i18n.translate(local.nickName)}
           required>
-          <Input
+          <MultilingualInput
             value={_admin.nickName}
-            onChange={(v) => handleChangeAdmin('nickName', v)}
+            onInputComplete={(v) => handleChangeAdmin('nickName', v)}
           />
         </Form.Item>
       )}
       {fields.includes('email') && (
-        <Form.Item label="邮箱">
+        <Form.Item label={i18n.translate(local.email)}>
           <Input
             type="email"
             value={_admin.email}
@@ -131,7 +136,7 @@ export default function EditUser({ className, style, fields, admin, header, foot
         </Form.Item>
       )}
       {fields.includes('phone') && (
-        <Form.Item label="电话">
+        <Form.Item label={i18n.translate(local.phone)}>
           <Input
             type="tel"
             value={_admin.phone}
@@ -140,7 +145,7 @@ export default function EditUser({ className, style, fields, admin, header, foot
         </Form.Item>
       )}
       {fields.includes('avatar') && (
-        <Form.Item label="头像">
+        <Form.Item label={i18n.translate(local.avatar)}>
           <UploadImg
             limit={1}
             value={_admin.avatar ? [_admin.avatar] : []}
@@ -150,7 +155,7 @@ export default function EditUser({ className, style, fields, admin, header, foot
       )}
       {fields.includes('password') && (
         <Form.Item
-          label="密码"
+          label={i18n.translate(local.password)}
           required>
           <Input
             type="password"
@@ -162,7 +167,7 @@ export default function EditUser({ className, style, fields, admin, header, foot
       )}
       {fields.includes('confirmPassword') && (
         <Form.Item
-          label="确认密码"
+          label={i18n.translate(local.confirmPassword)}
           required>
           <Input
             type="password"
@@ -172,13 +177,14 @@ export default function EditUser({ className, style, fields, admin, header, foot
           />
         </Form.Item>
       )}
-      <Form.Item wrapperCol={{ offset: 5 }}>
+      <Form.Item>
         <Button
           type="primary"
           onClick={handleSubmit}
           loading={isLoading}
-          disabled={isDisabled}>
-          提交
+          disabled={isDisabled}
+          long>
+          {i18n.translate(local.submit)}
         </Button>
       </Form.Item>
       {footer}

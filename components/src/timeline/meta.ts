@@ -9,6 +9,7 @@ import {
   ResetSelectSetter,
   ResetSwitchSetter,
 } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import useCustomDotSetter from './setter/useCustomDotSetter'
 import AddButton from './setter/addButtonRender'
@@ -20,11 +21,17 @@ import Timeline, { TimelineProps } from '.'
 const customItemDefine: Record<string, EasyCoderElement.OmitApiNameVariable> = {
   id: {
     type: 'string',
-    label: 'ID',
+    label: {
+      zh: 'ID',
+      en: 'ID',
+    },
   },
   label: {
-    type: 'string',
-    label: '名称',
+    type: 'multilingual',
+    label: {
+      zh: '名称',
+      en: 'Name',
+    },
   },
 }
 
@@ -33,7 +40,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<TimelineProps
     return {
       type: 'lookup',
       modalName: props.modalConfig.name,
-      label: '当前项',
+      label: {
+        zh: '当前项',
+        en: 'Current item',
+      },
     }
   }
 
@@ -43,7 +53,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<TimelineProps
     if (refVariableType?.type === 'array') {
       return {
         ...refVariableType.item,
-        label: '当前项',
+        label: {
+          zh: '当前项',
+          en: 'Current item',
+        },
       }
     }
   }
@@ -53,7 +66,10 @@ const getModalOrVariableItemType: EasyCoderElement.DynamicVariable<TimelineProps
 
 const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
   type: 'system_component_timeline',
-  label: '时间线',
+  label: {
+    zh: '时间线',
+    en: 'Timeline',
+  },
   defaultAttr: {
     dataFrom: 'modal',
     direction: 'horizontal',
@@ -64,7 +80,10 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -87,29 +106,41 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       ],
     },
     itemStyle: {
-      label: '节点项样式',
+      label: {
+        zh: '节点项样式',
+        en: 'Item style',
+      },
       supportModels: ['background', 'borderColor', 'borderRadius', 'borderStyle', 'borderWidth', 'boxShadow', 'margin', 'outline', 'padding'],
     },
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
     itemClassName: {
-      label: '节点项样式名',
+      label: {
+        zh: '节点项样式名',
+        en: 'Item classname',
+      },
     },
   },
   attr: {
     dataFrom: {
       type: 'string',
-      label: '数据来源',
+      label: {
+        zh: '数据来源',
+        en: 'Data from',
+      },
       setter: ResetSelectSetter,
       setterProps: {
-        title: '数据来源',
+        title: i18n.translate({ zh: '数据来源', en: 'Data from' }),
         options: [
-          { value: 'modal', label: '数据模型' },
-          { value: 'variable', label: '关联变量' },
-          { value: 'custom', label: '自定义' },
+          { value: 'modal', label: i18n.translate({ zh: '数据模型', en: 'Data modal' }) },
+          { value: 'variable', label: i18n.translate({ zh: '关联变量', en: 'Variable' }) },
+          { value: 'custom', label: i18n.translate({ zh: '自定义', en: 'Custom' }) },
         ],
         when: {
           modal: [
@@ -134,7 +165,10 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
     modalConfig: {
       type: 'object',
       prototype: {},
-      label: '数据源',
+      label: {
+        zh: '数据源',
+        en: 'Data source',
+      },
       setter: ModalMetaSetter,
       setterProps: {
         showField: true,
@@ -146,31 +180,40 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
     },
     fetchCount: {
       type: 'number',
-      label: '获取条数',
+      label: {
+        zh: '获取条数',
+        en: 'Fetch count',
+      },
       disabledFx: true,
       visible: (props: TimelineProps) => props?.dataFrom === 'modal',
     },
     variableValue: {
       type: 'ref',
       canAcceptTypes: ['array', 'multipleEnum', 'multipleLookup'],
-      label: '关联变量',
+      label: {
+        zh: '关联变量',
+        en: 'Variable',
+      },
       visible: (props: TimelineProps) => props?.dataFrom === 'variable',
     },
     customData: {
       type: 'array',
-      label: '节点项',
+      label: {
+        zh: '节点项',
+        en: 'Timeline item',
+      },
       item: {
         type: 'object',
         prototype: {
-          id: { type: 'string', label: 'ID' },
-          label: { type: 'string', label: '标签' },
-          dotType: { type: 'string', label: '点类型' },
-          lineType: { type: 'string', label: '线类型' },
+          id: { type: 'string', label: { zh: 'ID', en: 'ID' } },
+          label: { type: 'multilingual', label: { zh: '标签', en: 'Label' } },
+          dotType: { type: 'string', label: { zh: '点类型', en: 'Dot type' } },
+          lineType: { type: 'string', label: { zh: '线类型', en: 'Dot type' } },
         },
       },
       setter: ObjectListSetter,
       setterProps: {
-        title: '节点项',
+        title: i18n.translate({ zh: '节点项', en: 'Timeline item' }),
         labelRender: {
           fieldName: 'label',
           canEdit: true,
@@ -184,10 +227,13 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
 
     usePending: {
       type: 'boolean',
-      label: '使用幽灵节点',
+      label: {
+        zh: '使用幽灵节点',
+        en: 'Use ghost nodes',
+      },
       setter: ResetSwitchSetter,
       setterProps: {
-        title: '使用幽灵节点',
+        title: i18n.translate({ zh: '使用幽灵节点', en: 'Use ghost nodes' }),
         size: 'small',
         whenFalse: [
           { key: 'pendingRender', type: 'slot' },
@@ -197,66 +243,81 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
     },
     useCustomDot: {
       type: 'boolean',
-      label: '使用自定义点',
+      label: {
+        zh: '使用自定义点',
+        en: 'Use custom nodes',
+      },
       setter: useCustomDotSetter,
       setterProps: {
-        title: '使用自定义点',
+        title: i18n.translate({ zh: '使用自定义点', en: 'Use custom nodes' }),
         size: 'small',
       },
     },
 
     direction: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         displayAs: 'button',
         options: [
-          { value: 'horizontal', label: '水平' },
-          { value: 'vertical', label: '垂直' },
+          { value: 'horizontal', label: i18n.translate({ zh: '水平', en: 'Horizontal' }) },
+          { value: 'vertical', label: i18n.translate({ zh: '垂直', en: 'Vertical' }) },
         ],
       },
     },
     mode: {
       type: 'string',
-      label: '展示类型',
+      label: {
+        zh: '展示模式',
+        en: 'Display mode',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '展示类型',
+        title: i18n.translate({ zh: '展示模式', en: 'Display mode' }),
         options: [
-          { value: 'left', label: '靠左' },
-          { value: 'right', label: '靠右' },
-          { value: 'top', label: '靠上' },
-          { value: 'bottom', label: '靠下' },
-          { value: 'alternate', label: '交替' },
+          { value: 'left', label: i18n.translate({ zh: '靠左', en: 'Left' }) },
+          { value: 'right', label: i18n.translate({ zh: '靠右', en: 'Right' }) },
+          { value: 'top', label: i18n.translate({ zh: '靠上', en: 'Top' }) },
+          { value: 'bottom', label: i18n.translate({ zh: '靠下', en: 'Bottom' }) },
+          { value: 'alternate', label: i18n.translate({ zh: '交替', en: 'Alternate' }) },
         ],
       },
     },
     dotType: {
       type: 'string',
-      label: '点的类型',
+      label: {
+        zh: '点的类型',
+        en: 'Dot type',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '点的类型',
+        title: i18n.translate({ zh: '点的类型', en: 'Dot type' }),
         displayAs: 'button',
         options: [
-          { value: 'solid', label: '实心圆' },
-          { value: 'hollow', label: '空心圆' },
+          { value: 'solid', label: i18n.translate({ zh: '实心圆', en: 'Solid circle' }) },
+          { value: 'hollow', label: i18n.translate({ zh: '空心圆', en: 'Hollow Circle' }) },
         ],
       },
       visible: (props: TimelineProps) => !props.useCustomDot,
     },
     lineType: {
       type: 'string',
-      label: '线的类型',
+      label: {
+        zh: '线的类型',
+        en: 'Line type',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '线的类型',
+        title: i18n.translate({ zh: '线的类型', en: 'Line type' }),
         options: [
-          { value: 'solid', label: '实线' },
-          { value: 'dashed', label: '虚线' },
-          { value: 'dotted', label: '点线' },
+          { value: 'solid', label: i18n.translate({ zh: '实线', en: 'Solid line' }) },
+          { value: 'dashed', label: i18n.translate({ zh: '虚线', en: 'Dashed line' }) },
+          { value: 'dotted', label: i18n.translate({ zh: '点线', en: 'Dot line' }) },
         ],
       },
     },
@@ -266,7 +327,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       id: 'data',
       Render: GroupDecorator,
       props: {
-        title: '数据配置',
+        title: i18n.translate({ zh: '数据配置', en: 'Data setting' }),
         canFold: true,
       },
       childrenOfAttr: ['dataFrom', 'variableValue', 'modalConfig', 'fetchCount', 'customData'],
@@ -279,7 +340,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       id: 'custom',
       Render: GroupDecorator,
       props: {
-        title: '自定义配置',
+        title: i18n.translate({ zh: '自定义配置', en: 'Custom setting' }),
         canFold: true,
       },
       childrenOfAttr: ['usePending', 'useCustomDot'],
@@ -292,7 +353,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       id: 'style',
       Render: GroupDecorator,
       props: {
-        title: '外观',
+        title: i18n.translate({ zh: '外观', en: 'Appearance' }),
         canFold: true,
       },
       childrenOfAttr: ['direction', 'mode', 'dotType', 'lineType'],
@@ -300,19 +361,28 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
   ],
   slot: {
     pendingRender: {
-      label: '幽灵节点内容插槽',
+      label: {
+        zh: '幽灵节点内容插槽',
+        en: 'Ghost node content slot',
+      },
       defaultStyle: {
         padding: [],
       },
     },
     pendingDotRender: {
-      label: '幽灵节点点插槽',
+      label: {
+        zh: '幽灵节点点插槽',
+        en: 'Ghost node dot slot',
+      },
       defaultStyle: {
         padding: [],
       },
     },
     contentRender: {
-      label: '内容插槽',
+      label: {
+        zh: '内容插槽',
+        en: 'Content slot',
+      },
       defaultStyle: {
         padding: [],
       },
@@ -321,7 +391,10 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       },
     },
     customDotRender: {
-      label: '自定义点插槽',
+      label: {
+        zh: '自定义点插槽',
+        en: 'Custom dot slot',
+      },
       defaultStyle: {
         padding: [],
       },
@@ -330,7 +403,10 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       },
     },
     customRender: {
-      label: '自定义插槽',
+      label: {
+        zh: '自定义插槽',
+        en: 'Custom slot',
+      },
       isMultiple: true,
       defaultStyle: {
         padding: [],

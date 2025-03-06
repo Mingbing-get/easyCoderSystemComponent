@@ -4,6 +4,8 @@ import { Badge } from '@arco-design/web-react'
 import { IconInfo, IconClose, IconCheck, IconExclamation } from '@arco-design/web-react/icon'
 
 import { EasyCoderMessage } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
+
 import ShowExtraWhenUrl from './showExtraWhenUrl'
 import ShowExtraWhenPage from './showExtraWhenPage'
 
@@ -17,6 +19,11 @@ interface Props {
   hideHeader?: boolean
   message: EasyCoderMessage.Define
 }
+
+const dayAgo = i18n.translate({ zh: '天前', en: 'day ago' })
+const hourAgo = i18n.translate({ zh: '小时前', en: 'hour ago' })
+const minuteAgo = i18n.translate({ zh: '分钟前', en: 'minute ago' })
+const withinOneMinute = i18n.translate({ zh: '1分钟内', en: 'Within 1 minute' })
 
 export default function DisplaySingleNotify({ style, className, observer, isRead, hideHeader, message }: Props) {
   const domRef = useRef<HTMLDivElement>(null)
@@ -93,20 +100,20 @@ function formatDate(str: string) {
   }
 
   if (diffOfDay > 0) {
-    return `${diffOfDay}天前`
+    return `${diffOfDay}${dayAgo}`
   }
 
   const diffOfHour = Math.floor(diff / millisecondsOfHour)
   if (diffOfHour > 0) {
-    return `${diffOfHour}小时前`
+    return `${diffOfHour}${hourAgo}`
   }
 
   const diffOfMinute = Math.floor(diff / millisecondsOfMinute)
   if (diffOfMinute > 0) {
-    return `${diffOfMinute}分钟前`
+    return `${diffOfMinute}${minuteAgo}`
   }
 
-  return '1分钟内'
+  return withinOneMinute
 }
 
 function _tow(num: number) {

@@ -1,12 +1,16 @@
 import { useCallback, useMemo } from 'react'
 import { Button, Popover, Modal } from '@arco-design/web-react'
+
 import { useGetModalContainer, useVariableValue, GLOBAL_VARIABLE } from '@easy-coder/sdk/store'
 import { EasyCoderMessage, LookupInRecord, useDataCenter } from '@easy-coder/sdk/data'
 import { RenderPage, useEasyCodeClient } from '@easy-coder/sdk/client'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 interface Props {
   extra: EasyCoderMessage.PageExtra
 }
+
+const viewDetails = i18n.translate({ zh: '查看详情', en: 'View details' })
 
 export default function ShowExtraWhenPage({ extra }: Props) {
   const dataCenter = useDataCenter()
@@ -91,7 +95,7 @@ export default function ShowExtraWhenPage({ extra }: Props) {
         <Button
           size="mini"
           type="text">
-          查看详情
+          {viewDetails}
         </Button>
       </Popover>
     )
@@ -102,7 +106,7 @@ export default function ShowExtraWhenPage({ extra }: Props) {
       size="mini"
       type="text"
       onClick={handleClick}>
-      查看详情
+      {viewDetails}
     </Button>
   )
 }

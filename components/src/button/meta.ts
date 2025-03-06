@@ -1,13 +1,21 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
+import { StringOrMultilingualSetter } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import Button, { ButtonProps } from '.'
 
 const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
   type: 'system_component_button',
-  label: '按钮',
+  label: {
+    zh: '按钮',
+    en: 'Button',
+  },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   style: {
@@ -76,63 +84,104 @@ const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
           },
         ],
       },
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
     },
   },
   attr: {
     disabled: {
       type: 'boolean',
-      label: '禁止',
+      label: {
+        zh: '禁止',
+        en: 'Disabled',
+      },
     },
     loading: {
       type: 'boolean',
-      label: '加载中',
+      label: {
+        zh: '加载中',
+        en: 'Loading',
+      },
     },
     needConfirm: {
       type: 'boolean',
-      label: '开启二次确认',
+      label: {
+        zh: '开启二次确认',
+        en: 'Enable secondary confirmation',
+      },
       disabledFx: true,
     },
     confirmTitle: {
-      type: 'string',
-      label: '二次确认标题',
+      type: 'multilingual',
+      label: {
+        zh: '二次确认标题',
+        en: 'Secondary confirmation title',
+      },
+      setter: StringOrMultilingualSetter,
+      setterProps: {
+        title: i18n.translate({ zh: '二次确认标题', en: 'Secondary confirmation title' }),
+        size: 'mini',
+      },
       visible: (props: ButtonProps) => props?.needConfirm,
     },
   },
   slot: {
     children: {
       defaultStyle: {},
-      label: '子节点',
+      label: {
+        zh: '子节点',
+        en: 'Sub node',
+      },
     },
     confirmDescription: {
       defaultStyle: {},
-      label: '二次确认描述',
+      label: {
+        zh: '二次确认描述',
+        en: 'Secondary confirmation description',
+      },
     },
   },
   event: {
     onClick: {
-      label: '点击时',
+      label: {
+        zh: '点击时',
+        en: 'On click',
+      },
     },
   },
   export: {
     attr: {
       disabled: {
         type: 'boolean',
-        label: '是否禁止',
+        label: {
+          zh: '是否禁止',
+          en: 'Is Disabled',
+        },
       },
       loading: {
         type: 'boolean',
-        label: '是否加载中',
+        label: {
+          zh: '是否加载中',
+          en: 'Is loading',
+        },
       },
     },
     event: {
       setDisabled: {
-        params: [{ type: 'boolean', label: '新值' }],
-        label: '设置是否禁止',
+        params: [{ type: 'boolean', label: { zh: '新值', en: 'New value' } }],
+        label: {
+          zh: '设置是否禁止',
+          en: 'Set disabled',
+        },
       },
       setLoading: {
-        params: [{ type: 'boolean', label: '新值' }],
-        label: '设置是否加载中',
+        params: [{ type: 'boolean', label: { zh: '新值', en: 'New value' } }],
+        label: {
+          zh: '设置是否加载中',
+          en: 'Set loading',
+        },
       },
     },
   },
@@ -143,7 +192,7 @@ const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
     const childrenSlot = options.getEditorById(childrenSlotIds[0])
     if (!childrenSlot) return
 
-    const elementId = await options.createElement('system_component_text', childrenSlotIds[0], { text: '按钮' })
+    const elementId = await options.createElement('system_component_text', childrenSlotIds[0], { text: { zh: '按钮', en: 'Button' } })
     childrenSlot.elements.push(elementId)
   },
   Render: Button,

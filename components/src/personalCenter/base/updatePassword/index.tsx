@@ -1,6 +1,10 @@
 import { useCallback, useState } from 'react'
 import { Input, Button, Message, Form } from '@arco-design/web-react'
+
 import { useDataCenter } from '@easy-coder/sdk/data'
+import { i18n } from '@easy-coder/sdk/i18n'
+
+import { local } from '../local'
 
 interface Props {
   userId: number
@@ -18,19 +22,19 @@ export default function UpdatePassword({ userId, onComplete }: Props) {
   const handleBlur = useCallback(() => {
     let isPass = true
     if (!oldPassword) {
-      Message.info('请输入旧密码')
+      Message.info(i18n.translate(local.placeInputOldPassword))
       isPass = false
     } else if (oldPassword.length < 8) {
-      Message.info('旧密码错误')
+      Message.info(i18n.translate(local.oldPasswordError))
       isPass = false
     } else if (!newPassword) {
-      Message.info('请输入新密码')
+      Message.info(i18n.translate(local.placeInputNewPassword))
       isPass = false
     } else if (newPassword.length < 8) {
-      Message.info('新密码至少八位')
+      Message.info(i18n.translate(local.passwordMoreThanEight))
       isPass = false
     } else if (newPassword !== confirmPassword) {
-      Message.info('两次密码不相等')
+      Message.info(i18n.translate(local.passwordIsDiff))
       isPass = false
     }
 
@@ -45,19 +49,19 @@ export default function UpdatePassword({ userId, onComplete }: Props) {
       setOldPassword('')
       setNewPassword('')
       setConfirmPassword('')
-      Message.success('修改密码成功')
+      Message.success(i18n.translate(local.updatePasswordSuccess))
       onComplete?.()
     } else {
-      Message.error('修改密码失败')
+      Message.error(i18n.translate(local.updatePasswordFaile))
     }
 
     setIsLoading(false)
   }, [userId, onComplete, newPassword, oldPassword])
 
   return (
-    <Form>
+    <Form layout="vertical">
       <Form.Item
-        label="旧密码"
+        label={i18n.translate(local.oldPassword)}
         required>
         <Input
           type="password"
@@ -67,7 +71,7 @@ export default function UpdatePassword({ userId, onComplete }: Props) {
         />
       </Form.Item>
       <Form.Item
-        label="新密码"
+        label={i18n.translate(local.newPassword)}
         required>
         <Input
           type="password"
@@ -77,7 +81,7 @@ export default function UpdatePassword({ userId, onComplete }: Props) {
         />
       </Form.Item>
       <Form.Item
-        label="确认密码"
+        label={i18n.translate(local.confirmPassword)}
         required>
         <Input
           type="password"
@@ -86,13 +90,14 @@ export default function UpdatePassword({ userId, onComplete }: Props) {
           onBlur={handleBlur}
         />
       </Form.Item>
-      <Form.Item wrapperCol={{ offset: 5 }}>
+      <Form.Item>
         <Button
+          long
           type="primary"
           onClick={handleSubmit}
           loading={isLoading}
           disabled={isDisabled}>
-          提交
+          {i18n.translate(local.submit)}
         </Button>
       </Form.Item>
     </Form>

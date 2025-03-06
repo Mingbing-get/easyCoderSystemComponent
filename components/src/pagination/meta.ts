@@ -1,11 +1,15 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, SelectSetter } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import Pagination, { PaginationProps } from '.'
 
 const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
   type: 'system_component_pagination',
-  label: '分页器',
+  label: {
+    zh: '分页器',
+    en: 'Pagination',
+  },
   defaultAttr: {
     pageSizeChangeResetCurrent: true,
     bufferSize: 2,
@@ -15,7 +19,10 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
   },
   style: {
     style: {
-      label: '分页器样式',
+      label: {
+        zh: '分页器样式',
+        en: 'Pagination style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -37,7 +44,10 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       ],
     },
     pageItemStyle: {
-      label: '分页按钮样式',
+      label: {
+        zh: '分页按钮样式',
+        en: 'Pagination button style',
+      },
       supportModels: [
         'background',
         'borderRadius',
@@ -63,7 +73,10 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       ],
     },
     activePageItemStyle: {
-      label: '被选中的分页按钮样式',
+      label: {
+        zh: '被选中的分页按钮样式',
+        en: 'Active pagination button style',
+      },
       supportModels: [
         'background',
         'borderRadius',
@@ -91,73 +104,112 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
   },
   attr: {
     defaultCurrent: {
-      label: '当前页默认值',
+      label: {
+        zh: '当前页默认值',
+        en: 'Current page default value',
+      },
       type: 'number',
     },
     defaultPageSize: {
-      label: '每页大小默认值',
+      label: {
+        zh: '每页大小默认值',
+        en: 'Page size default value',
+      },
       type: 'number',
     },
     total: {
-      label: '总条数默认值',
+      label: {
+        zh: '总条数默认值',
+        en: 'Total number of default value',
+      },
       type: 'number',
     },
     disabled: {
-      label: '是否禁用',
+      label: {
+        zh: '是否禁用',
+        en: 'Is disable',
+      },
       type: 'boolean',
     },
 
     hideOnSinglePage: {
-      label: '是否在只有一页的情况下隐藏',
+      label: {
+        zh: '是否在只有一页的情况下隐藏',
+        en: 'Hide when only one page',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     pageSizeChangeResetCurrent: {
-      label: 'pageSize改变时将页面重置为1',
+      label: {
+        zh: 'pageSize改变时将页面重置为1',
+        en: 'pageSize change reset current page to 1',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     showJumper: {
-      label: '是否显示快速跳',
+      label: {
+        zh: '是否显示快速跳',
+        en: 'Show quick jump',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     showMore: {
-      label: '是否显示更多页码提示',
+      label: {
+        zh: '是否显示更多页码提示',
+        en: 'Show more page number prompt',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     simple: {
-      label: '是否应用精简分页模式',
+      label: {
+        zh: '是否应用精简分页模式',
+        en: 'Apply simple pagination mode',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     sizeCanChange: {
-      label: '是否可以改变每页条数',
+      label: {
+        zh: '是否可以改变每页条数',
+        en: 'Whether the page size can be changed',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     showTotal: {
-      label: '是否显示总条数',
+      label: {
+        zh: '是否显示总条数',
+        en: 'Whether to display the total number of pages',
+      },
       type: 'boolean',
       disabledFx: true,
     },
     bufferSize: {
-      label: '连续显示的页码数',
+      label: {
+        zh: '连续显示的页码数',
+        en: 'Number of continuous displayed pages',
+      },
       type: 'number',
       disabledFx: true,
     },
     size: {
-      label: '分页器尺寸',
+      label: {
+        zh: '分页器尺寸',
+        en: 'Pagination size',
+      },
       type: 'string',
       setter: SelectSetter,
       setterProps: {
-        title: '分页器尺寸',
+        title: i18n.translate({ zh: '分页器尺寸', en: 'Pagination size' }),
         options: [
-          { value: 'mini', label: '极小' },
-          { value: 'small', label: '小' },
-          { value: 'default', label: '默认' },
-          { value: 'large', label: '大' },
+          { value: 'mini', label: i18n.translate({ zh: '极小', en: 'Mini' }) },
+          { value: 'small', label: i18n.translate({ zh: '小', en: 'Small' }) },
+          { value: 'default', label: i18n.translate({ zh: '默认', en: 'Default' }) },
+          { value: 'large', label: i18n.translate({ zh: '大', en: 'Large' }) },
         ],
       },
     },
@@ -167,7 +219,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       id: 'data',
       Render: GroupDecorator,
       props: {
-        title: '数据配置',
+        title: i18n.translate({ zh: '数据配置', en: 'Data configuration' }),
         canFold: true,
       },
       childrenOfAttr: ['defaultCurrent', 'defaultPageSize', 'total', 'disabled'],
@@ -176,7 +228,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       id: 'visible-setting',
       Render: GroupDecorator,
       props: {
-        title: '显示配置',
+        title: i18n.translate({ zh: '显示配置', en: 'Visible configuration' }),
         canFold: true,
       },
       childrenOfAttr: ['hideOnSinglePage', 'pageSizeChangeResetCurrent', 'showJumper', 'showMore', 'simple', 'sizeCanChange', 'showTotal', 'bufferSize'],
@@ -185,54 +237,78 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       id: 'style',
       Render: GroupDecorator,
       props: {
-        title: '外观',
+        title: i18n.translate({ zh: '外观', en: 'Appearance' }),
       },
       childrenOfAttr: ['size'],
     },
   ],
   event: {
     onChange: {
-      label: '页码改变时',
+      label: {
+        zh: '页码改变时',
+        en: 'Page number change',
+      },
       params: [
-        { type: 'number', label: '当前页' },
-        { type: 'number', label: '单页条数' },
+        { type: 'number', label: { zh: '当前页', en: 'Current page' } },
+        { type: 'number', label: { zh: '单页条数', en: 'Page size' } },
       ],
     },
     onPageSizeChange: {
-      label: '单页条数改变时',
+      label: {
+        zh: '单页条数改变时',
+        en: 'Page size change',
+      },
       params: [
-        { type: 'number', label: '单页条数' },
-        { type: 'number', label: '当前页' },
+        { type: 'number', label: { zh: '单页条数', en: 'Page size' } },
+        { type: 'number', label: { zh: '当前页', en: 'Current page' } },
       ],
     },
   },
   export: {
     attr: {
       total: {
-        label: '总条数',
+        label: {
+          zh: '总条数',
+          en: 'Total number',
+        },
         type: 'number',
       },
       current: {
-        label: '当前页',
+        label: {
+          zh: '当前页',
+          en: 'Current page',
+        },
         type: 'number',
       },
       pageSize: {
-        label: '单页条数',
+        label: {
+          zh: '单页条数',
+          en: 'Page size',
+        },
         type: 'number',
       },
     },
     event: {
       setTotal: {
-        label: '设置总条数',
-        params: [{ type: 'number', label: '总条数' }],
+        label: {
+          zh: '设置总条数',
+          en: 'Set total number',
+        },
+        params: [{ type: 'number', label: { zh: '总条数', en: 'Total number' } }],
       },
       setCurrent: {
-        label: '设置当前页',
-        params: [{ type: 'number', label: '当前页' }],
+        label: {
+          zh: '设置当前页',
+          en: 'Set current page',
+        },
+        params: [{ type: 'number', label: { zh: '当前页', en: 'Current page' } }],
       },
       setPageSize: {
-        label: '设置单页条数',
-        params: [{ type: 'number', label: '单页条数' }],
+        label: {
+          zh: '设置单页条数',
+          en: 'Set page size',
+        },
+        params: [{ type: 'number', label: { zh: '单页条数', en: 'Page size' } }],
       },
     },
   },

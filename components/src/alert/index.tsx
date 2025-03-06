@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
 import classNames from 'classnames'
 import { Alert, AlertProps } from '@arco-design/web-react'
-import { useEnv } from '@easy-coder/sdk/store'
-
-import { EasyCoderElement } from '@easy-coder/sdk/store'
+import { useEnv, EasyCoderElement } from '@easy-coder/sdk/store'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import './index.scss'
 
@@ -11,11 +10,11 @@ export interface AlertUiProps extends EasyCoderElement.DataProps, Pick<AlertProp
   className?: string
 
   useCustomTitle?: boolean
-  title?: string
+  title?: string | Multilingual
   titleRender?: () => React.ReactNode
 
   useCustomContent?: boolean
-  content?: string
+  content?: string | Multilingual
   contentRender?: () => React.ReactNode
 
   showIcon?: boolean
@@ -55,7 +54,7 @@ export default function AlertUi({
       return titleRender?.()
     }
 
-    return title
+    return i18n.translate(title)
   }, [useCustomTitle, title, titleRender])
 
   const _content = useMemo(() => {
@@ -63,7 +62,7 @@ export default function AlertUi({
       return contentRender?.()
     }
 
-    return content
+    return i18n.translate(content)
   }, [useCustomContent, content, contentRender])
 
   const icon = useMemo(() => {

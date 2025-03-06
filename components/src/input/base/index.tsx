@@ -9,6 +9,7 @@ import {
   NumberSetter,
   StringSetter,
   TextSetter,
+  MultilingualSetter,
   VariableCondition,
   VariableDefine,
 } from '@easy-coder/sdk/variable'
@@ -141,6 +142,15 @@ export default function Base({ define, disabledApiNames, disabledNames, conditio
   if (define.type === 'text') {
     return (
       <TextSetter
+        define={define}
+        {...props}
+      />
+    )
+  }
+
+  if (define.type === 'multilingual') {
+    return (
+      <MultilingualSetter
         define={define}
         {...props}
       />

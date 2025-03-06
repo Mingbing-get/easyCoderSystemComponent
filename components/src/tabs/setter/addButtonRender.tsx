@@ -4,6 +4,7 @@ import { IconPlus } from '@arco-design/web-react/icon'
 import { AddButtonProps } from '@easy-coder/sdk/design'
 import { useElementContext } from '@easy-coder/sdk/store'
 import { generateId, useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import { CustomTabItem, TabsProps } from '..'
 
@@ -11,18 +12,23 @@ export default function AddButton({ onAdd }: AddButtonProps<CustomTabItem>) {
   const { insertSlot } = useElementContext<any, TabsProps>()
 
   const handleAdd = useEffectCallback(async () => {
-    const slots = await insertSlot('customRender', ['标题插槽', '内容插槽'])
+    const titleSlotAlias = i18n.translate({ zh: '标题插槽', en: 'Title slot' })
+    const contentSlotAlias = i18n.translate({ zh: '内容插槽', en: 'Content slot' })
+    const slots = await insertSlot('customRender', [titleSlotAlias, contentSlotAlias])
 
     if (slots.length !== 2) return
 
-    const titleSlotId = slots.find((slot) => slot.alias === '标题插槽')?.slotId || ''
-    const contentSlotId = slots.find((slot) => slot.alias === '内容插槽')?.slotId || ''
+    const titleSlotId = slots.find((slot) => slot.alias === titleSlotAlias)?.slotId || ''
+    const contentSlotId = slots.find((slot) => slot.alias === contentSlotAlias)?.slotId || ''
 
     onAdd?.({
       id: generateId('collapse_item'),
       titleSlotId,
       contentSlotId,
-      label: '标签项',
+      label: {
+        zh: '标签项',
+        en: 'Tab item',
+      },
     })
   }, [onAdd])
 
@@ -30,7 +36,7 @@ export default function AddButton({ onAdd }: AddButtonProps<CustomTabItem>) {
     <Popover
       trigger="hover"
       position="top"
-      content="添加标签项">
+      content={i18n.translate({ zh: '添加标签项', en: 'Add tab item' })}>
       <IconPlus
         className="add-icon"
         onClick={handleAdd}

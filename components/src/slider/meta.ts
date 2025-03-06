@@ -1,11 +1,15 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { GroupDecorator, LineDecorator, SelectSetter } from '@easy-coder/sdk/design'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import Slider, { SliderProps } from '.'
 
 const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
   type: 'system_component_slider',
-  label: '滑动输入条',
+  label: {
+    zh: '滑动输入条',
+    en: 'slider',
+  },
   defaultAttr: {
     min: 0,
     max: 100,
@@ -16,7 +20,10 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
   },
   style: {
     style: {
-      label: '样式',
+      label: {
+        zh: '样式',
+        en: 'Style',
+      },
       supportModels: [
         'background',
         'borderColor',
@@ -40,87 +47,120 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
   },
   className: {
     className: {
-      label: '样式名',
+      label: {
+        zh: '样式名',
+        en: 'Classname',
+      },
     },
   },
   attr: {
     defaultValue: {
       type: 'number',
-      label: '默认值',
+      label: {
+        zh: '默认值',
+        en: 'Default value',
+      },
     },
     min: {
       type: 'number',
-      label: '最小值',
+      label: {
+        zh: '最小值',
+        en: 'Min value',
+      },
     },
     max: {
       type: 'number',
-      label: '最大值',
+      label: {
+        zh: '最大值',
+        en: 'Max value',
+      },
     },
     step: {
       type: 'number',
-      label: '步长',
+      label: {
+        zh: '步长',
+        en: 'Step',
+      },
     },
     disabled: {
       type: 'boolean',
-      label: '是否禁用',
+      label: {
+        zh: '是否禁用',
+        en: 'Disabled',
+      },
     },
 
     direction: {
       type: 'string',
-      label: '方向',
+      label: {
+        zh: '方向',
+        en: 'Direction',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '方向',
+        title: i18n.translate({ zh: '方向', en: 'Direction' }),
         displayAs: 'button',
         options: [
-          { value: 'horizontal', label: '水平' },
-          { value: 'vertical', label: '垂直' },
+          { value: 'horizontal', label: i18n.translate({ zh: '水平', en: 'Horizontal' }) },
+          { value: 'vertical', label: i18n.translate({ zh: '垂直', en: 'Vertical' }) },
         ],
       },
     },
     tooltipPosition: {
       type: 'string',
-      label: '提示显示位置',
+      label: {
+        zh: '提示显示位置',
+        en: 'Tooltip position',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '提示显示位置',
+        title: i18n.translate({ zh: '提示显示位置', en: 'Tooltip position' }),
         options: [
-          { value: 'top', label: '上方' },
-          { value: 'tl', label: '上方靠左' },
-          { value: 'tr', label: '上方靠右' },
-          { value: 'bottom', label: '下方' },
-          { value: 'bl', label: '下方靠左' },
-          { value: 'br', label: '下方靠右' },
-          { value: 'left', label: '左侧' },
-          { value: 'lt', label: '左侧靠上' },
-          { value: 'lb', label: '左侧靠下' },
-          { value: 'right', label: '右侧' },
-          { value: 'rt', label: '右侧靠上' },
-          { value: 'rb', label: '右侧靠下' },
+          { value: 'top', label: i18n.translate({ zh: '上方', en: 'Top' }) },
+          { value: 'tl', label: i18n.translate({ zh: '上方靠左', en: 'Top left' }) },
+          { value: 'tr', label: i18n.translate({ zh: '上方靠右', en: 'Top right' }) },
+          { value: 'bottom', label: i18n.translate({ zh: '下方', en: 'Bottom' }) },
+          { value: 'bl', label: i18n.translate({ zh: '下方靠左', en: 'Bottom left' }) },
+          { value: 'br', label: i18n.translate({ zh: '下方靠右', en: 'Bottom right' }) },
+          { value: 'left', label: i18n.translate({ zh: '左侧', en: 'Left' }) },
+          { value: 'lt', label: i18n.translate({ zh: '左侧靠上', en: 'Left top' }) },
+          { value: 'lb', label: i18n.translate({ zh: '左侧靠下', en: 'Left bottom' }) },
+          { value: 'right', label: i18n.translate({ zh: '右侧', en: 'Right' }) },
+          { value: 'rt', label: i18n.translate({ zh: '右侧靠上', en: 'Right top' }) },
+          { value: 'rb', label: i18n.translate({ zh: '右侧靠下', en: 'Right bottom' }) },
         ],
       },
     },
     tooltipVisible: {
       type: 'string',
-      label: '提示显示时机',
+      label: {
+        zh: '提示显示时机',
+        en: 'Prompt display timing',
+      },
       setter: SelectSetter,
       setterProps: {
-        title: '提示显示时机',
+        title: i18n.translate({ zh: '提示显示时机', en: 'Prompt display timing' }),
         options: [
-          { value: 'whenHover', label: '鼠标悬浮时' },
-          { value: 'until', label: '一直显示' },
-          { value: 'none', label: '不显示' },
+          { value: 'whenHover', label: i18n.translate({ zh: '鼠标悬停时', en: 'Mouse hover' }) },
+          { value: 'until', label: i18n.translate({ zh: '一直显示', en: 'Always display' }) },
+          { value: 'none', label: i18n.translate({ zh: '不显示', en: 'Do not display' }) },
         ],
       },
     },
     showTicks: {
       type: 'boolean',
-      label: '显示刻度线',
+      label: {
+        zh: '显示刻度线',
+        en: 'Show ticks',
+      },
       disabledFx: true,
     },
     showInput: {
       type: 'boolean',
-      label: '显示输入框',
+      label: {
+        zh: '显示输入框',
+        en: 'Show input',
+      },
       disabledFx: true,
     },
   },
@@ -129,7 +169,7 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
       id: 'data',
       Render: GroupDecorator,
       props: {
-        title: '数据设置',
+        title: i18n.translate({ zh: '数据设置', en: 'Data setting' }),
       },
       childrenOfAttr: ['defaultValue', 'min', 'max', 'step', 'disabled'],
     },
@@ -141,36 +181,51 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
       id: 'visibleSetting',
       Render: GroupDecorator,
       props: {
-        title: '显示配置',
+        title: i18n.translate({ zh: '显示配置', en: 'Visible setting' }),
       },
       childrenOfAttr: ['direction', 'tooltipPosition', 'tooltipVisible', 'showTicks', 'showInput'],
     },
   ],
   event: {
     onChange: {
-      label: '值改变时',
-      params: [{ type: 'number', label: '新值' }],
+      label: {
+        zh: '值改变时',
+        en: 'Value changed',
+      },
+      params: [{ type: 'number', label: { zh: '新值', en: 'New value' } }],
     },
   },
   export: {
     attr: {
       value: {
         type: 'number',
-        label: '值',
+        label: {
+          zh: '值',
+          en: 'Value',
+        },
       },
       isDisabled: {
         type: 'boolean',
-        label: '是否禁用',
+        label: {
+          zh: '是否禁用',
+          en: 'Is disabled',
+        },
       },
     },
     event: {
       setValue: {
-        label: '设置值',
-        params: [{ type: 'number', label: '新值' }],
+        label: {
+          zh: '设置值',
+          en: 'Set value',
+        },
+        params: [{ type: 'number', label: { zh: '新值', en: 'New value' } }],
       },
       setDisabled: {
-        label: '设置是否禁用',
-        params: [{ type: 'boolean', label: '是否禁用' }],
+        label: {
+          zh: '设置是否禁用',
+          en: 'Set is disabled',
+        },
+        params: [{ type: 'boolean', label: { zh: '是否禁用', en: 'Is disabled' } }],
       },
     },
   },

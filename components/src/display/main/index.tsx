@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { TagProps, Tag } from '@arco-design/web-react'
+import { IconFile } from '@arco-design/web-react/icon'
 
 import { FileInRecord, LookupInRecord, WithEnumsGroup, useDataCenter } from '@easy-coder/sdk/data'
 import { VariableDefine } from '@easy-coder/sdk/variable'
-import { IconFile } from '@arco-design/web-react/icon'
+import { i18n } from '@easy-coder/sdk/i18n'
 
 import './index.scss'
 
@@ -26,6 +27,10 @@ export default function DisplayVariable({ type, enumGroupName, modalName, tagSiz
 
   if (['float', 'number', 'string', 'text'].includes(type)) {
     return <DisplayStringOrNumber {...common} />
+  }
+
+  if (type === 'multilingual') {
+    return <DisplayMultilingual {...common} />
   }
 
   if (type === 'boolean') {
@@ -100,6 +105,19 @@ function DisplayStringOrNumber({ value, onClick, style, className }: Pick<Props,
       className={classNames('easy-coder-display-text', className)}
       onClick={() => onClick?.(value)}>
       {value}
+    </span>
+  )
+}
+
+function DisplayMultilingual({ value, onClick, style, className }: Pick<Props, CommonPropsKey>) {
+  if (typeof value !== 'string' && !isObject(value)) return '-'
+
+  return (
+    <span
+      style={style}
+      className={classNames('easy-coder-display-text', className)}
+      onClick={() => onClick?.(value)}>
+      {i18n.translate(value)}
     </span>
   )
 }
@@ -179,7 +197,7 @@ function DisplayEnum({
       size={tagSize}
       className={classNames('easy-coder-display-enum', className)}
       onClick={() => onClick?.(value)}>
-      {currentEnum.label}
+      {i18n.translateFillEmpty(currentEnum.label)}
     </Tag>
   )
 }
@@ -226,7 +244,7 @@ function DisplayLookup({
       style={style}
       className={classNames('easy-coder-display-lookup', className)}
       onClick={() => onClick?.(value)}>
-      {value._display}
+      {i18n.translateFillEmpty(value._display)}
     </Tag>
   )
 }
@@ -285,6 +303,10 @@ function DisplayFile({ value, onClick, style, className }: Pick<Props, CommonPro
       })}
     </div>
   )
+}
+
+function isObject(v: any): v is Record<string, any> {
+  return Object.prototype.toString.call(v) === '[object Object]'
 }
 
 function isLookup(v: any): v is LookupInRecord {

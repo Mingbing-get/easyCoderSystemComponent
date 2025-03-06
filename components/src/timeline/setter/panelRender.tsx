@@ -1,24 +1,24 @@
 import { useMemo } from 'react'
-import { Input } from '@arco-design/web-react'
 import { ObjectPanelOrLabelRenderProps, SelectSetter, WithLabel } from '@easy-coder/sdk/design'
 import { useEffectCallback } from '@easy-coder/sdk/helper'
+import { i18n, MultilingualInput } from '@easy-coder/sdk/i18n'
 
 import { CustomTimelineItem } from '..'
 
 export default function PanelRender({ item, disabled, onChange }: ObjectPanelOrLabelRenderProps<CustomTimelineItem>) {
   const dotTypeOptions = useMemo(
     () => [
-      { value: 'solid', label: '实心圆' },
-      { value: 'hollow', label: '空心圆' },
+      { value: 'solid', label: i18n.translate({ zh: '实心圆', en: 'Solid circle' }) },
+      { value: 'hollow', label: i18n.translate({ zh: '空心圆', en: 'Hollow Circle' }) },
     ],
     []
   )
 
   const lineTypeOptions = useMemo(
     () => [
-      { value: 'solid', label: '实线' },
-      { value: 'dashed', label: '虚线' },
-      { value: 'dotted', label: '点线' },
+      { value: 'solid', label: i18n.translate({ zh: '实线', en: 'Solid line' }) },
+      { value: 'dashed', label: i18n.translate({ zh: '虚线', en: 'Dashed line' }) },
+      { value: 'dotted', label: i18n.translate({ zh: '点线', en: 'Dot line' }) },
     ],
     []
   )
@@ -32,23 +32,23 @@ export default function PanelRender({ item, disabled, onChange }: ObjectPanelOrL
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6, width: 240 }}>
-      <WithLabel title="标签">
-        <Input
+      <WithLabel title={i18n.translate({ zh: '标签', en: 'Label' })}>
+        <MultilingualInput
           size="mini"
           value={item.label}
-          onChange={(v) => handleChange('label', v)}
+          onInputComplete={(v) => handleChange('label', v)}
           disabled={disabled}
         />
       </WithLabel>
       <SelectSetter
-        title="点类型"
+        title={i18n.translate({ zh: '点类型', en: 'Dot type' })}
         disabled={disabled}
         value={item.dotType}
         options={dotTypeOptions}
         onChange={(v) => handleChange('dotType', v as string)}
       />
       <SelectSetter
-        title="线类型"
+        title={i18n.translate({ zh: '线类型', en: 'Line type' })}
         disabled={disabled}
         value={item.lineType}
         options={lineTypeOptions}

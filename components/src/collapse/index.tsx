@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { ModalConfig } from '@easy-coder/sdk/design'
 import { EasyCoderElement } from '@easy-coder/sdk/store'
+import { Multilingual, i18n } from '@easy-coder/sdk/i18n'
 
 import RenderWhenCustom from './render/renderWhenCustom'
 import RenderWhenModal from './render/renderWhenModal'
@@ -10,7 +11,7 @@ import './index.scss'
 
 export interface CustomCollapseItem {
   id: string
-  label: string
+  label: Multilingual
   headerSlotId: string
   extraSlotId: string
   contentSlotId: string
@@ -76,5 +77,5 @@ export default function Collapse({ dataFrom, className, ...extra }: CollapseProp
     }
   }
 
-  return <span {...dataProps}>配置错误</span>
+  return <span {...dataProps}>{i18n.translate({ zh: '配置错误', en: 'Config Error' })}</span>
 }
