@@ -30,6 +30,8 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',

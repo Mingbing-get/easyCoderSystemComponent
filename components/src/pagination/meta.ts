@@ -25,6 +25,8 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -50,6 +52,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       },
       supportModels: [
         'background',
+        'filter',
         'borderRadius',
         'borderStyle',
         'borderWidth',
@@ -79,6 +82,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       },
       supportModels: [
         'background',
+        'filter',
         'borderRadius',
         'borderStyle',
         'borderWidth',

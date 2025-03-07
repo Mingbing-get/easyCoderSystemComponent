@@ -70,21 +70,35 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
         zh: '样式',
         en: 'Style',
       },
-      supportModels: ['background', 'borderRadius', 'boxShadow', 'margin', 'maxWidth', 'minWidth', 'outline', 'padding', 'transform', 'transition', 'width'],
+      supportModels: [
+        'background',
+        'filter',
+        'position',
+        'borderRadius',
+        'boxShadow',
+        'margin',
+        'maxWidth',
+        'minWidth',
+        'outline',
+        'padding',
+        'transform',
+        'transition',
+        'width',
+      ],
     },
     itemStyle: {
       label: {
         zh: '折叠项样式',
         en: 'Item style',
       },
-      supportModels: ['background', 'borderRadius', 'margin', 'padding'],
+      supportModels: ['background', 'filter', 'borderRadius', 'margin', 'padding'],
     },
     contentStyle: {
       label: {
         zh: '内容样式',
         en: 'Content style',
       },
-      supportModels: ['background', 'borderRadius', 'height', 'margin', 'maxHeight', 'minHeight', 'overflow', 'padding'],
+      supportModels: ['background', 'filter', 'borderRadius', 'height', 'margin', 'maxHeight', 'minHeight', 'overflow', 'padding'],
     },
   },
   className: {

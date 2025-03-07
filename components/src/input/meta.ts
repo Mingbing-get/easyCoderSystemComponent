@@ -40,6 +40,8 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -67,6 +69,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       },
       supportModels: [
         'background',
+        'filter',
         'borderColor',
         'borderRadius',
         'borderStyle',

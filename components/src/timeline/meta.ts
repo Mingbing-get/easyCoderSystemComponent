@@ -86,6 +86,8 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -110,7 +112,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
         zh: '节点项样式',
         en: 'Item style',
       },
-      supportModels: ['background', 'borderColor', 'borderRadius', 'borderStyle', 'borderWidth', 'boxShadow', 'margin', 'outline', 'padding'],
+      supportModels: ['background', 'filter', 'borderColor', 'borderRadius', 'borderStyle', 'borderWidth', 'boxShadow', 'margin', 'outline', 'padding'],
     },
   },
   className: {

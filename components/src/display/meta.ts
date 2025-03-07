@@ -38,6 +38,8 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -65,6 +67,7 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       },
       supportModels: [
         'background',
+        'filter',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -96,6 +99,7 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       },
       supportModels: [
         'background',
+        'filter',
         'borderColor',
         'borderRadius',
         'borderStyle',

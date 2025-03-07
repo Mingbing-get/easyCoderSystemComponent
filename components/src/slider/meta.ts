@@ -26,6 +26,8 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',

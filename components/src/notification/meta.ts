@@ -16,6 +16,8 @@ const notificationMeta: EasyCoderElement.Desc<NotificationProps> = {
       },
       supportModels: [
         'background',
+        'filter',
+        'position',
         'borderColor',
         'borderRadius',
         'borderStyle',
