@@ -73,6 +73,8 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderRadius',
         'boxShadow',
@@ -91,14 +93,14 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
         zh: '折叠项样式',
         en: 'Item style',
       },
-      supportModels: ['background', 'filter', 'borderRadius', 'margin', 'padding'],
+      supportModels: ['background', 'filter', 'opacity', 'zIndex', 'borderRadius', 'margin', 'padding'],
     },
     contentStyle: {
       label: {
         zh: '内容样式',
         en: 'Content style',
       },
-      supportModels: ['background', 'filter', 'borderRadius', 'height', 'margin', 'maxHeight', 'minHeight', 'overflow', 'padding'],
+      supportModels: ['background', 'filter', 'opacity', 'zIndex', 'borderRadius', 'height', 'margin', 'maxHeight', 'minHeight', 'overflow', 'padding'],
     },
   },
   className: {

@@ -94,6 +94,8 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderColor',
         'borderRadius',

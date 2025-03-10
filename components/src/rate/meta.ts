@@ -22,6 +22,8 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderColor',
         'borderRadius',

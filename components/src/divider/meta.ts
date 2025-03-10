@@ -23,6 +23,8 @@ const dividerMeta: EasyCoderElement.Desc<DividerProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'height',
         'margin',

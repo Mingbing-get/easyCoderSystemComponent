@@ -22,6 +22,8 @@ const iconMeta: EasyCoderElement.Desc<IconProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderColor',
         'borderRadius',
@@ -59,6 +61,14 @@ const iconMeta: EasyCoderElement.Desc<IconProps> = {
       setter: IconPickSetter,
       setterProps: {
         title: i18n.translate({ zh: '图标', en: 'Icon' }),
+      },
+    },
+  },
+  event: {
+    onClick: {
+      label: {
+        zh: '点击时',
+        en: 'On click',
       },
     },
   },

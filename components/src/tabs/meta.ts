@@ -94,6 +94,8 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderColor',
         'borderRadius',
@@ -118,7 +120,7 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
         zh: '面板样式',
         en: 'Panel style',
       },
-      supportModels: ['background', 'filter', 'height', 'margin', 'maxHeight', 'minHeight', 'padding'],
+      supportModels: ['background', 'filter', 'opacity', 'zIndex', 'height', 'margin', 'maxHeight', 'minHeight', 'padding'],
     },
   },
   className: {

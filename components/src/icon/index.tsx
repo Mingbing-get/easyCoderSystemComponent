@@ -6,6 +6,7 @@ export interface IconProps extends EasyCoderElement.DataProps {
   iconName?: string
   style?: React.CSSProperties
   className?: string
+  onClick?: () => void
 }
 
 export default function Icon({ iconName, ...extra }: IconProps) {

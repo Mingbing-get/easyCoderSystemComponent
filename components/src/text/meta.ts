@@ -47,6 +47,8 @@ const textMeta: EasyCoderElement.Desc<TextProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderColor',
         'borderRadius',

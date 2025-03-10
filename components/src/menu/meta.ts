@@ -107,6 +107,8 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -132,6 +134,8 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'borderColor',
         'borderRadius',
         'borderStyle',

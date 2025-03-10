@@ -26,6 +26,8 @@ const tagMeta: EasyCoderElement.Desc<TagProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderRadius',
         'color',

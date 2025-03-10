@@ -39,6 +39,8 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'position',
         'borderColor',
         'borderRadius',
@@ -68,6 +70,8 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'borderColor',
         'borderRadius',
         'borderStyle',
@@ -100,6 +104,8 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
       supportModels: [
         'background',
         'filter',
+        'opacity',
+        'zIndex',
         'borderColor',
         'borderRadius',
         'borderStyle',
