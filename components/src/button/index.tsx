@@ -5,6 +5,8 @@ import { EasyCoderElement, useElementContext, useGetModalContainer, useEventBus 
 import { useEffectCallback } from '@easy-coder/sdk/helper'
 import { i18n, Multilingual } from '@easy-coder/sdk/i18n'
 
+import useInitOpenModal from './useInitOpenModal'
+
 import './index.scss'
 
 export interface ButtonProps extends EasyCoderElement.DataProps {
@@ -35,6 +37,22 @@ export default function Button({ disabled, loading, needConfirm, confirmTitle, c
   const [modal, modalHandle] = Modal.useModal()
   const getModalContainer = useGetModalContainer()
   const eventBus = useEventBus()
+
+  useInitOpenModal(() => {
+    modal.confirm({
+      getPopupContainer: getModalContainer,
+      getChildrenPopupContainer: () => document.body,
+      title: i18n.translate(confirmTitle),
+      content: confirmDescription?.(),
+      onOk: async () => {
+        handleCancelActive()
+        await onClick?.()
+      },
+      onCancel: handleCancelActive,
+      icon: null,
+      closable: true,
+    })
+  })
 
   const handleCancelActive = useCallback(() => {
     eventBus.triggerListener('changeArea', {})

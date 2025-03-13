@@ -1,0 +1,21 @@
+.easy-coder-markdown-editor {
+  &.rc-md-editor .rc-md-navigation .button-wrap .button-type-underline {
+    display: none;
+  }
+}
+
+.easy-coder-markdown-code {
+  position: relative;
+
+  .easy-coder-markdown-code-copy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    transform: translate(100%, -100%);
+
+    &:hover {
+      color: rgb(var(--primary-6));
+    }
+  }
+}
