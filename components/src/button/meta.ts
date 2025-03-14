@@ -1,5 +1,5 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
-import { StringOrMultilingualSetter } from '@easy-coder/sdk/design'
+import { StringOrMultilingualSetter, GroupDecorator, LineDecorator } from '@easy-coder/sdk/design'
 import { i18n } from '@easy-coder/sdk/i18n'
 
 import Button, { ButtonProps } from '.'
@@ -9,6 +9,9 @@ const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
   label: {
     zh: '按钮',
     en: 'Button',
+  },
+  defaultAttr: {
+    enableLoadingWhenClick: true,
   },
   className: {
     className: {
@@ -105,6 +108,13 @@ const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
         en: 'Loading',
       },
     },
+    enableLoadingWhenClick: {
+      type: 'boolean',
+      label: {
+        zh: '启用点击后进入加载中状态',
+        en: 'Enable click to enter loading status',
+      },
+    },
     needConfirm: {
       type: 'boolean',
       label: {
@@ -127,6 +137,28 @@ const buttonMeta: EasyCoderElement.Desc<ButtonProps> = {
       visible: (props: ButtonProps) => props?.needConfirm,
     },
   },
+  attrDecorators: [
+    {
+      id: 'base',
+      Render: GroupDecorator,
+      props: {
+        title: i18n.translate({ zh: '基础配置', en: 'Base settings' }),
+      },
+      childrenOfAttr: ['disabled', 'loading', 'enableLoadingWhenClick'],
+    },
+    {
+      id: 'line',
+      Render: LineDecorator,
+    },
+    {
+      id: 'confirm',
+      Render: GroupDecorator,
+      props: {
+        title: i18n.translate({ zh: '二次确认设置', en: 'Secondary confirmation settings' }),
+      },
+      childrenOfAttr: ['needConfirm', 'confirmTitle'],
+    },
+  ],
   slot: {
     children: {
       defaultStyle: {},

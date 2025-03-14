@@ -14,6 +14,7 @@ export interface ButtonProps extends EasyCoderElement.DataProps {
   className?: string
   disabled?: boolean
   loading?: boolean
+  enableLoadingWhenClick?: boolean
   needConfirm?: boolean
   confirmTitle?: string | Multilingual
   confirmDescription?: () => React.ReactNode
@@ -29,7 +30,18 @@ interface ButtonExport {
   setLoading?: (loading?: boolean) => void
 }
 
-export default function Button({ disabled, loading, needConfirm, confirmTitle, confirmDescription, children, className, onClick, ...extra }: ButtonProps) {
+export default function Button({
+  disabled,
+  loading,
+  enableLoadingWhenClick,
+  needConfirm,
+  confirmTitle,
+  confirmDescription,
+  children,
+  className,
+  onClick,
+  ...extra
+}: ButtonProps) {
   const { exportAttr, exportEvent } = useElementContext<ButtonExport>()
   const [_disabled, setDisabled] = useState(disabled)
   const [_loading, setLoading] = useState(loading)
@@ -37,6 +49,21 @@ export default function Button({ disabled, loading, needConfirm, confirmTitle, c
   const [modal, modalHandle] = Modal.useModal()
   const getModalContainer = useGetModalContainer()
   const eventBus = useEventBus()
+
+  const triggerClick = useEffectCallback(async () => {
+    if (!enableLoadingWhenClick) {
+      await onClick?.()
+    } else {
+      setLoading(true)
+      try {
+        await onClick?.()
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+  }, [onClick, enableLoadingWhenClick])
 
   useInitOpenModal(() => {
     modal.confirm({
@@ -46,7 +73,7 @@ export default function Button({ disabled, loading, needConfirm, confirmTitle, c
       content: confirmDescription?.(),
       onOk: async () => {
         handleCancelActive()
-        await onClick?.()
+        await triggerClick()
       },
       onCancel: handleCancelActive,
       icon: null,
@@ -71,17 +98,17 @@ export default function Button({ disabled, loading, needConfirm, confirmTitle, c
           content: confirmDescription?.(),
           onOk: async () => {
             handleCancelActive()
-            await onClick?.()
+            await triggerClick()
           },
           onCancel: handleCancelActive,
           icon: null,
           closable: true,
         })
       } else {
-        onClick?.()
+        triggerClick()
       }
     },
-    [onClick, _disabled, _loading, needConfirm, confirmTitle, confirmDescription]
+    [_disabled, _loading, needConfirm, confirmTitle, confirmDescription]
   )
 
   useEffect(() => {
