@@ -46,6 +46,7 @@ const textMeta: EasyCoderElement.Desc<TextProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -61,6 +62,7 @@ const textMeta: EasyCoderElement.Desc<TextProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'height',
         'margin',
         'maxHeight',

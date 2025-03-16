@@ -25,6 +25,7 @@ const responsiveMeta: EasyCoderElement.Desc<ResponsiveProps> = {
       supportModels: [
         'alignItems',
         'background',
+        'backgroundClip',
         'borderColor',
         'borderRadius',
         'borderStyle',

@@ -16,6 +16,7 @@ const notificationMeta: EasyCoderElement.Desc<NotificationProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -29,6 +30,7 @@ const notificationMeta: EasyCoderElement.Desc<NotificationProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'margin',
         'outline',
         'padding',

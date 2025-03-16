@@ -21,6 +21,7 @@ const iconMeta: EasyCoderElement.Desc<IconProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',

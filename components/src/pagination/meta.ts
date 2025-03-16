@@ -25,6 +25,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -54,6 +55,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -66,6 +68,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'height',
         'margin',
         'maxHeight',
@@ -86,6 +89,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -98,6 +102,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'height',
         'margin',
         'maxHeight',

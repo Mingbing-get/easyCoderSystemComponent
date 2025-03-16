@@ -25,6 +25,7 @@ const tagMeta: EasyCoderElement.Desc<TagProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -35,6 +36,7 @@ const tagMeta: EasyCoderElement.Desc<TagProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'margin',
         'padding',
         'transform',

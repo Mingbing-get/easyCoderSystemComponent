@@ -86,6 +86,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -116,6 +117,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',

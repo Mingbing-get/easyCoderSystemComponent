@@ -19,6 +19,7 @@ const personalCenterMeta: EasyCoderElement.Desc<PersonalCenterProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',

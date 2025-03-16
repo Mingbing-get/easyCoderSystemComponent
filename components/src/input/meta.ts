@@ -40,6 +40,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -71,6 +72,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -85,6 +87,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'height',
         'margin',
         'maxHeight',

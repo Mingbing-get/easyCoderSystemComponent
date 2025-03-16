@@ -106,6 +106,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -119,6 +120,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'margin',
         'padding',
         'outline',
@@ -133,6 +135,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
@@ -146,6 +149,7 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
         'fontSize',
         'fontStyle',
         'fontWeight',
+        'fontFamily',
         'margin',
         'outline',
         'padding',

@@ -26,6 +26,7 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
       },
       supportModels: [
         'background',
+        'backgroundClip',
         'filter',
         'opacity',
         'zIndex',
