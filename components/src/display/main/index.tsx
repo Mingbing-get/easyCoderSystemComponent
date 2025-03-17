@@ -350,9 +350,9 @@ function isImg(type: string) {
     'eps',
     'ai',
     'raw',
-    'WMF',
+    'wmf',
     'webp',
     'avif',
     'apng',
-  ].includes(type)
+  ].includes(type.toLocaleLowerCase())
 }
