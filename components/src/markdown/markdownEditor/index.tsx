@@ -13,9 +13,33 @@ import remarkFrontmatter from 'remark-frontmatter'
 import { remarkCodeWrap } from './remarkPlugin'
 import CodeRender from './codeRender'
 import { fileDownloadPrefix } from '../config'
+import AiPlugin from './aiPlugin'
 
 import 'react-markdown-editor-lite/lib/index.css'
 import './index.scss'
+
+MdEditor.use(AiPlugin)
+
+const plugins = [
+  'header',
+  'font-bold',
+  'font-italic',
+  'font-strikethrough',
+  'list-unordered',
+  'list-ordered',
+  'block-quote',
+  'block-wrap',
+  'block-code-inline',
+  'block-code-block',
+  'table',
+  'image',
+  'link',
+  'clear',
+  'ai-plugin',
+  'logger',
+  'mode-toggle',
+  'full-screen',
+]
 
 interface Props {
   id?: string
@@ -66,6 +90,7 @@ function Editor({ id, content, isPreview, onChange }: Props) {
       style={{ minHeight: '100%' }}
       value={value}
       onChange={handleChange}
+      plugins={plugins}
       onImageUpload={async (file: File) => {
         const fileInfo = await dataCenter.uploadFile(file, true)
 
