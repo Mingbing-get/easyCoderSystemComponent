@@ -46,6 +46,16 @@ const personalCenterMeta: EasyCoderElement.Desc<PersonalCenterProps> = {
       },
     },
   },
+  export: {
+    event: {
+      openLogin: {
+        label: {
+          zh: '打开登录弹窗',
+          en: 'Open login dialog',
+        },
+      },
+    },
+  },
   Render: PersonalCenter,
 }
 

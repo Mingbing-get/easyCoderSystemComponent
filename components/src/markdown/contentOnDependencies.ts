@@ -13,7 +13,7 @@ export default function ContentOnDependencies({ attrValue, dataCenter }: { attrV
     const downLoadFilePath = `${dataCenter.config.host || location.origin}${fileDownloadPrefix}/`
 
     const linkAll = attrValue.match(matchGlobalReg)
-    linkAll.forEach((item) => {
+    linkAll?.forEach((item) => {
       const single = item.match(matchAttrReg)
       const url = single?.[1]
       if (!url?.startsWith(downLoadFilePath)) return
