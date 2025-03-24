@@ -11,7 +11,7 @@ export function remarkCodeWrap(originText?: string) {
       if (!originText) return
 
       visit(tree, 'code', (node: CodeNode) => {
-        node.value = originText.substring(node.position.start.offset, node.position.end.offset).match(/```(?:\w+)?\s*([\s\S]*?)```/)[1]
+        node.value = originText.substring(node.position.start.offset, node.position.end.offset).match(/```(?:\w+)?\s*([\s\S]*?)```/)?.[1] || ''
       })
     }
   }
