@@ -25,6 +25,7 @@ const sliderMeta: EasyCoderElement.Desc<SliderProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

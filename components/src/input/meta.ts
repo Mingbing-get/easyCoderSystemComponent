@@ -39,6 +39,7 @@ const inputMeta: EasyCoderElement.Desc<InputProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

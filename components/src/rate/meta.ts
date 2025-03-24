@@ -20,6 +20,7 @@ const rateMeta: EasyCoderElement.Desc<RateProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

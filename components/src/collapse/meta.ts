@@ -71,6 +71,7 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',
@@ -102,6 +103,7 @@ const collapseMeta: EasyCoderElement.Desc<CollapseProps> = {
         en: 'Content style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

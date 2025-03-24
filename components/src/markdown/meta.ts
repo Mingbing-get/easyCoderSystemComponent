@@ -16,6 +16,7 @@ const markdownMeta: EasyCoderElement.Desc<MarkdownProps> = {
         en: 'style',
       },
       supportModels: [
+        'flex',
         'borderColor',
         'borderRadius',
         'borderStyle',

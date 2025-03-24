@@ -92,6 +92,7 @@ const carouselMeta: EasyCoderElement.Desc<CarouselProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

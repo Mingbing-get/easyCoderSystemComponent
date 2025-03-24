@@ -24,6 +24,7 @@ const tagMeta: EasyCoderElement.Desc<TagProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

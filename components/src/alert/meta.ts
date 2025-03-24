@@ -29,6 +29,7 @@ const alertMeta: EasyCoderElement.Desc<AlertUiProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

@@ -23,6 +23,7 @@ const responsiveMeta: EasyCoderElement.Desc<ResponsiveProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'alignItems',
         'background',
         'backgroundClip',

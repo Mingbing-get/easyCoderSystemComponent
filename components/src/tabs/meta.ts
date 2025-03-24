@@ -92,6 +92,7 @@ const tabsMeta: EasyCoderElement.Desc<TabsProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

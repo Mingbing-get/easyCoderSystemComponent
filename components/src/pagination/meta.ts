@@ -24,6 +24,7 @@ const paginationMeta: EasyCoderElement.Desc<PaginationProps> = {
         en: 'Pagination style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

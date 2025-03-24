@@ -85,6 +85,7 @@ const timelineMeta: EasyCoderElement.Desc<TimelineProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

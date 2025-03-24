@@ -37,6 +37,7 @@ const displayMeta: EasyCoderElement.Desc<DisplayProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',

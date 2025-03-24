@@ -21,6 +21,7 @@ const dividerMeta: EasyCoderElement.Desc<DividerProps> = {
         en: 'Style',
       },
       supportModels: [
+        'flex',
         'background',
         'backgroundClip',
         'filter',
