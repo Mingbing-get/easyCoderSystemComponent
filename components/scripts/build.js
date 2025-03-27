@@ -5,6 +5,7 @@ const react = require('@vitejs/plugin-react')
 const { terser } = require('rollup-plugin-terser')
 const replace = require('@rollup/plugin-replace')
 const extractToEntry = require('./plugin/rollup-plugin-extract-to-entry')
+const { vitePluginForArco } = require('@arco-plugins/vite-react')
 
 const config = {
   dir: resolve(__dirname, '../src'),
@@ -37,7 +38,12 @@ async function main() {
 
 async function startBuild(target, watch) {
   await build({
-    plugins: [react()],
+    plugins: [
+      react(),
+      vitePluginForArco({
+        style: 'css',
+      }),
+    ],
     build: {
       lib: {
         entry: resolve(config.dir, `./${target}/meta.ts`),
