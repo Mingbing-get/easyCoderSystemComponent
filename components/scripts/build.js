@@ -42,13 +42,18 @@ async function startBuild(target, watch) {
       lib: {
         entry: resolve(config.dir, `./${target}/meta.ts`),
         name: 'index',
-        fileName: () => 'index.js',
+        fileName: (format) => (format === 'esm' ? 'index.esm.js' : 'index.js'),
       },
       rollupOptions: {
-        external: [/@easy-coder\/sdk\/*/, 'react', 'react-dom', '@arco-design/web-react'],
+        external: [/@easy-coder\/sdk\/*/, 'react', /^react\/.*/, 'react-dom', 'react/jsx-runtime'],
         output: [
           {
             format: 'umd',
+            name: 'index',
+            assetFileNames: 'index.[ext]',
+          },
+          {
+            format: 'esm',
             name: 'index',
             assetFileNames: 'index.[ext]',
           },
