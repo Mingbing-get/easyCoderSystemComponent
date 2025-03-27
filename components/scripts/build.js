@@ -45,7 +45,7 @@ async function startBuild(target, watch) {
         fileName: (format) => (format === 'esm' ? 'index.esm.js' : 'index.js'),
       },
       rollupOptions: {
-        external: [/@easy-coder\/sdk\/*/, 'react', /^react\/.*/, 'react-dom', 'react/jsx-runtime'],
+        external: [/@easy-coder\/sdk\/*/, 'react', /^react\/.*/, 'react-dom'],
         output: [
           {
             format: 'umd',
