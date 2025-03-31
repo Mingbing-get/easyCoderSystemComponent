@@ -52,11 +52,11 @@ async function startBuild(target, watch) {
             name: 'index',
             assetFileNames: 'index.[ext]',
           },
-          {
-            format: 'esm',
-            name: 'index',
-            assetFileNames: 'index.[ext]',
-          },
+          // {
+          //   format: 'esm',
+          //   name: 'index',
+          //   assetFileNames: 'index.[ext]',
+          // },
         ],
         plugins: [
           extractToEntry(),

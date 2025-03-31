@@ -1,7 +1,7 @@
 import { EasyCoderElement } from '@easy-coder/sdk/store'
 import { i18n } from '@easy-coder/sdk/i18n'
 
-import IconPickSetter from './iconPickSetter'
+import IconPickSetter from './setter/iconPicker'
 import Icon, { IconProps } from '.'
 
 const iconMeta: EasyCoderElement.Desc<IconProps> = {
@@ -52,8 +52,9 @@ const iconMeta: EasyCoderElement.Desc<IconProps> = {
     },
   },
   attr: {
-    iconName: {
-      type: 'string',
+    icon: {
+      type: 'object',
+      prototype: {},
       required: true,
       label: {
         zh: '图标',
