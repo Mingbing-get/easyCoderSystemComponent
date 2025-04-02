@@ -36,6 +36,22 @@ async function main() {
 }
 
 async function startBuild(target, watch) {
+  const output = [
+    {
+      format: 'umd',
+      name: 'index',
+      assetFileNames: 'index.[ext]',
+    },
+  ]
+
+  if (!watch) {
+    output.push({
+      format: 'esm',
+      name: 'index',
+      assetFileNames: 'index.[ext]',
+    })
+  }
+
   await build({
     plugins: [react()],
     build: {
@@ -46,18 +62,7 @@ async function startBuild(target, watch) {
       },
       rollupOptions: {
         external: [/@easy-coder\/sdk\/*/, 'react', /^react\/.*/, 'react-dom', '@arco-design/web-react'],
-        output: [
-          {
-            format: 'umd',
-            name: 'index',
-            assetFileNames: 'index.[ext]',
-          },
-          // {
-          //   format: 'esm',
-          //   name: 'index',
-          //   assetFileNames: 'index.[ext]',
-          // },
-        ],
+        output,
         plugins: [
           extractToEntry(),
           terser({
