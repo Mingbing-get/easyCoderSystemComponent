@@ -94,7 +94,7 @@ function Editor({ id, content, isPreview, onChange }: Props) {
       onImageUpload={async (file: File) => {
         const fileInfo = await dataCenter.uploadFile(file, true)
 
-        return `${dataCenter.config.host || location.origin}${fileDownloadPrefix}/${fileInfo.token}`
+        return `${fileDownloadPrefix}/${fileInfo.token}`
       }}
       renderHTML={(text) => (
         <ReactMarkdown

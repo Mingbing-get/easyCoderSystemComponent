@@ -10,7 +10,7 @@ export default function ContentOnDependencies({ attrValue, dataCenter }: { attrV
   const deps: Pick<Dependency, 'refType' | 'refPath'>[] = []
 
   if (attrValue) {
-    const downLoadFilePath = `${dataCenter.config.host || location.origin}${fileDownloadPrefix}/`
+    const downLoadFilePath = `${fileDownloadPrefix}/`
 
     const linkAll = attrValue.match(matchGlobalReg)
     linkAll?.forEach((item) => {
