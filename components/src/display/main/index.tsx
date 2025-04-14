@@ -7,6 +7,8 @@ import { FileInRecord, LookupInRecord, WithEnumsGroup, useDataCenter } from '@ea
 import { VariableDefine } from '@easy-coder/sdk/variable'
 import { i18n } from '@easy-coder/sdk/i18n'
 
+import LazyImg from './lazyImg'
+
 import './index.scss'
 
 interface Props {
@@ -282,7 +284,7 @@ function DisplayFile({ value, onClick, style, className }: Pick<Props, CommonPro
 
         if (isImg(item.type)) {
           return (
-            <img
+            <LazyImg
               style={style}
               className={className}
               onClick={() => onClick(item)}
