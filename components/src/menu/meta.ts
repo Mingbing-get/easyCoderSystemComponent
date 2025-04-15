@@ -502,6 +502,28 @@ const menuMeta: EasyCoderElement.Desc<MenuProps> = {
     attr: {
       activeItem: createGetItemTypeFn({ zh: '选中项', en: 'Active item' }),
     },
+    event: {
+      setActiveItem: {
+        label: {
+          zh: '设置选中项(仅数据模型时可用)',
+          en: 'Set active item(Only available for data models)',
+        },
+        params: [
+          async (props) => {
+            if (props.dataFrom === 'modal' && props.modalConfig?.name) {
+              return {
+                type: 'lookup',
+                modalName: props.modalConfig.name,
+                label: {
+                  zh: '选中项',
+                  en: 'Active item',
+                },
+              }
+            }
+          },
+        ],
+      },
+    },
   },
   Render: Menu,
 }

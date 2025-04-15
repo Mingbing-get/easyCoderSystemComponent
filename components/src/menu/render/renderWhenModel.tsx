@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { CRUD, LookupInRecord } from '@easy-coder/sdk/data'
-import { useModelRecords, useEnv } from '@easy-coder/sdk/store'
+import { useModelRecords, useEnv, useElementContext } from '@easy-coder/sdk/store'
 import { useEffectCallback, useCompareCache } from '@easy-coder/sdk/helper'
 import { isSameModalCondition } from '@easy-coder/sdk/variable'
 
-import { MenuProps } from '..'
+import { MenuProps, MenuExport } from '..'
 import BaseMenu from '../base'
 import { MenuData } from '../base/type'
 
@@ -44,6 +44,7 @@ export default function RenderWhenModel<T extends LookupInRecord>({
   contentRender,
   onActiveChange,
 }: Props) {
+  const { exportEvent } = useElementContext<MenuExport>()
   const [records, setRecords] = useState<T[]>([])
   const [currentActiveRecordId, setCurrentActiveRecordId] = useState<number>()
   const [modalCondition, setModalCondition] = useState<CRUD.Condition<any> | false>()
@@ -171,6 +172,18 @@ export default function RenderWhenModel<T extends LookupInRecord>({
   const currentRecord = useMemo(() => {
     return records.find((record) => record._id === currentActiveRecordId)
   }, [records, currentActiveRecordId])
+
+  useEffect(() => {
+    exportEvent?.('setActiveItem', (record: T) => {
+      if (!record?._id) return
+
+      setCurrentActiveRecordId(record._id)
+    })
+
+    return () => {
+      exportEvent?.('setActiveItem', undefined)
+    }
+  }, [])
 
   useEffect(() => {
     onActiveChange?.(currentRecord)

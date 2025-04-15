@@ -18,8 +18,9 @@ export interface CustomMenu {
   children?: CustomMenu[]
 }
 
-interface MenuExport {
+export interface MenuExport {
   activeItem?: Record<string, any>
+  setActiveItem?: (item?: Record<string, any>) => void
 }
 
 export interface MenuProps extends EasyCoderElement.DataProps {
