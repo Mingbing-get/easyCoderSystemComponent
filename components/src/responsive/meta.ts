@@ -37,6 +37,7 @@ const responsiveMeta: EasyCoderElement.Desc<ResponsiveProps> = {
         'display',
         'filter',
         'flexDirection',
+        'flexWrap',
         'gap',
         'gridAutoFlow',
         'gridGap',

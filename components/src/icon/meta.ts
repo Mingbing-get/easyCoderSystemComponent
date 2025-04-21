@@ -10,9 +10,6 @@ const iconMeta: EasyCoderElement.Desc<IconProps> = {
     zh: '图标',
     en: 'Icon',
   },
-  defaultAttr: {
-    iconName: 'FaPlus',
-  },
   style: {
     style: {
       label: {
